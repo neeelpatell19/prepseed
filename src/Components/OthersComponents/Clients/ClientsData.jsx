@@ -1,7 +1,7 @@
 const clientsData = [
   {
     name: "JITO - JATF",
-    logo: "assets/images/jatf_logo.png",
+    logo: "/assets/images/jatf_logo.png",
     portalUrl: "https://jatf.prepseed.com/",
     websiteUrl: "https://jatfadmission.org/",
     tags: ["-"],
@@ -50,21 +50,21 @@ const clientsData = [
   },
   {
     name: "Instaclaus",
-    logo: "assets/images/insta-claus_logo.svg",
+    logo: "/assets/images/insta-claus_logo.svg",
     portalUrl: "https://employer.instaclaus.com",
     websiteUrl: "https://instaclaus.com",
     tags: ["-"],
   },
   {
     name: "AK Thangamaligai",
-    logo: "assets/images/ak_logo.png",
+    logo: "/assets/images/ak_logo.png",
     portalUrl: "https://ak.prepseed.com",
     websiteUrl: "https://ak.prepseed.com/",
     tags: ["-"],
   },
   {
     name: "Het Graphics",
-    logo: "assets/images/het-graphics_logo.jpg",
+    logo: "/assets/images/het-graphics_logo.jpg",
     portalUrl: "https://yellowspot.prepseed.com",
     websiteUrl: "https://hetgraphics.vercel.app/",
     tags: ["-"],
