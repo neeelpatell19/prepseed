@@ -1,7 +1,7 @@
 const clientsData = [
   {
     name: "JITO - JATF",
-    logo: "/assets/images/jatf_logo.png",
+    logo: "/images/jatf_logo.png",
     portalUrl: "https://jatf.prepseed.com/",
     websiteUrl: "https://jatfadmission.org/",
     tags: ["-"],
@@ -15,7 +15,7 @@ const clientsData = [
   },
   {
     name: "Hitech",
-    logo: "/assets/images/hitech_logo.png",
+    logo: "/images/hitech_logo.png",
     portalUrl: "https://hitechprojects.co.in/",
     websiteUrl: "https://hitechprojects.co.in/",
     tags: ["coaching"],
@@ -29,7 +29,7 @@ const clientsData = [
   },
   {
     name: "Satya Capital",
-    logo: "/assets/images/satya-capital_logo.png",
+    logo: "/images/satya-capital_logo.png",
     portalUrl: "https://satya.prepseed.com",
     websiteUrl: "https://satya.prepseed.com",
     tags: ["-"],
@@ -50,21 +50,21 @@ const clientsData = [
   },
   {
     name: "Instaclaus",
-    logo: "/assets/images/insta-claus_logo.svg",
+    logo: "/images/insta-claus_logo.svg",
     portalUrl: "https://employer.instaclaus.com",
     websiteUrl: "https://instaclaus.com",
     tags: ["-"],
   },
   {
     name: "AK Thangamaligai",
-    logo: "/assets/images/ak_logo.png",
+    logo: "/images/ak_logo.png",
     portalUrl: "https://ak.prepseed.com",
     websiteUrl: "https://ak.prepseed.com/",
     tags: ["-"],
   },
   {
     name: "Het Graphics",
-    logo: "/assets/images/het-graphics_logo.jpg",
+    logo: "/images/het-graphics_logo.jpg",
     portalUrl: "https://yellowspot.prepseed.com",
     websiteUrl: "https://hetgraphics.vercel.app/",
     tags: ["-"],
@@ -141,14 +141,14 @@ const clientsData = [
   },
   {
     name: "Outlead Solutions",
-    logo: "/assets/images/outlead-solutions_logo.png",
+    logo: "/images/outlead-solutions_logo.png",
     portalUrl: "https://www.outleadsolutions.com/",
     websiteUrl: "https://www.outleadsolutions.com/",
     tags: ["coaching"],
   },
   {
     name: "YellowSpot",
-    logo: "/assets/images/yellow-spot_logo.jpg",
+    logo: "/images/yellow-spot_logo.jpg",
     portalUrl: "https://yellowspot.prepseed.com",
     websiteUrl: "https://www.yellowspot.in/",
     tags: ["-"],
