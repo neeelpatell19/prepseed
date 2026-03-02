@@ -21,7 +21,7 @@ const AnimatedCounter = ({
           setIsVisible(true);
         }
       },
-      { threshold: 0.5 }
+      { threshold: 0.5 },
     );
 
     if (counterRef.current) {
@@ -101,7 +101,7 @@ const About = () => {
           </div>
         </div>
         <div className="PrepseedAchivementsBoxes">
-          <Row gutter={[16, 16]}>
+          <Row gutter={[16, 16]} justify="center">
             {AchivementData.map((item, index) => (
               <Col key={index} lg={6} md={12} sm={24}>
                 <div className="PrepseedAchivementsBoxesItem">
