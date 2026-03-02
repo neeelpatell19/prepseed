@@ -1,11 +1,18 @@
 {
-    "github": {
-        "silent": true
+  "github": {
+    "silent": true
+  },
+  "routes": [
+    {
+      "src": "/assets/(.*)",
+      "dest": "/assets/$1"
     },
-    "rewrites": [
-        {
-            "source": "(.*)",
-            "destination": "/index.html"
-        }
-    ]
+    {
+      "handle": "filesystem"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ]
 }
