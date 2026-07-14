@@ -1,0 +1,253 @@
+.pdsk-detail-hero {
+    position: relative;
+    overflow: hidden;
+    background: radial-gradient(1100px 500px at 15% -10%, #14315c 0%, transparent 60%), linear-gradient(180deg, var(--pdsk-navy) 0%, #0a1c33 100%);
+    padding: 132px 0 64px;
+}
+
+.pdsk-detail-hero .pdsk-container {
+    position: relative;
+    z-index: 1;
+}
+
+.pdsk-detail-crumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 22px;
+}
+
+.pdsk-detail-crumb a {
+    color: #9fc4ff;
+}
+
+.pdsk-detail-crumb a:hover {
+    color: #fff;
+}
+
+/* "old way" -> "the fix" transform banner, only on problem pages */
+.pdsk-detail-transform {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 16px 0 4px;
+    font-size: 14px;
+}
+
+.pdsk-detail-old {
+    color: rgba(255, 255, 255, 0.45);
+    text-decoration: line-through;
+    text-decoration-color: rgba(239, 68, 68, 0.5);
+}
+
+.pdsk-detail-transform svg {
+    color: #7fb0ff;
+    flex-shrink: 0;
+}
+
+.pdsk-detail-new {
+    color: #7fe0a8;
+    font-weight: 600;
+}
+
+.pdsk-detail-heading {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 16px 0 18px;
+}
+
+.pdsk-detail-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.08);
+    color: #9fc4ff;
+    font-size: 22px;
+    flex-shrink: 0;
+}
+
+.pdsk-detail-title {
+    font-size: clamp(28px, 4.4vw, 42px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    color: #fff;
+    margin: 0;
+}
+
+.pdsk-detail-lead {
+    font-size: 18px;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.75);
+    max-width: 720px;
+    margin: 0;
+}
+
+/* ---------- Body: copy + optional mockup ---------- */
+
+.pdsk-detail-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+    align-items: start;
+}
+
+.pdsk-detail-layout.no-visual .pdsk-detail-copy {
+    max-width: 760px;
+}
+
+.pdsk-detail-block {
+    margin-bottom: 28px;
+}
+
+.pdsk-detail-block h2 {
+    margin-bottom: 10px;
+}
+
+.pdsk-detail-block p {
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--pdsk-muted);
+    margin: 0;
+}
+
+.pdsk-detail-list {
+    gap: 18px;
+    margin-bottom: 0;
+}
+
+.pdsk-detail-list li {
+    font-size: 15.5px;
+}
+
+.pdsk-detail-stat {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-top: 32px;
+    padding: 20px 26px;
+    border-radius: 16px;
+    background: var(--pdsk-blue-light);
+}
+
+.pdsk-detail-stat-value {
+    font-size: 30px;
+    font-weight: 700;
+    color: var(--pdsk-blue);
+}
+
+.pdsk-detail-stat-label {
+    font-size: 13px;
+    color: var(--pdsk-muted);
+}
+
+.pdsk-detail-visual {
+    position: sticky;
+    top: 100px;
+}
+
+/* ---------- FAQ ---------- */
+
+.pdsk-detail-body {
+    max-width: 760px;
+}
+
+.pdsk-faq-heading {
+    margin: 14px 0 28px;
+}
+
+.pdsk-faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.pdsk-faq-item {
+    background: #fff;
+    border: 1px solid var(--pdsk-border);
+    border-radius: 14px;
+    padding: 18px 22px;
+}
+
+.pdsk-faq-item summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    cursor: pointer;
+    list-style: none;
+    font-weight: 600;
+    font-size: 15.5px;
+    color: var(--pdsk-ink);
+}
+
+.pdsk-faq-item summary::-webkit-details-marker {
+    display: none;
+}
+
+.pdsk-faq-arrow {
+    flex-shrink: 0;
+    color: var(--pdsk-blue);
+    transition: transform 0.25s ease;
+}
+
+.pdsk-faq-item[open] .pdsk-faq-arrow {
+    transform: rotate(90deg);
+}
+
+.pdsk-faq-item p {
+    margin: 14px 0 0;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--pdsk-muted);
+}
+
+/* ---------- CTA ---------- */
+
+.pdsk-detail-cta {
+    background: linear-gradient(180deg, var(--pdsk-navy-2) 0%, var(--pdsk-navy) 100%);
+    padding: 56px 0;
+}
+
+.pdsk-detail-cta-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.pdsk-detail-cta-inner .pdsk-hero-ctas {
+    margin: 0;
+}
+
+@media (min-width: 760px) {
+    .pdsk-detail-cta-inner {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 40px;
+    }
+
+    .pdsk-detail-cta-inner .pdsk-hero-ctas {
+        flex-shrink: 0;
+    }
+}
+
+@media (min-width: 860px) {
+    .pdsk-detail-layout {
+        grid-template-columns: 1.05fr 0.95fr;
+        gap: 56px;
+    }
+
+    /* No mockup assigned: collapse back to a single, comfortably-narrow
+       reading column instead of leaving the second grid track empty. */
+    .pdsk-detail-layout.no-visual {
+        grid-template-columns: 1fr;
+    }
+}

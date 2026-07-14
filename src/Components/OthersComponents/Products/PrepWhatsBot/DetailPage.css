@@ -1,0 +1,253 @@
+.pwb-detail-hero {
+    position: relative;
+    overflow: hidden;
+    background: radial-gradient(1100px 500px at 15% -10%, #14315c 0%, transparent 60%), linear-gradient(180deg, var(--pwb-navy) 0%, #0a1c33 100%);
+    padding: 132px 0 64px;
+}
+
+.pwb-detail-hero .pwb-container {
+    position: relative;
+    z-index: 1;
+}
+
+.pwb-detail-crumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 22px;
+}
+
+.pwb-detail-crumb a {
+    color: #9fc4ff;
+}
+
+.pwb-detail-crumb a:hover {
+    color: #fff;
+}
+
+/* "old way" -> "the fix" transform banner, only on problem pages */
+.pwb-detail-transform {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 16px 0 4px;
+    font-size: 14px;
+}
+
+.pwb-detail-old {
+    color: rgba(255, 255, 255, 0.45);
+    text-decoration: line-through;
+    text-decoration-color: rgba(239, 68, 68, 0.5);
+}
+
+.pwb-detail-transform svg {
+    color: #7fb0ff;
+    flex-shrink: 0;
+}
+
+.pwb-detail-new {
+    color: #7fe0a8;
+    font-weight: 600;
+}
+
+.pwb-detail-heading {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 16px 0 18px;
+}
+
+.pwb-detail-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.08);
+    color: #9fc4ff;
+    font-size: 22px;
+    flex-shrink: 0;
+}
+
+.pwb-detail-title {
+    font-size: clamp(28px, 4.4vw, 42px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    color: #fff;
+    margin: 0;
+}
+
+.pwb-detail-lead {
+    font-size: 18px;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.75);
+    max-width: 720px;
+    margin: 0;
+}
+
+/* ---------- Body: copy + optional mockup ---------- */
+
+.pwb-detail-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+    align-items: start;
+}
+
+.pwb-detail-layout.no-visual .pwb-detail-copy {
+    max-width: 760px;
+}
+
+.pwb-detail-block {
+    margin-bottom: 28px;
+}
+
+.pwb-detail-block h2 {
+    margin-bottom: 10px;
+}
+
+.pwb-detail-block p {
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--pwb-muted);
+    margin: 0;
+}
+
+.pwb-detail-list {
+    gap: 18px;
+    margin-bottom: 0;
+}
+
+.pwb-detail-list li {
+    font-size: 15.5px;
+}
+
+.pwb-detail-stat {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-top: 32px;
+    padding: 20px 26px;
+    border-radius: 16px;
+    background: var(--pwb-blue-light);
+}
+
+.pwb-detail-stat-value {
+    font-size: 30px;
+    font-weight: 700;
+    color: var(--pwb-blue);
+}
+
+.pwb-detail-stat-label {
+    font-size: 13px;
+    color: var(--pwb-muted);
+}
+
+.pwb-detail-visual {
+    position: sticky;
+    top: 100px;
+}
+
+/* ---------- FAQ ---------- */
+
+.pwb-detail-body {
+    max-width: 760px;
+}
+
+.pwb-faq-heading {
+    margin: 14px 0 28px;
+}
+
+.pwb-faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.pwb-faq-item {
+    background: #fff;
+    border: 1px solid var(--pwb-border);
+    border-radius: 14px;
+    padding: 18px 22px;
+}
+
+.pwb-faq-item summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    cursor: pointer;
+    list-style: none;
+    font-weight: 600;
+    font-size: 15.5px;
+    color: var(--pwb-ink);
+}
+
+.pwb-faq-item summary::-webkit-details-marker {
+    display: none;
+}
+
+.pwb-faq-arrow {
+    flex-shrink: 0;
+    color: var(--pwb-blue);
+    transition: transform 0.25s ease;
+}
+
+.pwb-faq-item[open] .pwb-faq-arrow {
+    transform: rotate(90deg);
+}
+
+.pwb-faq-item p {
+    margin: 14px 0 0;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--pwb-muted);
+}
+
+/* ---------- CTA ---------- */
+
+.pwb-detail-cta {
+    background: linear-gradient(180deg, var(--pwb-navy-2) 0%, var(--pwb-navy) 100%);
+    padding: 56px 0;
+}
+
+.pwb-detail-cta-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.pwb-detail-cta-inner .pwb-hero-ctas {
+    margin: 0;
+}
+
+@media (min-width: 760px) {
+    .pwb-detail-cta-inner {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 40px;
+    }
+
+    .pwb-detail-cta-inner .pwb-hero-ctas {
+        flex-shrink: 0;
+    }
+}
+
+@media (min-width: 860px) {
+    .pwb-detail-layout {
+        grid-template-columns: 1.05fr 0.95fr;
+        gap: 56px;
+    }
+
+    /* No mockup assigned: collapse back to a single, comfortably-narrow
+       reading column instead of leaving the second grid track empty. */
+    .pwb-detail-layout.no-visual {
+        grid-template-columns: 1fr;
+    }
+}

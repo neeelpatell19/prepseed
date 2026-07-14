@@ -1,0 +1,195 @@
+.pcam-detail-hero {
+    position: relative;
+    overflow: hidden;
+    background: radial-gradient(1100px 500px at 82% -10%, #123a44 0%, transparent 60%), linear-gradient(180deg, var(--pcam-navy) 0%, #06161b 100%);
+    padding: 132px 0 64px;
+}
+
+.pcam-detail-hero .pcam-container {
+    position: relative;
+    z-index: 1;
+}
+
+.pcam-detail-crumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 22px;
+}
+
+.pcam-detail-crumb a { color: #7dd8e8; }
+.pcam-detail-crumb a:hover { color: #fff; }
+
+/* "old way" -> "the fix" transform banner, only on problem pages */
+.pcam-detail-transform {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 16px 0 4px;
+    font-size: 14px;
+}
+
+.pcam-detail-old {
+    color: rgba(255, 255, 255, 0.45);
+    text-decoration: line-through;
+    text-decoration-color: rgba(239, 68, 68, 0.5);
+}
+
+.pcam-detail-transform svg { color: #5eead4; flex-shrink: 0; }
+
+.pcam-detail-new { color: #5eead4; font-weight: 600; }
+
+.pcam-detail-heading {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 16px 0 18px;
+}
+
+.pcam-detail-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.08);
+    color: #7dd8e8;
+    font-size: 22px;
+    flex-shrink: 0;
+}
+
+.pcam-detail-title {
+    font-size: clamp(28px, 4.4vw, 42px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    color: #fff;
+    margin: 0;
+}
+
+.pcam-detail-lead {
+    font-size: 18px;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.75);
+    max-width: 720px;
+    margin: 0;
+}
+
+/* ---------- Body: copy + optional mockup ---------- */
+
+.pcam-detail-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+    align-items: start;
+}
+
+.pcam-detail-layout.no-visual .pcam-detail-copy {
+    max-width: 760px;
+}
+
+.pcam-detail-block { margin-bottom: 28px; }
+.pcam-detail-block h2 { margin-bottom: 10px; }
+.pcam-detail-block p {
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--pcam-muted);
+    margin: 0;
+}
+
+.pcam-detail-list { gap: 18px; margin-bottom: 0; }
+.pcam-detail-list li { font-size: 15.5px; }
+
+.pcam-detail-stat {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-top: 32px;
+    padding: 20px 26px;
+    border-radius: 16px;
+    background: var(--pcam-cam-light);
+}
+
+.pcam-detail-stat-value { font-size: 30px; font-weight: 700; color: var(--pcam-cam-dark); }
+.pcam-detail-stat-label { font-size: 13px; color: var(--pcam-muted); }
+
+.pcam-detail-visual {
+    position: sticky;
+    top: 100px;
+}
+
+/* ---------- FAQ ---------- */
+
+.pcam-detail-body { max-width: 760px; }
+.pcam-faq-heading { margin: 14px 0 28px; }
+.pcam-faq-list { display: flex; flex-direction: column; gap: 12px; }
+
+.pcam-faq-item {
+    background: #fff;
+    border: 1px solid var(--pcam-border);
+    border-radius: 14px;
+    padding: 18px 22px;
+}
+
+.pcam-faq-item summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    cursor: pointer;
+    list-style: none;
+    font-weight: 600;
+    font-size: 15.5px;
+    color: var(--pcam-ink);
+}
+
+.pcam-faq-item summary::-webkit-details-marker { display: none; }
+
+.pcam-faq-arrow {
+    flex-shrink: 0;
+    color: var(--pcam-cam-dark);
+    transition: transform 0.25s ease;
+}
+
+.pcam-faq-item[open] .pcam-faq-arrow { transform: rotate(90deg); }
+
+.pcam-faq-item p {
+    margin: 14px 0 0;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--pcam-muted);
+}
+
+/* ---------- CTA ---------- */
+
+.pcam-detail-cta {
+    background: linear-gradient(180deg, var(--pcam-navy-2) 0%, var(--pcam-navy) 100%);
+    padding: 56px 0;
+}
+
+.pcam-detail-cta-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.pcam-detail-cta-inner .pcam-hero-ctas { margin: 0; }
+
+@media (min-width: 760px) {
+    .pcam-detail-cta-inner {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 40px;
+    }
+    .pcam-detail-cta-inner .pcam-hero-ctas { flex-shrink: 0; }
+}
+
+@media (min-width: 860px) {
+    .pcam-detail-layout { grid-template-columns: 1.05fr 0.95fr; gap: 56px; }
+    .pcam-detail-layout.no-visual { grid-template-columns: 1fr; }
+}

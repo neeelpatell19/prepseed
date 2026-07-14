@@ -10,6 +10,12 @@ import IndusriesWiseModules from '../OthersComponents/Modules/IndusriesWiseModul
 import SingleModule from '../OthersComponents/Modules/SingleModule/SingleModule';
 import RealEstateCRM from '../OthersComponents/Products/RealEstateCRM/RealEstateCRM';
 import RealEstateCRMDetailPage from '../OthersComponents/Products/RealEstateCRM/DetailPage';
+import PrepDesk from '../OthersComponents/Products/PrepDesk/PrepDesk';
+import PrepDeskDetailPage from '../OthersComponents/Products/PrepDesk/DetailPage';
+import PrepCam from '../OthersComponents/Products/PrepCam/PrepCam';
+import PrepCamDetailPage from '../OthersComponents/Products/PrepCam/DetailPage';
+import PrepWhatsBot from '../OthersComponents/Products/PrepWhatsBot/PrepWhatsBot';
+import PrepWhatsBotDetailPage from '../OthersComponents/Products/PrepWhatsBot/DetailPage';
 import Policies from '../OthersComponents/Policies/Policies';
 import NotFound from '../NotFound/NotFound';
 // import CreateOwnPortal from '../CreateOwnPortal/CreateOwnPortal';
@@ -92,6 +98,54 @@ const AnimatedRoutes = () => {
                     element={
                         <PageTransition>
                             <RealEstateCRMDetailPage />
+                        </PageTransition>
+                    }
+                />
+                <Route
+                    path="/products/prepdesk"
+                    element={
+                        <PageTransition>
+                            <PrepDesk />
+                        </PageTransition>
+                    }
+                />
+                <Route
+                    path="/products/prepdesk/:slug"
+                    element={
+                        <PageTransition>
+                            <PrepDeskDetailPage />
+                        </PageTransition>
+                    }
+                />
+                <Route
+                    path="/products/prepcam"
+                    element={
+                        <PageTransition>
+                            <PrepCam />
+                        </PageTransition>
+                    }
+                />
+                <Route
+                    path="/products/prepcam/:slug"
+                    element={
+                        <PageTransition>
+                            <PrepCamDetailPage />
+                        </PageTransition>
+                    }
+                />
+                <Route
+                    path="/products/prepwhatsbot"
+                    element={
+                        <PageTransition>
+                            <PrepWhatsBot />
+                        </PageTransition>
+                    }
+                />
+                <Route
+                    path="/products/prepwhatsbot/:slug"
+                    element={
+                        <PageTransition>
+                            <PrepWhatsBotDetailPage />
                         </PageTransition>
                     }
                 />
