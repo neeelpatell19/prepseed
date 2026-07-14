@@ -16,6 +16,8 @@ import PrepCam from '../OthersComponents/Products/PrepCam/PrepCam';
 import PrepCamDetailPage from '../OthersComponents/Products/PrepCam/DetailPage';
 import PrepWhatsBot from '../OthersComponents/Products/PrepWhatsBot/PrepWhatsBot';
 import PrepWhatsBotDetailPage from '../OthersComponents/Products/PrepWhatsBot/DetailPage';
+import PrepCommerce from '../OthersComponents/Products/PrepCommerce/PrepCommerce';
+import PrepCommerceDetailPage from '../OthersComponents/Products/PrepCommerce/DetailPage';
 import Policies from '../OthersComponents/Policies/Policies';
 import NotFound from '../NotFound/NotFound';
 // import CreateOwnPortal from '../CreateOwnPortal/CreateOwnPortal';
@@ -146,6 +148,22 @@ const AnimatedRoutes = () => {
                     element={
                         <PageTransition>
                             <PrepWhatsBotDetailPage />
+                        </PageTransition>
+                    }
+                />
+                <Route
+                    path="/products/prepcommerce"
+                    element={
+                        <PageTransition>
+                            <PrepCommerce />
+                        </PageTransition>
+                    }
+                />
+                <Route
+                    path="/products/prepcommerce/:slug"
+                    element={
+                        <PageTransition>
+                            <PrepCommerceDetailPage />
                         </PageTransition>
                     }
                 />

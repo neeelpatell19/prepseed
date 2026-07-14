@@ -1,0 +1,775 @@
+import {
+    FiBox, FiShoppingCart, FiLock, FiGrid, FiTruck, FiTrendingUp, FiUsers, FiRotateCcw,
+    FiBarChart2, FiArchive, FiShare2, FiStar, FiFileText, FiMapPin, FiGift, FiTag,
+} from "react-icons/fi";
+
+// Each entry drives one /products/prepcommerce/:slug page.
+//   title        — short name, shown as the "old way" (problems) or in the breadcrumb
+//   seoTitle     — the actual <h1>, written around the target keyword
+//   metaTitle / metaDescription / keywords — <title>/<meta> tags (see useSEO)
+//   mockup       — reuses a Mockups.jsx component as the page's visual; null = text-only layout
+const details = [
+    // ---------- Problems ----------
+    {
+        slug: "inventory-drifts-across-channels",
+        category: "The Problem",
+        tone: "red",
+        icon: <FiBox />,
+        title: "Inventory drifts across every channel",
+        seoTitle: "Real-Time Multi-Channel Inventory Sync Software",
+        metaTitle: "Multi-Channel Inventory Sync Software | PrepCommerce",
+        metaDescription: "Stop overselling. PrepCommerce syncs stock across your website, marketplaces and store counter the instant it changes anywhere.",
+        keywords: "multi channel inventory sync, real time stock sync software, prevent overselling ecommerce",
+        lead: "Stock updates lag between the website, marketplaces and the store counter, so an item sells twice — or shows in stock when it isn't.",
+        sections: [
+            {
+                heading: "One inventory count, everywhere at once",
+                body: "A sale on Instagram, the website or the store counter deducts from the same live stock count, so every channel reflects reality the moment something sells.",
+            },
+            {
+                heading: "No more manual reconciliation between platforms",
+                body: "Without real-time sync, someone has to manually cross-check stock across five different admin panels — a job that never quite keeps up with actual sales.",
+            },
+        ],
+        bullets: [
+            "Real-time sync across every channel — a sale on Instagram instantly updates stock everywhere else.",
+            "Multi-warehouse & multi-location stock — route each order to the warehouse that can ship it fastest.",
+            "Low-stock & reorder alerts — automatic nudges before a bestseller goes out of stock.",
+            "Bundle & kit inventory — stock for combos and kits tracked against the components that make them.",
+        ],
+        mockup: "inventory",
+        stat: { value: "3", label: "warehouses kept in sync automatically" },
+        faqs: [
+            { q: "How fast does a sale on one channel reflect on the others?", a: "Instantly — stock updates propagate in real time across the website, marketplaces and in-store POS." },
+            { q: "Can PrepCommerce handle stock across multiple warehouses?", a: "Yes, multi-warehouse and multi-location stock is supported, with orders routed to whichever location can ship fastest." },
+            { q: "Will I know before a bestseller goes out of stock?", a: "Yes, low-stock and reorder alerts are automatic, so restocking happens before a run-out, not after." },
+        ],
+    },
+    {
+        slug: "carts-abandoned-never-chased",
+        category: "The Problem",
+        tone: "red",
+        icon: <FiShoppingCart />,
+        title: "Carts are abandoned and never chased",
+        seoTitle: "Automated Abandoned Cart Recovery Software",
+        metaTitle: "Abandoned Cart Recovery Software | PrepCommerce",
+        metaDescription: "Most shoppers leave at checkout. PrepCommerce brings them back automatically with WhatsApp, SMS and email nudges within minutes.",
+        keywords: "abandoned cart recovery software, whatsapp cart recovery, ecommerce checkout recovery tool",
+        lead: "Most shoppers leave at checkout, and most stores have no automated way to bring them back — a lost sale that nobody even follows up on.",
+        sections: [
+            {
+                heading: "The nudge goes out before the intent fades",
+                body: "WhatsApp, SMS and email recovery messages trigger within minutes of a cart being abandoned, while the shopper still remembers what they were looking at.",
+            },
+            {
+                heading: "A measurable recovery rate, not a guess",
+                body: "Every recovery campaign is tracked against the carts it actually brought back to checkout, so the return on a nudge is a real number, not an assumption.",
+            },
+        ],
+        bullets: [
+            "Automated abandoned-cart recovery — WhatsApp, SMS and email nudges triggered within minutes.",
+            "Coupons, bundles & flash sales — a built-in discount engine, no third-party plugin required.",
+            "Campaigns tied to real revenue — see exactly which coupon or campaign drove which order.",
+            "Customer segmentation — target first-time buyers, repeat customers or high-value segments differently.",
+        ],
+        mockup: "marketing",
+        stat: { value: "27%", label: "typical cart-recovery rate via WhatsApp nudge" },
+        faqs: [
+            { q: "How quickly does an abandoned-cart nudge go out?", a: "Within minutes of the cart being abandoned, via WhatsApp, SMS or email." },
+            { q: "Can I see how much revenue recovery campaigns actually generate?", a: "Yes, every campaign is tied to the orders it drove, so ROI is measured, not estimated." },
+            { q: "Can different customer segments get different recovery messages?", a: "Yes, first-time buyers, repeat customers and high-value segments can each be targeted with different messaging." },
+        ],
+    },
+    {
+        slug: "catalog-changes-wait-on-developer",
+        category: "The Problem",
+        tone: "red",
+        icon: <FiLock />,
+        title: "Catalog changes wait on a developer",
+        seoTitle: "No-Code Storefront & Catalog Builder Software",
+        metaTitle: "No-Code Ecommerce Catalog Builder | PrepCommerce",
+        metaDescription: "A price change or a new variant shouldn't need a developer ticket. Edit your storefront and catalog live, no code required.",
+        keywords: "no code storefront builder, ecommerce catalog management software, edit product catalog without developer",
+        lead: "A price change or a new variant means raising a ticket instead of just editing a page — a delay that slows down a business that should be able to move fast.",
+        sections: [
+            {
+                heading: "The team that runs the store can edit the store",
+                body: "A drag-and-drop page builder and direct catalog editing mean price changes, new variants and landing pages happen the moment someone decides them, not after a developer gets to the ticket.",
+            },
+            {
+                heading: "Nothing goes live by accident",
+                body: "Every change is previewable on desktop and mobile before publishing, so speed doesn't come at the cost of a broken page going live unreviewed.",
+            },
+        ],
+        bullets: [
+            "Drag-and-drop page builder — hero banners, collections and landing pages, edited live without code.",
+            "Unlimited variants per product — size, color and material, each with its own price, stock and images.",
+            "Built-in SEO & speed — fast-loading pages and clean metadata, out of the box.",
+            "Preview before you publish — every change is previewable on desktop and mobile before it goes live.",
+        ],
+        mockup: "storefront",
+        faqs: [
+            { q: "Do I need a developer to change a product price or add a variant?", a: "No, catalog edits happen directly in the no-code builder — no ticket or developer required." },
+            { q: "Can I preview a change before it's visible to customers?", a: "Yes, every change is previewable on both desktop and mobile before publishing." },
+            { q: "Does the page builder affect site speed or SEO?", a: "No, built-in SEO and speed optimization are part of the builder, not something to configure separately." },
+        ],
+    },
+    {
+        slug: "orders-scatter-across-dashboards",
+        category: "The Problem",
+        tone: "red",
+        icon: <FiGrid />,
+        title: "Orders scatter across five dashboards",
+        seoTitle: "Unified Order Management Software — Every Channel, One Queue",
+        metaTitle: "Unified Order Management Software | PrepCommerce",
+        metaDescription: "Website, WhatsApp, Instagram and marketplace orders, all in one queue — no more logging into five separate dashboards.",
+        keywords: "unified order management software, multi channel order management, ecommerce order dashboard",
+        lead: "Website, WhatsApp, Instagram and marketplace orders never land in one place — so fulfilling them means logging into a different dashboard for each channel, every single day.",
+        sections: [
+            {
+                heading: "One queue, regardless of where the order came from",
+                body: "Every order — website, WhatsApp, Instagram, Amazon, Flipkart — lands in the same fulfillment queue, with a live status stepper tracking it from placed to delivered.",
+            },
+            {
+                heading: "Bulk actions instead of one-at-a-time clicking",
+                body: "Packing, shipping and label printing can happen for many orders at once, instead of repeating the same steps individually across five different admin panels.",
+            },
+        ],
+        bullets: [
+            "Every channel's orders land in the same queue — no switching between five dashboards.",
+            "A live status stepper shows placed, packed, shipped and delivered per order.",
+            "Filter and search across every channel, customer or status at once.",
+            "Bulk actions — pack, ship or print labels for many orders at a time.",
+        ],
+        mockup: "orders",
+        faqs: [
+            { q: "Do marketplace orders show up in the same place as website orders?", a: "Yes, every channel's orders land in the same fulfillment queue." },
+            { q: "Can I process multiple orders at once instead of one at a time?", a: "Yes, bulk actions let you pack, ship or print labels for many orders together." },
+            { q: "Is there a way to track an order's fulfillment status at a glance?", a: "Yes, a live status stepper shows placed, packed, shipped and delivered for every order." },
+        ],
+    },
+    {
+        slug: "cod-courier-reconciliation-spreadsheet",
+        category: "The Problem",
+        tone: "red",
+        icon: <FiTruck />,
+        title: "COD & courier reconciliation is a spreadsheet",
+        seoTitle: "Automated COD Reconciliation & Courier Management Software",
+        metaTitle: "Automated COD Reconciliation Software | PrepCommerce",
+        metaDescription: "NDRs, RTOs and COD remittance, matched against orders automatically — no more manual spreadsheet reconciliation.",
+        keywords: "cod reconciliation software, ndr rto management ecommerce, courier remittance automation",
+        lead: "NDRs, RTOs and COD remittance get tracked manually, order by order — a job that eats hours every week and still leaves room for mistakes.",
+        sections: [
+            {
+                heading: "Remittance matched automatically, not by hand",
+                body: "COD reconciliation runs against the actual order records automatically, so mismatches between what a courier remits and what was actually collected surface immediately instead of at month-end.",
+            },
+            {
+                heading: "Failed and returned deliveries get a retry workflow",
+                body: "NDR and RTO management automates the retry process for failed and returned deliveries, instead of leaving each one for someone to chase manually.",
+            },
+        ],
+        bullets: [
+            "Multi-courier rate shopping — every order routed to the cheapest or fastest courier automatically.",
+            "NDR & RTO management — automated retry workflows for failed and returned deliveries.",
+            "COD reconciliation, automated — remittance matched against orders, no spreadsheet required.",
+            "Branded tracking page — customers track orders on a page that carries your brand, not the courier's.",
+        ],
+        mockup: "shipping",
+        faqs: [
+            { q: "How is COD remittance reconciled against orders?", a: "Automatically — remittance is matched against order records, with mismatches surfaced immediately rather than found at month-end." },
+            { q: "What happens when a delivery fails (NDR)?", a: "Automated retry workflows handle failed and returned deliveries instead of requiring manual follow-up." },
+            { q: "Can I compare rates across multiple couriers for the same order?", a: "Yes, multi-courier rate shopping compares options and can route automatically to the cheapest or fastest." },
+        ],
+    },
+    {
+        slug: "marketing-spend-not-tied-to-revenue",
+        category: "The Problem",
+        tone: "red",
+        icon: <FiTrendingUp />,
+        title: "Marketing spend isn't tied to revenue",
+        seoTitle: "Revenue-Tied Marketing & Coupon Attribution Software",
+        metaTitle: "Ecommerce Marketing Attribution Software | PrepCommerce",
+        metaDescription: "See exactly which coupon or campaign drove which order — not just how many people clicked. Campaigns tied to real revenue.",
+        keywords: "ecommerce marketing attribution software, coupon revenue tracking, campaign roi tracking ecommerce",
+        lead: "Coupons and campaigns run without ever confirming which one actually drove a sale — so budget decisions end up based on guesswork instead of results.",
+        sections: [
+            {
+                heading: "Every coupon traceable to the order it produced",
+                body: "Campaigns are tied to real revenue, so a coupon code or flash sale can be traced directly to the orders it generated, not just impressions or clicks.",
+            },
+            {
+                heading: "Segmentation that matches how customers actually behave",
+                body: "First-time buyers, repeat customers and high-value segments can each be targeted with different offers, rather than running one blanket campaign to everyone.",
+            },
+        ],
+        bullets: [
+            "Campaigns tied to real revenue — see exactly which coupon or campaign drove which order.",
+            "Coupons, bundles & flash sales — a built-in discount engine, no third-party plugin required.",
+            "Customer segmentation — target first-time buyers, repeat customers or high-value segments differently.",
+            "Automated abandoned-cart recovery campaigns are tracked with the same revenue attribution.",
+        ],
+        mockup: "marketing",
+        stat: { value: "18%", label: "of repeat orders traced to a cart-recovery nudge in a typical store" },
+        faqs: [
+            { q: "Can I see which specific campaign drove a particular order?", a: "Yes, campaigns are tied to real revenue, so each coupon or campaign traces directly to the orders it produced." },
+            { q: "Do I need a separate plugin for coupons and flash sales?", a: "No, the discount engine for coupons, bundles and flash sales is built in natively." },
+            { q: "Can different customer segments receive different offers?", a: "Yes, segmentation lets you target first-time buyers, repeat customers or high-value segments with distinct campaigns." },
+        ],
+    },
+    {
+        slug: "customer-history-resets-every-channel",
+        category: "The Problem",
+        tone: "red",
+        icon: <FiUsers />,
+        title: "Customer history resets on every channel",
+        seoTitle: "Unified Customer Profile Software for Multi-Channel Commerce",
+        metaTitle: "Unified Customer Profile Software | PrepCommerce",
+        metaDescription: "A repeat buyer on Instagram shouldn't look like a stranger on the website. One customer profile, every order, every channel.",
+        keywords: "unified customer profile ecommerce, multi channel customer data software, customer 360 ecommerce",
+        lead: "A repeat buyer on Instagram looks like a total stranger on the website — because most stores never connect a customer's activity across the channels they actually shop on.",
+        sections: [
+            {
+                heading: "One profile, one order history",
+                body: "Every order, regardless of the channel it came through, lands on the same customer timeline, so a repeat buyer is recognized as one, wherever they show up next.",
+            },
+            {
+                heading: "Loyalty and personalization that actually follow the customer",
+                body: "Loyalty points, store credit and wishlists are tied to the unified profile, so a customer's history and rewards travel with them across the website, WhatsApp and Instagram.",
+            },
+        ],
+        bullets: [
+            "Unified customer profile — every order, across every channel, on one timeline.",
+            "Loyalty points & store credit — configurable earn-and-burn rules, redeemable right at checkout.",
+            "Wishlist & saved carts — bring customers back to exactly what they were looking at.",
+            "CRM-ready customer data — segment, export, or push straight into your marketing tools.",
+        ],
+        mockup: "profile",
+        faqs: [
+            { q: "Does a customer's order history combine across all channels they've bought from?", a: "Yes, every order across every channel lives on one unified timeline per customer." },
+            { q: "Can loyalty points earned on one channel be redeemed on another?", a: "Yes, loyalty points and store credit are tied to the unified profile, not to a single channel." },
+            { q: "Can customer data be exported to other marketing tools?", a: "Yes, customer data is CRM-ready for segmentation, export, or direct push into marketing tools." },
+        ],
+    },
+    {
+        slug: "returns-refunds-run-over-email",
+        category: "The Problem",
+        tone: "red",
+        icon: <FiRotateCcw />,
+        title: "Returns & refunds run over email",
+        seoTitle: "Unified Returns & Refunds Management Software",
+        metaTitle: "Ecommerce Returns Management Software | PrepCommerce",
+        metaDescription: "No unified workflow for pickup, quality check and refund status shouldn't mean managing returns over a scattered email thread.",
+        keywords: "ecommerce returns management software, refund workflow automation, return pickup tracking software",
+        lead: "No unified workflow for pickup, quality check and refund status means returns end up managed over email threads, with no clear view of where any single return actually stands.",
+        sections: [
+            {
+                heading: "A record that lives with the order, not in an inbox",
+                body: "A return request, its pickup status, quality check outcome and refund status all attach to the original order record — visible in the same place as everything else about that sale.",
+            },
+            {
+                heading: "Refunds and audit trail, tracked the same way",
+                body: "Every refund is logged against the account that processed it, part of the same full audit trail that covers order edits and access — so a return is never a black box.",
+            },
+        ],
+        bullets: [
+            "Return status — requested, picked up, quality-checked, refunded — visible against the order.",
+            "Full audit trail — every refund is logged against the account that made it.",
+            "GST-ready invoicing extends to credit notes for returns automatically.",
+            "Role-based access ensures the right team member handles the right stage of a return.",
+        ],
+        mockup: "orders",
+        faqs: [
+            { q: "Is there one place to see the status of a return, from pickup to refund?", a: "Yes, a return's status attaches to the original order record, rather than living in a separate email thread." },
+            { q: "Are refunds logged against who processed them?", a: "Yes, every refund is part of the full audit trail, attributed to the account that made it." },
+            { q: "Does a return automatically generate a credit note?", a: "Yes, GST-ready invoicing extends to credit notes for returns automatically." },
+        ],
+    },
+
+    // ---------- Modules ----------
+    {
+        slug: "business-command-center",
+        category: "Module",
+        tone: "blue",
+        icon: <FiBarChart2 />,
+        title: "Business Command Center",
+        seoTitle: "Ecommerce Business Command Center — GMV & Channel Performance",
+        metaTitle: "Ecommerce Command Center Dashboard | PrepCommerce",
+        metaDescription: "See your entire commerce operation in one glance — GMV, orders and channel performance, refreshed live.",
+        keywords: "ecommerce business dashboard software, gmv tracking dashboard, multi channel sales dashboard",
+        lead: "See your entire commerce operation in one glance. GMV, orders and channel performance refreshed live — one screen instead of five different dashboards to reconcile.",
+        sections: [
+            {
+                heading: "One number, not five different totals",
+                body: "GMV and order counts refresh live for today or any custom range, replacing the exercise of adding up numbers from five separate channel dashboards by hand.",
+            },
+            {
+                heading: "Scoped by role, same underlying data",
+                body: "Owners see the whole business; staff see only what their role permits — the same live numbers, just scoped differently depending on who's logged in.",
+            },
+        ],
+        bullets: [
+            "GMV and order counts refreshed live, for today or any custom range.",
+            "Channel-by-channel breakdown shows exactly where revenue is coming from.",
+            "Role-aware — owners see the whole business; staff see only what their role permits.",
+            "The same numbers power the seller app, so the picture never differs by device.",
+        ],
+        mockup: "dashboard",
+        stat: { value: "₹1.84L", label: "GMV tracked live in a typical day" },
+        faqs: [
+            { q: "How current is the data on the command center?", a: "It's live — GMV and order counts refresh continuously, not on a delayed report." },
+            { q: "Can I see performance broken down by channel?", a: "Yes, a channel-by-channel breakdown of orders and GMV is built into the dashboard." },
+            { q: "Do all staff see the same dashboard as the owner?", a: "No, visibility is role-aware — owners see the whole business, staff see only what their role permits." },
+        ],
+    },
+    {
+        slug: "storefront-catalog-builder",
+        category: "Module",
+        tone: "blue",
+        icon: <FiGrid />,
+        title: "Storefront & Catalog Builder",
+        seoTitle: "No-Code Storefront & Catalog Builder for Ecommerce",
+        metaTitle: "No-Code Ecommerce Storefront Builder | PrepCommerce",
+        metaDescription: "A storefront your team can update — no developer, no ticket. Drag-and-drop pages, unlimited variants, built-in SEO.",
+        keywords: "no code ecommerce storefront builder, product variant management software, ecommerce page builder",
+        lead: "A storefront your team can update — no developer, no ticket. Drag-and-drop pages, unlimited product variants and built-in SEO, previewable before anything goes live.",
+        sections: [
+            {
+                heading: "Every page, edited live",
+                body: "Hero banners, collections and landing pages are built and edited visually, so a merchandising change happens as fast as the team can decide it.",
+            },
+            {
+                heading: "Variants without a spreadsheet of SKUs",
+                body: "Size, color and material variants each carry their own price, stock and images, managed under one product rather than as a scattered list of near-duplicate SKUs.",
+            },
+        ],
+        bullets: [
+            "Drag-and-drop page builder — hero banners, collections and landing pages, edited live without code.",
+            "Unlimited variants per product — size, color and material, each with its own price, stock and images.",
+            "Built-in SEO & speed — fast-loading pages and clean metadata, out of the box.",
+            "Preview before you publish — every change is previewable on desktop and mobile before it goes live.",
+        ],
+        mockup: "storefront",
+        faqs: [
+            { q: "Can non-technical staff edit the storefront?", a: "Yes, the drag-and-drop builder is designed for merchandising and marketing teams, not just developers." },
+            { q: "How many variants can a single product have?", a: "Unlimited — size, color, material or any combination, each with its own price, stock and images." },
+            { q: "Is SEO something we need to configure separately?", a: "No, fast-loading pages and clean metadata are built in by default." },
+        ],
+    },
+    {
+        slug: "cart-checkout-payments",
+        category: "Module",
+        tone: "blue",
+        icon: <FiShoppingCart />,
+        title: "Cart, Checkout & Payments",
+        seoTitle: "One-Page Ecommerce Checkout Software — Every Payment Method",
+        metaTitle: "One-Page Checkout & Payments Software | PrepCommerce",
+        metaDescription: "A one-page checkout that doesn't lose the sale — UPI, cards, net-banking, wallets, COD and BNPL, PCI-DSS compliant always.",
+        keywords: "one page checkout software, ecommerce payment gateway integration, pci dss compliant checkout",
+        lead: "A one-page checkout that doesn't lose the sale. Address, payment and confirmation in a single scroll, with every payment method that matters.",
+        sections: [
+            {
+                heading: "One scroll, not a multi-step redirect maze",
+                body: "Mobile-first checkout keeps address, payment and confirmation in a single scroll, removing the redirects and page loads that give a shopper time to reconsider.",
+            },
+            {
+                heading: "Every payment method, one integration",
+                body: "UPI, cards, net-banking, wallets, COD and BNPL are all supported out of the box, so payment preference is never the reason a sale doesn't close.",
+            },
+        ],
+        bullets: [
+            "One-page, mobile-first checkout — address, payment and confirmation in a single scroll, no redirects.",
+            "Every payment method that matters — UPI, cards, net-banking, wallets, COD and BNPL, out of the box.",
+            "Auto-saved addresses & one-click reorder — returning customers check out in seconds.",
+            "PCI-DSS compliant, always — card data never touches your servers.",
+        ],
+        mockup: "cart",
+        faqs: [
+            { q: "Does checkout redirect to a separate payment page?", a: "No, address, payment and confirmation all happen in a single scroll, without redirects." },
+            { q: "Which payment methods are supported?", a: "UPI, cards, net-banking, wallets, COD and BNPL are all supported out of the box." },
+            { q: "Is card data stored on our servers?", a: "No, checkout is PCI-DSS compliant and card data never touches your servers." },
+        ],
+    },
+    {
+        slug: "order-management-fulfillment",
+        category: "Module",
+        tone: "blue",
+        icon: <FiBox />,
+        title: "Order Management & Fulfillment",
+        seoTitle: "Unified Order Management & Fulfillment Software",
+        metaTitle: "Order Management & Fulfillment Software | PrepCommerce",
+        metaDescription: "Every order, from every channel, in one queue — with a live status stepper and bulk fulfillment actions.",
+        keywords: "order management software ecommerce, order fulfillment software, multi channel order queue",
+        lead: "Every order, from every channel, in one queue. A single fulfillment view with a live status stepper per order, whether it came from the website, WhatsApp, Amazon or Instagram.",
+        sections: [
+            {
+                heading: "A queue, not five separate lists",
+                body: "Orders from every channel land in the same fulfillment queue, so the team packing and shipping doesn't need to check multiple admin panels to see what's outstanding.",
+            },
+            {
+                heading: "Status that's visible to the customer too",
+                body: "The same status stepper that shows placed, packed, shipped and delivered internally also powers the branded tracking page customers see, keeping both views consistent.",
+            },
+        ],
+        bullets: [
+            "Every channel's orders land in the same queue — no switching between five dashboards.",
+            "A live status stepper shows placed, packed, shipped and delivered per order.",
+            "Filter and search across every channel, customer or status at once.",
+            "Bulk actions — pack, ship or print labels for many orders at a time.",
+        ],
+        mockup: "orders",
+        faqs: [
+            { q: "Can I filter orders by channel or status?", a: "Yes, orders can be filtered and searched across channel, customer or status." },
+            { q: "Can I process many orders at once instead of individually?", a: "Yes, bulk actions support packing, shipping and label printing for multiple orders at a time." },
+            { q: "Does the order status shown to customers match the internal view?", a: "Yes, the same status stepper powers both the internal fulfillment view and the customer-facing tracking page." },
+        ],
+    },
+    {
+        slug: "inventory-multi-warehouse-sync",
+        category: "Module",
+        tone: "blue",
+        icon: <FiArchive />,
+        title: "Inventory & Multi-Warehouse Sync",
+        seoTitle: "Multi-Warehouse Inventory Sync Software for Ecommerce",
+        metaTitle: "Multi-Warehouse Inventory Sync Software | PrepCommerce",
+        metaDescription: "Stock accurate everywhere, the moment it changes anywhere — real-time sync, multi-warehouse routing and low-stock alerts.",
+        keywords: "multi warehouse inventory software, real time stock sync ecommerce, low stock alert software",
+        lead: "Stock that's accurate everywhere, the moment it changes anywhere. Real-time sync across channels and warehouses, with alerts before a bestseller runs out.",
+        sections: [
+            {
+                heading: "One inventory truth, many warehouses",
+                body: "Stock across Mumbai, Delhi, Bengaluru or any other location stays visible in one view, with each order automatically routed to whichever warehouse can fulfill it fastest.",
+            },
+            {
+                heading: "Bundles tracked at the component level",
+                body: "A combo or kit's stock is tracked against the individual components that make it up, so selling a bundle correctly deducts from each component's inventory.",
+            },
+        ],
+        bullets: [
+            "Real-time sync across every channel — a sale on Instagram instantly updates stock everywhere else.",
+            "Multi-warehouse & multi-location stock — route each order to the warehouse that can ship it fastest.",
+            "Low-stock & reorder alerts — automatic nudges before a bestseller goes out of stock.",
+            "Bundle & kit inventory — stock for combos and kits tracked against the components that make them.",
+        ],
+        mockup: "inventory",
+        stat: { value: "1,284", label: "SKUs tracked live in a typical catalog" },
+        faqs: [
+            { q: "How does PrepCommerce decide which warehouse fulfills an order?", a: "Orders route to whichever warehouse can ship the item fastest, based on live multi-location stock." },
+            { q: "Does selling a bundle correctly reduce stock of the individual items in it?", a: "Yes, bundle and kit inventory is tracked against the components, so component stock deducts correctly." },
+            { q: "Will I be alerted before running out of a popular product?", a: "Yes, low-stock and reorder alerts are automatic." },
+        ],
+    },
+    {
+        slug: "multi-channel-marketplace-sync",
+        category: "Module",
+        tone: "blue",
+        icon: <FiShare2 />,
+        title: "Multi-Channel & Marketplace Sync",
+        seoTitle: "Multi-Channel & Marketplace Sync Software — Amazon, Flipkart, WhatsApp",
+        metaTitle: "Multi-Channel Marketplace Sync Software | PrepCommerce",
+        metaDescription: "Sell everywhere your customer already is — one catalog synced to Amazon, Flipkart, Meesho, WhatsApp, Instagram and in-store POS.",
+        keywords: "multi channel ecommerce sync, marketplace catalog sync software, whatsapp instagram shop sync",
+        lead: "Sell everywhere your customer already is. One catalog pushes to every marketplace and social channel, all reading from the same live inventory.",
+        sections: [
+            {
+                heading: "List once, appear everywhere",
+                body: "A single catalog update pushes automatically to Amazon, Flipkart, Meesho and every other connected marketplace, instead of re-entering the same product on each platform.",
+            },
+            {
+                heading: "Chat commerce, without leaving the chat",
+                body: "Native WhatsApp and Instagram storefronts let customers browse and buy directly inside the conversation, rather than being redirected out to a separate website.",
+            },
+        ],
+        bullets: [
+            "One catalog, every marketplace — list once, push updates to Amazon, Flipkart, Meesho and more automatically.",
+            "Native WhatsApp & Instagram storefronts — customers browse and buy without ever leaving the chat.",
+            "In-store POS, same backend — walk-in sales deduct from the same inventory as your website.",
+            "Channel-level pricing rules — adjust price or margin per channel without duplicating the catalog.",
+        ],
+        mockup: "channels",
+        faqs: [
+            { q: "Do I have to re-list products separately on each marketplace?", a: "No, one catalog update pushes automatically to every connected marketplace." },
+            { q: "Can customers actually complete a purchase inside WhatsApp or Instagram?", a: "Yes, native storefronts let customers browse and buy without leaving the chat." },
+            { q: "Can prices differ between channels for the same product?", a: "Yes, channel-level pricing rules let you adjust price or margin per channel without duplicating the catalog." },
+        ],
+    },
+    {
+        slug: "shipping-logistics-tracking",
+        category: "Module",
+        tone: "blue",
+        icon: <FiTruck />,
+        title: "Shipping, Logistics & Tracking",
+        seoTitle: "Multi-Courier Shipping & Rate Shopping Software",
+        metaTitle: "Ecommerce Shipping & Logistics Software | PrepCommerce",
+        metaDescription: "The right courier, the right rate, every single order — multi-courier rate shopping, branded tracking and automated NDR/RTO.",
+        keywords: "multi courier rate shopping software, branded order tracking page, ndr rto automation software",
+        lead: "The right courier, the right rate, every single order. Multi-courier rate shopping automatically picks the best option, with a branded tracking page for customers.",
+        sections: [
+            {
+                heading: "Rate shopping without checking four websites",
+                body: "Delhivery, Shiprocket, Xpressbees and Ecom Express rates are compared automatically for every order, routing to the cheapest or fastest option instead of a manual comparison.",
+            },
+            {
+                heading: "Tracking that looks like your brand, not the courier's",
+                body: "Customers track their order on a page carrying your logo and colors, keeping the post-purchase experience consistent with the rest of the store.",
+            },
+        ],
+        bullets: [
+            "Multi-courier rate shopping — every order routed to the cheapest or fastest courier automatically.",
+            "Branded tracking page — customers track orders on a page that carries your brand, not the courier's.",
+            "NDR & RTO management — automated retry workflows for failed and returned deliveries.",
+            "COD reconciliation, automated — remittance matched against orders, no spreadsheet required.",
+        ],
+        mockup: "shipping",
+        faqs: [
+            { q: "How many couriers does rate shopping compare?", a: "Multiple couriers — such as Delhivery, Shiprocket, Xpressbees and Ecom Express — are compared automatically for each order." },
+            { q: "Does the tracking page show the courier's branding?", a: "No, the tracking page carries your brand, not the courier's." },
+            { q: "What happens automatically when a delivery fails?", a: "NDR and RTO management triggers an automated retry workflow." },
+        ],
+    },
+    {
+        slug: "marketing-abandoned-cart-recovery",
+        category: "Module",
+        tone: "blue",
+        icon: <FiTrendingUp />,
+        title: "Marketing & Abandoned-Cart Recovery",
+        seoTitle: "Marketing Automation & Abandoned-Cart Recovery Software",
+        metaTitle: "Ecommerce Marketing & Cart Recovery Software | PrepCommerce",
+        metaDescription: "Recover the sale before the customer forgets they wanted it — automated WhatsApp, SMS and email nudges, coupons tied to real revenue.",
+        keywords: "abandoned cart recovery automation, ecommerce marketing automation software, coupon revenue attribution",
+        lead: "Recover the sale before the customer forgets they wanted it. Automated nudges bring shoppers back, with every coupon and campaign traceable to real revenue.",
+        sections: [
+            {
+                heading: "The funnel, visible stage by stage",
+                body: "Cart created, checkout started, payment started and order completed are all tracked as a funnel, showing exactly where shoppers are dropping off.",
+            },
+            {
+                heading: "Discounts that don't need a third-party plugin",
+                body: "Coupons, bundles and flash sales run from a built-in discount engine, with every campaign's actual revenue impact visible rather than assumed.",
+            },
+        ],
+        bullets: [
+            "Automated abandoned-cart recovery — WhatsApp, SMS and email nudges triggered within minutes.",
+            "Coupons, bundles & flash sales — a built-in discount engine, no third-party plugin required.",
+            "Campaigns tied to real revenue — see exactly which coupon or campaign drove which order.",
+            "Customer segmentation — target first-time buyers, repeat customers or high-value segments differently.",
+        ],
+        mockup: "marketing",
+        stat: { value: "27%", label: "cart-recovery rate from a WhatsApp nudge" },
+        faqs: [
+            { q: "Where in the checkout funnel do most customers drop off?", a: "The funnel view shows this stage by stage — cart created, checkout started, payment started, order completed — so drop-off points are visible directly." },
+            { q: "Can I run a flash sale without installing a plugin?", a: "Yes, the discount engine for coupons, bundles and flash sales is native." },
+            { q: "How is a recovery campaign's success measured?", a: "By the actual carts it converts back into completed orders, tracked as a recovery rate." },
+        ],
+    },
+    {
+        slug: "customer-accounts-loyalty-crm",
+        category: "Module",
+        tone: "blue",
+        icon: <FiUsers />,
+        title: "Customer Accounts, Loyalty & CRM",
+        seoTitle: "Unified Customer Accounts, Loyalty & CRM Software",
+        metaTitle: "Ecommerce Customer Loyalty & CRM Software | PrepCommerce",
+        metaDescription: "One customer, one history — no matter where they bought. Unified profiles, loyalty points, wishlists and CRM-ready data.",
+        keywords: "ecommerce loyalty program software, unified customer crm software, customer profile ecommerce platform",
+        lead: "One customer, one history — no matter where they bought. Every order across every channel lives on one timeline, with loyalty and wishlists that follow the customer everywhere.",
+        sections: [
+            {
+                heading: "A single view of lifetime value",
+                body: "Lifetime orders, lifetime value and loyalty points are all visible on one customer profile, rather than pieced together from separate channel reports.",
+            },
+            {
+                heading: "Ready to plug into marketing, not locked in",
+                body: "Customer data can be segmented, exported, or pushed straight into external marketing tools, so the CRM data isn't stranded inside the commerce platform.",
+            },
+        ],
+        bullets: [
+            "Unified customer profile — every order, across every channel, on one timeline.",
+            "Loyalty points & store credit — configurable earn-and-burn rules, redeemable right at checkout.",
+            "Wishlist & saved carts — bring customers back to exactly what they were looking at.",
+            "CRM-ready customer data — segment, export, or push straight into your marketing tools.",
+        ],
+        mockup: "profile",
+        stat: { value: "₹28.4k", label: "typical lifetime value visible per repeat customer" },
+        faqs: [
+            { q: "Can I see a customer's full purchase history in one place?", a: "Yes, every order across every channel is visible on one unified customer timeline." },
+            { q: "How are loyalty points earned and redeemed?", a: "Through configurable earn-and-burn rules, redeemable directly at checkout." },
+            { q: "Can customer data be pushed into our existing marketing tools?", a: "Yes, customer data is CRM-ready for segmentation, export, or direct integration." },
+        ],
+    },
+    {
+        slug: "reviews-ratings-ugc",
+        category: "Module",
+        tone: "blue",
+        icon: <FiStar />,
+        title: "Reviews, Ratings & UGC",
+        seoTitle: "Verified Reviews, Ratings & UGC Software for Ecommerce",
+        metaTitle: "Ecommerce Reviews & UGC Software | PrepCommerce",
+        metaDescription: "Let your happiest customers do the selling — verified-purchase reviews, photo & video UGC, moderation and product Q&A.",
+        keywords: "ecommerce reviews software, verified purchase reviews platform, product ugc photo reviews",
+        lead: "Let your happiest customers do the selling. Verified-purchase reviews, photos and Q&A build trust on every product page — moderated before anything goes live.",
+        sections: [
+            {
+                heading: "Reviews tied to an actual purchase",
+                body: "Ratings are linked to a verified order rather than open to anyone, so product pages reflect genuine buyer experience instead of unverifiable claims.",
+            },
+            {
+                heading: "Real photos, reviewed before they're public",
+                body: "Customers can upload their own photos and videos, and every review passes through a moderation queue before appearing live on the product page.",
+            },
+        ],
+        bullets: [
+            "Verified-purchase reviews — ratings tied to an actual order, not open to anyone.",
+            "Photo & video reviews — customers upload real photos, shown right on the product page.",
+            "Moderation queue — approve, respond to, or flag reviews before they go live.",
+            "Q&A on every product page — shoppers get answers from you, or from other buyers.",
+        ],
+        mockup: "reviews",
+        faqs: [
+            { q: "Can anyone leave a review, or only people who bought the product?", a: "Only verified purchasers — reviews are tied to an actual order." },
+            { q: "Do customers see reviews immediately after submission?", a: "No, reviews pass through a moderation queue before going live." },
+            { q: "Can customers ask questions about a product before buying?", a: "Yes, every product page supports Q&A, answered by the store or by other buyers." },
+        ],
+    },
+
+    // ---------- Also built in ----------
+    {
+        slug: "gst-ready-invoicing",
+        category: "Also built in",
+        tone: "blue",
+        icon: <FiFileText />,
+        title: "GST-Ready Invoicing",
+        seoTitle: "Automatic GST-Ready Invoicing Software for Ecommerce",
+        metaTitle: "GST-Ready Invoicing Software | PrepCommerce",
+        metaDescription: "Every order generates a compliant tax invoice automatically — synced with Tally and Zoho Books, no manual GST calculation.",
+        keywords: "gst invoicing software ecommerce, automated tax invoice generation, tally zoho books ecommerce sync",
+        lead: "Every order generates a compliant tax invoice automatically, no manual bookkeeping required to stay GST-compliant on every sale.",
+        sections: [
+            {
+                heading: "Every order, a compliant invoice, automatically",
+                body: "GST calculation and invoice generation happen the moment an order is placed, removing the manual step of preparing a compliant invoice after the fact.",
+            },
+            {
+                heading: "Flows straight into your accounting",
+                body: "Syncing with Tally and Zoho Books means invoices and reconciliation don't require re-entering the same order data into a separate accounting system.",
+            },
+        ],
+        bullets: [
+            "Compliant invoice on every order, generated automatically.",
+            "Syncs with Tally / Zoho Books — no manual re-entry.",
+            "No manual GST calculation, on any order.",
+        ],
+        mockup: null,
+        faqs: [
+            { q: "Is GST calculated manually or automatically?", a: "Automatically — every order generates a compliant tax invoice without manual calculation." },
+            { q: "Does this work with our existing accounting software?", a: "Yes, it syncs with Tally and Zoho Books." },
+            { q: "Do returns also generate the right documentation?", a: "Yes, credit notes for returns are generated automatically as well." },
+        ],
+    },
+    {
+        slug: "branded-tracking-page",
+        category: "Also built in",
+        tone: "blue",
+        icon: <FiMapPin />,
+        title: "Branded Tracking Page",
+        seoTitle: "Branded Order Tracking Page Software for Ecommerce",
+        metaTitle: "Branded Order Tracking Page | PrepCommerce",
+        metaDescription: "Customers track orders on a page that carries your brand, not the courier's — reducing where-is-my-order support tickets.",
+        keywords: "branded order tracking page software, custom courier tracking page, ecommerce post purchase experience",
+        lead: "Customers track orders on a page that carries your brand, not the courier's — keeping the post-purchase experience consistent with the rest of your store.",
+        sections: [
+            {
+                heading: "Your logo, not a generic courier page",
+                body: "The tracking experience matches your storefront's branding rather than handing the customer off to an unbranded courier tracking page mid-way through their order.",
+            },
+            {
+                heading: "Fewer \"where is my order\" tickets",
+                body: "Because live status pulls automatically from whichever courier is handling the shipment, customers can self-serve the answer instead of messaging support.",
+            },
+        ],
+        bullets: [
+            "Your logo and colors, not the courier's, on every tracking page.",
+            "Live status pulled automatically from every courier.",
+            "Reduces \"where is my order\" support tickets.",
+        ],
+        mockup: "shipping",
+        faqs: [
+            { q: "Does the tracking page work regardless of which courier is used?", a: "Yes, live status is pulled from whichever courier is handling the shipment." },
+            { q: "Can the tracking page carry our own logo and colors?", a: "Yes, it's branded to match your storefront, not the courier." },
+            { q: "Does this reduce support ticket volume?", a: "Typically yes — customers can self-serve tracking status instead of messaging support." },
+        ],
+    },
+    {
+        slug: "loyalty-store-credit",
+        category: "Also built in",
+        tone: "blue",
+        icon: <FiGift />,
+        title: "Loyalty & Store Credit",
+        seoTitle: "Loyalty Points & Store Credit Software for Ecommerce",
+        metaTitle: "Ecommerce Loyalty & Store Credit Software | PrepCommerce",
+        metaDescription: "Configurable earn-and-burn loyalty rules, redeemable right at checkout — native, not a bolted-on third-party app.",
+        keywords: "loyalty points software ecommerce, store credit program software, earn and burn loyalty rules",
+        lead: "Configurable earn-and-burn rules, redeemable right at checkout — a native loyalty program instead of a separate app to manage and pay for.",
+        sections: [
+            {
+                heading: "Points that accrue without extra setup",
+                body: "Loyalty points are earned automatically per order based on rules you configure, rather than requiring a separate integration to track and award them.",
+            },
+            {
+                heading: "Redeemable exactly where it matters",
+                body: "Store credit and points apply directly at checkout, so redeeming a reward doesn't require a separate step or a different page.",
+            },
+        ],
+        bullets: [
+            "Points earned per order automatically.",
+            "Store credit redeemable at checkout.",
+            "Configurable earn-and-burn rules matched to your margins.",
+        ],
+        mockup: "profile",
+        faqs: [
+            { q: "Do customers need to do anything to earn loyalty points?", a: "No, points accrue automatically per order based on your configured rules." },
+            { q: "Where can store credit be redeemed?", a: "Directly at checkout, without a separate redemption step." },
+            { q: "Can earn-and-burn rules be customized?", a: "Yes, they're fully configurable to match your business's margins and goals." },
+        ],
+    },
+    {
+        slug: "coupons-flash-sales",
+        category: "Also built in",
+        tone: "blue",
+        icon: <FiTag />,
+        title: "Coupons & Flash Sales",
+        seoTitle: "Native Coupons & Flash Sale Engine for Ecommerce",
+        metaTitle: "Ecommerce Coupons & Flash Sales Software | PrepCommerce",
+        metaDescription: "A built-in discount engine for coupons, bundles and flash sales — no third-party plugin, every campaign traceable to real revenue.",
+        keywords: "ecommerce coupon software, flash sale engine software, native discount engine ecommerce platform",
+        lead: "A built-in discount engine for coupons, bundles and flash sales — no third-party plugin required, and every campaign traceable to the revenue it actually drove.",
+        sections: [
+            {
+                heading: "Discounts without adding another app",
+                body: "Coupons, bundles and time-boxed flash sales run natively, removing the separate subscription and integration that a third-party discount plugin would otherwise require.",
+            },
+            {
+                heading: "Every campaign, measured by revenue",
+                body: "Because the discount engine is native, campaign performance is tracked against real orders rather than estimated from a separate plugin's own limited reporting.",
+            },
+        ],
+        bullets: [
+            "Coupons, bundles and flash sales, native to the platform.",
+            "Every campaign traceable to real revenue it produced.",
+            "No third-party discount plugin needed.",
+        ],
+        mockup: "marketing",
+        faqs: [
+            { q: "Do I need a separate app for flash sales?", a: "No, the discount engine for coupons, bundles and flash sales is built in natively." },
+            { q: "Can I see which coupon actually drove a sale?", a: "Yes, every campaign is traceable to the specific orders it produced." },
+            { q: "Can bundles have their own discounted pricing?", a: "Yes, bundle pricing is part of the same native discount engine." },
+        ],
+    },
+];
+
+export const detailsBySlug = details.reduce((acc, d) => {
+    acc[d.slug] = d;
+    return acc;
+}, {});
+
+export default details;

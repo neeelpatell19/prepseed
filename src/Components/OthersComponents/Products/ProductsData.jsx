@@ -30,9 +30,9 @@ const ProductsData = [
     {
         slug: "prepcommerce",
         name: "PrepCommerce",
-        tagline: "White-labeled storefront & orders",
-        status: "soon",
-        link: "#",
+        tagline: "AI-native commerce OS for every channel",
+        status: "ready",
+        link: "/products/prepcommerce",
     },
 ];
 
