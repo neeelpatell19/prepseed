@@ -8,6 +8,8 @@ import AllClients from '../OthersComponents/Clients/AllClients/AllClients';
 import AllModules from '../OthersComponents/Modules/AllModules/AllModules';
 import IndusriesWiseModules from '../OthersComponents/Modules/IndusriesWiseModules/IndusriesWiseModules';
 import SingleModule from '../OthersComponents/Modules/SingleModule/SingleModule';
+import RealEstateCRM from '../OthersComponents/Products/RealEstateCRM/RealEstateCRM';
+import RealEstateCRMDetailPage from '../OthersComponents/Products/RealEstateCRM/DetailPage';
 import Policies from '../OthersComponents/Policies/Policies';
 import NotFound from '../NotFound/NotFound';
 // import CreateOwnPortal from '../CreateOwnPortal/CreateOwnPortal';
@@ -74,6 +76,22 @@ const AnimatedRoutes = () => {
                     element={
                         <PageTransition>
                             <SingleModule />
+                        </PageTransition>
+                    }
+                />
+                <Route
+                    path="/products/real-estate-crm"
+                    element={
+                        <PageTransition>
+                            <RealEstateCRM />
+                        </PageTransition>
+                    }
+                />
+                <Route
+                    path="/products/real-estate-crm/:slug"
+                    element={
+                        <PageTransition>
+                            <RealEstateCRMDetailPage />
                         </PageTransition>
                     }
                 />

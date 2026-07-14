@@ -36,6 +36,9 @@ function AppContent() {
     // Module routes
     if (path.startsWith('/module/')) return true;
 
+    // Product routes
+    if (path.startsWith('/products/')) return true;
+
     return false;
   };
 

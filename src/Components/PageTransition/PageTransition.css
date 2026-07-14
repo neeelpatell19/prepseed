@@ -2,7 +2,15 @@
     width: 100%;
     min-height: 100vh;
     position: relative;
-    overflow-x: hidden;
+    /* clip, not hidden: overflow-x:hidden forces overflow-y to compute as
+       auto (per the CSS overflow spec's visible/non-visible pairing rule),
+       which silently makes this element an unintended scroll container —
+       even though it never actually scrolls internally (unconstrained
+       height). That broke position:sticky and CSS scroll-snap for content
+       inside it, since browsers associated those with this container
+       instead of the real window scroller. clip keeps the same visual
+       horizontal-clipping behavior without that side effect. */
+    overflow-x: clip;
 }
 
 /* Ensure smooth transitions */
@@ -12,7 +20,7 @@
 
 /* Prevent horizontal scroll during transitions */
 body {
-    overflow-x: hidden;
+    overflow-x: clip;
 }
 
 /* Smooth scrolling for better transitions */
