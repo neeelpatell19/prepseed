@@ -331,7 +331,7 @@ const PrepJewellery = () => {
                         </div>
                         <div className="pjew-hero-ctas">
                             <a href="tel:+919913382221" className="pjew-btn pjew-btn-primary">
-                                Book a walkthrough <FiArrowRight />
+                                Book a call <FiArrowRight />
                             </a>
                             <a href="#modules" className="pjew-btn pjew-btn-ghost">See what's inside</a>
                         </div>

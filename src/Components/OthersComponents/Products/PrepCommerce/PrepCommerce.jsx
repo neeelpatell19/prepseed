@@ -310,7 +310,7 @@ const PrepCommerce = () => {
                         </div>
                         <div className="pcom-hero-ctas">
                             <a href="tel:+919913382221" className="pcom-btn pcom-btn-primary">
-                                Book a walkthrough <FiArrowRight />
+                                Book a call <FiArrowRight />
                             </a>
                             <a href="#modules" className="pcom-btn pcom-btn-ghost">See what's inside</a>
                         </div>

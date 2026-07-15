@@ -294,7 +294,7 @@ const PrepWhatsBot = () => {
                         </div>
                         <div className="pwb-hero-ctas">
                             <a href="tel:+919913382221" className="pwb-btn pwb-btn-primary">
-                                Book a walkthrough <FiArrowRight />
+                                Book a call <FiArrowRight />
                             </a>
                             <a href="#modules" className="pwb-btn pwb-btn-ghost">See what's inside</a>
                         </div>

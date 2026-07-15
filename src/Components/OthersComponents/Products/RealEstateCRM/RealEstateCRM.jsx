@@ -369,7 +369,7 @@ const RealEstateCRM = () => {
                         </div>
                         <div className="recrm-hero-ctas">
                             <a href="tel:+919913382221" className="recrm-btn recrm-btn-primary">
-                                Book a walkthrough <FiArrowRight />
+                                Book a call <FiArrowRight />
                             </a>
                             <a href="#modules" className="recrm-btn recrm-btn-ghost">See what's inside</a>
                         </div>

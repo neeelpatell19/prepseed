@@ -300,7 +300,7 @@ const PrepDesk = () => {
                         </div>
                         <div className="pdsk-hero-ctas">
                             <a href="tel:+919913382221" className="pdsk-btn pdsk-btn-primary">
-                                Book a walkthrough <FiArrowRight />
+                                Book a call <FiArrowRight />
                             </a>
                             <a href="#modules" className="pdsk-btn pdsk-btn-ghost">See what's inside</a>
                         </div>

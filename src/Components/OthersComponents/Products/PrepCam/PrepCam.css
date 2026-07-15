@@ -139,7 +139,7 @@
 .pcam-hero {
     position: relative;
     background: radial-gradient(1100px 500px at 82% -10%, #123a44 0%, transparent 60%), linear-gradient(180deg, var(--pcam-navy) 0%, #06161b 100%);
-    padding: 108px 0 64px;
+    padding: 72px 0 40px;
     overflow: hidden;
 }
 
@@ -205,17 +205,19 @@
 .pcam-hero-line { display: block; }
 .pcam-accent { color: #5eead4; }
 
-.pcam-hero-sub p { color: rgba(255, 255, 255, 0.72); font-size: 17px; line-height: 1.6; max-width: 580px; margin: 0 0 30px; }
+.pcam-hero-sub p { color: rgba(255, 255, 255, 0.72); font-size: 17px; line-height: 1.6; max-width: 580px; margin: 0 0 20px; }
 
-.pcam-hero-ctas { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 44px; }
+.pcam-hero-ctas { display: flex; flex-wrap: nowrap; gap: 10px; margin-bottom: 24px; }
+
+.pcam-hero-ctas .pcam-btn { flex: 1 1 0; min-width: 0; padding: 12px 14px; font-size: 13.5px; white-space: normal; }
 
 .pcam-hero-stats {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.14); padding-top: 26px; max-width: 640px;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.14); padding-top: 16px; max-width: 640px;
 }
 .pcam-hero-stat { display: flex; flex-direction: column; gap: 4px; }
 .pcam-hero-stat-value { font-size: clamp(20px, 3vw, 28px); font-weight: 700; color: #fff; }
-.pcam-hero-stat-label { font-size: 13px; color: rgba(255, 255, 255, 0.55); }
+.pcam-hero-stat-label { font-size: 12px; color: rgba(255, 255, 255, 0.55); }
 
 /* ---------- Problem grid ---------- */
 .pcam-problem-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
@@ -550,6 +552,12 @@
     .pcam-migration-grid { grid-template-columns: repeat(2, 1fr); }
     .pcam-stats-grid { grid-template-columns: repeat(4, 1fr); }
     .pcam-stat-row { grid-template-columns: repeat(4, 1fr); }
+
+    .pcam-hero { padding: 108px 0 64px; }
+    .pcam-hero-sub p { margin-bottom: 30px; }
+    .pcam-hero-ctas { gap: 14px; margin-bottom: 44px; }
+    .pcam-hero-ctas .pcam-btn { flex: 0 1 auto; padding: 14px 22px; font-size: 15px; white-space: nowrap; }
+    .pcam-hero-stats { gap: 20px; padding-top: 26px; }
 }
 
 @media (min-width: 860px) {

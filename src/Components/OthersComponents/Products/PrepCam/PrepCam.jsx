@@ -291,7 +291,7 @@ const PrepCam = () => {
                         </div>
                         <div className="pcam-hero-ctas">
                             <a href="tel:+919913382221" className="pcam-btn pcam-btn-primary">
-                                Book a walkthrough <FiArrowRight />
+                                Book a call <FiArrowRight />
                             </a>
                             <a href="#modules" className="pcam-btn pcam-btn-ghost">See what's inside</a>
                         </div>
