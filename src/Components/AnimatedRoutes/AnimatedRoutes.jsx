@@ -20,6 +20,8 @@ import PrepCommerce from '../OthersComponents/Products/PrepCommerce/PrepCommerce
 import PrepCommerceDetailPage from '../OthersComponents/Products/PrepCommerce/DetailPage';
 import PrepJewellery from '../OthersComponents/Products/PrepJewellery/PrepJewellery';
 import PrepJewelleryDetailPage from '../OthersComponents/Products/PrepJewellery/DetailPage';
+import PrepSchool from '../OthersComponents/Products/PrepSchool/PrepSchool';
+import PrepSchoolDetailPage from '../OthersComponents/Products/PrepSchool/DetailPage';
 import Policies from '../OthersComponents/Policies/Policies';
 import NotFound from '../NotFound/NotFound';
 // import CreateOwnPortal from '../CreateOwnPortal/CreateOwnPortal';
@@ -182,6 +184,22 @@ const AnimatedRoutes = () => {
                     element={
                         <PageTransition>
                             <PrepJewelleryDetailPage />
+                        </PageTransition>
+                    }
+                />
+                <Route
+                    path="/products/prepschool"
+                    element={
+                        <PageTransition>
+                            <PrepSchool />
+                        </PageTransition>
+                    }
+                />
+                <Route
+                    path="/products/prepschool/:slug"
+                    element={
+                        <PageTransition>
+                            <PrepSchoolDetailPage />
                         </PageTransition>
                     }
                 />

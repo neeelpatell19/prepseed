@@ -41,6 +41,13 @@ const ProductsData = [
         status: "ready",
         link: "/products/prepjewellery",
     },
+    {
+        slug: "prepschool",
+        name: "PrepSchool",
+        tagline: "Preschool & daycare management platform",
+        status: "ready",
+        link: "/products/prepschool",
+    },
 ];
 
 export default ProductsData;

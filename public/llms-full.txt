@@ -54,6 +54,14 @@ Integrations: direct hardware link to MaxSell gold-testing machines (purity read
 
 Compliance specifics: HUID and hallmarking compliance enforced as an approval gate — every hallmarked item's HUID is tied to its transaction before it can be sold. GST-ready invoicing with gold rate and making charges itemized automatically. Data handling aligned with India's DPDP Act. Every purity reading, ledger entry and customer record encrypted at rest and in transit. Role-based access for counter staff, karigars, managers and owners. Full audit trail — including automated actions, not just user edits.
 
+## PrepSchool
+
+Integrations: Razorpay/payment gateways (fee collection), WhatsApp Business API (notices, reminders, diary summaries), biometric/RFID attendance hardware at the gate, classroom and bus door. Also supported: SMS gateways, Google Workspace, Zoom/Google Meet (virtual PTMs), CCTV/NVR systems, Tally/Zoho Books, Zapier/Webhooks.
+
+Roles: Owner/Principal (full visibility across every branch, classroom and report; controls roles & billing), Admin/Front Desk (attendance, pickup verification, enquiries and fee collection for their own branch), Teacher (digital diary, milestone tracking and curriculum for their own classroom only), Driver/Attendant (route roster, live GPS and boarding attendance from a dedicated transport app).
+
+Privacy & child-safety specifics: role-scoped access throughout — teachers see only their own classroom, front desk only their own branch. Live classroom CCTV feeds are visible only to verified parents of enrolled children. Child pickup is enforced via OTP or photo match against guardians on file, not a name spoken at the gate. Data residency options are available to meet local requirements. Every access to a child's record is logged in a full audit trail. Staff background checks and certifications are tracked with expiry dates on file.
+
 ## See also
 
 - [llms.txt](https://prepseed.com/llms.txt) — problems solved, features, alternatives, pricing, FAQs
