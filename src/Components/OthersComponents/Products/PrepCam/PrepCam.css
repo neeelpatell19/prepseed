@@ -275,7 +275,7 @@
 .pcam-check-list li { display: flex; align-items: flex-start; gap: 12px; font-size: 15px; color: var(--pcam-ink); line-height: 1.5; }
 .pcam-check-list li svg { flex-shrink: 0; margin-top: 3px; color: var(--pcam-green); background: var(--pcam-green-light); border-radius: 50%; padding: 3px; width: 18px; height: 18px; }
 
-.pcam-spotlight-visual { width: 100%; }
+.pcam-spotlight-visual { width: 100%; min-width: 0; }
 
 /* ---------- Browser chrome mockup ---------- */
 .pcam-browser { background: #fff; border: 1px solid var(--pcam-border); border-radius: 16px; overflow: hidden; box-shadow: 0 24px 60px rgba(11, 21, 38, 0.14); }

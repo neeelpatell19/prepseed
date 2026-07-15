@@ -462,7 +462,13 @@
 
 .recrm-check-list li svg { flex-shrink: 0; margin-top: 3px; color: var(--recrm-green); background: var(--recrm-green-light); border-radius: 50%; padding: 3px; width: 18px; height: 18px; }
 
-.recrm-spotlight-visual { width: 100%; }
+/* min-width: 0 overrides the grid item's automatic minimum size, which
+   otherwise equals the min-content width of the mockup inside (e.g. the
+   Lead Manager kanban's 4-5 columns at 150px each) — on a narrow phone
+   that's wider than the viewport, so without this the whole spotlight
+   section (and the page) gets pushed into horizontal overflow instead of
+   the mockup's own overflow-x:auto scrolling internally. */
+.recrm-spotlight-visual { width: 100%; min-width: 0; }
 
 /* ---------- Browser chrome mockup ---------- */
 

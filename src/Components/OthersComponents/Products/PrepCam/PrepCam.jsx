@@ -591,7 +591,6 @@ const PrepCam = () => {
                             <a href="tel:+919913382221" className="pcam-btn pcam-btn-primary">
                                 Call {contact.call} <FiArrowRight />
                             </a>
-                            <Link to="/about" className="pcam-btn pcam-btn-ghost">Learn about Prepseed</Link>
                         </div>
                         <div className="pcam-final-contact">
                             <a href="tel:+919913382221"><FiPhoneCall /> {contact.call}</a>

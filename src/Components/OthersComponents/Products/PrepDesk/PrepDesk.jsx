@@ -661,7 +661,6 @@ const PrepDesk = () => {
                             <a href="tel:+919913382221" className="pdsk-btn pdsk-btn-primary">
                                 Call {contact.call} <FiArrowRight />
                             </a>
-                            <Link to="/about" className="pdsk-btn pdsk-btn-ghost">Learn about Prepseed</Link>
                         </div>
                         <div className="pdsk-final-contact">
                             <a href="tel:+919913382221"><FiPhoneCall /> {contact.call}</a>

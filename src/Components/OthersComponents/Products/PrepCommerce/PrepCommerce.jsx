@@ -642,7 +642,6 @@ const PrepCommerce = () => {
                             <a href="tel:+919913382221" className="pcom-btn pcom-btn-primary">
                                 Call {contact.call} <FiArrowRight />
                             </a>
-                            <Link to="/about" className="pcom-btn pcom-btn-ghost">Learn about Prepseed</Link>
                         </div>
                         <div className="pcom-final-contact">
                             <a href="tel:+919913382221"><FiPhoneCall /> {contact.call}</a>

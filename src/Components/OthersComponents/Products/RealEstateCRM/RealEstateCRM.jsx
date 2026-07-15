@@ -653,7 +653,6 @@ const RealEstateCRM = () => {
                             <a href="tel:+919913382221" className="recrm-btn recrm-btn-primary">
                                 Call {contact.call} <FiArrowRight />
                             </a>
-                            <Link to="/about" className="recrm-btn recrm-btn-ghost">Learn about Prepseed</Link>
                         </div>
                         <div className="recrm-final-contact">
                             <a href="tel:+919913382221"><FiPhoneCall /> {contact.call}</a>

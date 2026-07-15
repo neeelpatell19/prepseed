@@ -600,7 +600,6 @@ const PrepWhatsBot = () => {
                             <a href="tel:+919913382221" className="pwb-btn pwb-btn-primary">
                                 Call {contact.call} <FiArrowRight />
                             </a>
-                            <Link to="/about" className="pwb-btn pwb-btn-ghost">Learn about Prepseed</Link>
                         </div>
                         <div className="pwb-final-contact">
                             <a href="tel:+919913382221"><FiPhoneCall /> {contact.call}</a>

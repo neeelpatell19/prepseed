@@ -457,7 +457,7 @@
 
 .pdsk-check-list li svg { flex-shrink: 0; margin-top: 3px; color: var(--pdsk-green); background: var(--pdsk-green-light); border-radius: 50%; padding: 3px; width: 18px; height: 18px; }
 
-.pdsk-spotlight-visual { width: 100%; }
+.pdsk-spotlight-visual { width: 100%; min-width: 0; }
 
 /* ---------- Browser chrome mockup ---------- */
 

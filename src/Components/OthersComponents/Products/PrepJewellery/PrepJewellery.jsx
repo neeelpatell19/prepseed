@@ -745,7 +745,6 @@ const PrepJewellery = () => {
                             <a href="tel:+919913382221" className="pjew-btn pjew-btn-primary">
                                 Call {contact.call} <FiArrowRight />
                             </a>
-                            <Link to="/about" className="pjew-btn pjew-btn-ghost">Learn about Prepseed</Link>
                         </div>
                         <div className="pjew-final-contact">
                             <a href="tel:+919913382221"><FiPhoneCall /> {contact.call}</a>
