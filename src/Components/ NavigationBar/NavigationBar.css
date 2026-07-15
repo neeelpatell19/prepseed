@@ -191,6 +191,32 @@ a.nav-product-row:hover {
     border-radius: 999px;
 }
 
+.nav-products-view-all {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 6px;
+    padding: 10px 12px;
+    border-top: 1px solid #eef1f4;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #14181d;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+}
+
+.nav-products-view-all:hover {
+    background: #f2f6fb;
+}
+
+.nav-products-view-all svg {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+}
+
 /* Products accordion (mobile) */
 .mobile-nav-link.mobile-products-trigger {
     width: 100%;
@@ -211,7 +237,7 @@ a.nav-product-row:hover {
 }
 
 .mobile-products-panel.open {
-    max-height: 500px;
+    max-height: 600px;
 }
 
 .mobile-products-panel .nav-product-row {

@@ -1,0 +1,253 @@
+.pprint-detail-hero {
+    position: relative;
+    overflow: hidden;
+    background: radial-gradient(1100px 500px at 15% -10%, #1c1a3a 0%, transparent 60%), linear-gradient(180deg, var(--pprint-navy) 0%, #0b0c14 100%);
+    padding: 132px 0 64px;
+}
+
+.pprint-detail-hero .pprint-container {
+    position: relative;
+    z-index: 1;
+}
+
+.pprint-detail-crumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 22px;
+}
+
+.pprint-detail-crumb a {
+    color: #b5adf7;
+}
+
+.pprint-detail-crumb a:hover {
+    color: #fff;
+}
+
+/* "old way" -> "the fix" transform banner, only on problem pages */
+.pprint-detail-transform {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 16px 0 4px;
+    font-size: 14px;
+}
+
+.pprint-detail-old {
+    color: rgba(255, 255, 255, 0.45);
+    text-decoration: line-through;
+    text-decoration-color: rgba(239, 68, 68, 0.5);
+}
+
+.pprint-detail-transform svg {
+    color: #b5adf7;
+    flex-shrink: 0;
+}
+
+.pprint-detail-new {
+    color: #7fe0a8;
+    font-weight: 600;
+}
+
+.pprint-detail-heading {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 16px 0 18px;
+}
+
+.pprint-detail-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.08);
+    color: #b5adf7;
+    font-size: 22px;
+    flex-shrink: 0;
+}
+
+.pprint-detail-title {
+    font-size: clamp(28px, 4.4vw, 42px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    color: #fff;
+    margin: 0;
+}
+
+.pprint-detail-lead {
+    font-size: 18px;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.75);
+    max-width: 720px;
+    margin: 0;
+}
+
+/* ---------- Body: copy + optional mockup ---------- */
+
+.pprint-detail-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+    align-items: start;
+}
+
+.pprint-detail-layout.no-visual .pprint-detail-copy {
+    max-width: 760px;
+}
+
+.pprint-detail-block {
+    margin-bottom: 28px;
+}
+
+.pprint-detail-block h2 {
+    margin-bottom: 10px;
+}
+
+.pprint-detail-block p {
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--pprint-muted);
+    margin: 0;
+}
+
+.pprint-detail-list {
+    gap: 18px;
+    margin-bottom: 0;
+}
+
+.pprint-detail-list li {
+    font-size: 15.5px;
+}
+
+.pprint-detail-stat {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-top: 32px;
+    padding: 20px 26px;
+    border-radius: 16px;
+    background: var(--pprint-indigo-light);
+}
+
+.pprint-detail-stat-value {
+    font-size: 30px;
+    font-weight: 700;
+    color: var(--pprint-indigo-dark);
+}
+
+.pprint-detail-stat-label {
+    font-size: 13px;
+    color: var(--pprint-muted);
+}
+
+.pprint-detail-visual {
+    position: sticky;
+    top: 100px;
+}
+
+/* ---------- FAQ ---------- */
+
+.pprint-detail-body {
+    max-width: 760px;
+}
+
+.pprint-faq-heading {
+    margin: 14px 0 28px;
+}
+
+.pprint-faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.pprint-faq-item {
+    background: #fff;
+    border: 1px solid var(--pprint-border);
+    border-radius: 14px;
+    padding: 18px 22px;
+}
+
+.pprint-faq-item summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    cursor: pointer;
+    list-style: none;
+    font-weight: 600;
+    font-size: 15.5px;
+    color: var(--pprint-ink);
+}
+
+.pprint-faq-item summary::-webkit-details-marker {
+    display: none;
+}
+
+.pprint-faq-arrow {
+    flex-shrink: 0;
+    color: var(--pprint-indigo-dark);
+    transition: transform 0.25s ease;
+}
+
+.pprint-faq-item[open] .pprint-faq-arrow {
+    transform: rotate(90deg);
+}
+
+.pprint-faq-item p {
+    margin: 14px 0 0;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--pprint-muted);
+}
+
+/* ---------- CTA ---------- */
+
+.pprint-detail-cta {
+    background: linear-gradient(180deg, var(--pprint-navy-2) 0%, var(--pprint-navy) 100%);
+    padding: 56px 0;
+}
+
+.pprint-detail-cta-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.pprint-detail-cta-inner .pprint-hero-ctas {
+    margin: 0;
+}
+
+@media (min-width: 760px) {
+    .pprint-detail-cta-inner {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 40px;
+    }
+
+    .pprint-detail-cta-inner .pprint-hero-ctas {
+        flex-shrink: 0;
+    }
+}
+
+@media (min-width: 860px) {
+    .pprint-detail-layout {
+        grid-template-columns: 1.05fr 0.95fr;
+        gap: 56px;
+    }
+
+    /* No mockup assigned: collapse back to a single, comfortably-narrow
+       reading column instead of leaving the second grid track empty. */
+    .pprint-detail-layout.no-visual {
+        grid-template-columns: 1fr;
+    }
+}

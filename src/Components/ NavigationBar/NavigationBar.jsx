@@ -3,7 +3,7 @@ import "./NavigationBar.css";
 import NavigationNarLinksData from "./NavigationNarLinksData";
 import NavigationTransition from "../NavigationTransition/NavigationTransition";
 import { Link } from "react-router-dom";
-import { FiChevronDown } from "react-icons/fi";
+import { FiChevronDown, FiArrowRight } from "react-icons/fi";
 import ProductsData from "../OthersComponents/Products/ProductsData";
 
 const homeLink = NavigationNarLinksData.find((item) => item.name === "Home");
@@ -84,6 +84,14 @@ const NavigationBar = () => {
                                         </div>
                                     )
                                 ))}
+                                <Link
+                                    to="/products"
+                                    className="nav-products-view-all"
+                                    onClick={() => setIsProductsOpen(false)}
+                                >
+                                    View all products
+                                    <FiArrowRight />
+                                </Link>
                             </div>
                         </div>
                     </div>
@@ -158,6 +166,14 @@ const NavigationBar = () => {
                                 </div>
                             )
                         ))}
+                        <Link
+                            to="/products"
+                            className="nav-products-view-all"
+                            onClick={closeMobileMenu}
+                        >
+                            View all products
+                            <FiArrowRight />
+                        </Link>
                     </div>
                     {restLinks.map((item, index) => (
                         <NavigationTransition

@@ -62,6 +62,14 @@ Roles: Owner/Principal (full visibility across every branch, classroom and repor
 
 Privacy & child-safety specifics: role-scoped access throughout — teachers see only their own classroom, front desk only their own branch. Live classroom CCTV feeds are visible only to verified parents of enrolled children. Child pickup is enforced via OTP or photo match against guardians on file, not a name spoken at the gate. Data residency options are available to meet local requirements. Every access to a child's record is logged in a full audit trail. Staff background checks and certifications are tracked with expiry dates on file.
 
+## PrepPrint
+
+Integrations: Razorpay/payment gateways (billing & advances), WhatsApp Business API (order confirmations, artwork-received and pickup alerts), courier & logistics partners (dispatch and delivery tracking). Also supported: SMS gateways, Google Workspace, Canva/Adobe file import, barcode scanners, Tally/Zoho Books, Zapier/Webhooks.
+
+Roles: Owner/Admin (consolidated dashboard across branches and presses; controls roles & billing), Operator (their own press queue only — mark jobs started, paused or completed, flag shortages), Counter/Manager (branch-scoped billing, orders and stock), Customer (self-serve portal — upload artwork, pay invoices, track job status).
+
+Privacy & data specifics: role-scoped access throughout — operators see only their own press queue, counter staff see only their own branch. Customer artwork is access-controlled, visible only to assigned staff and the customer themselves. Rate cards and negotiated pricing are visible only to owners and managers. Every order, invoice and design file is backed up continuously. Every access to pricing, files or payment data is logged in a full audit trail. Full margin and revenue data is visible only to the owner's login.
+
 ## See also
 
 - [llms.txt](https://prepseed.com/llms.txt) — problems solved, features, alternatives, pricing, FAQs

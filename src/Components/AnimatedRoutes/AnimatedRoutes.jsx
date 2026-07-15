@@ -8,6 +8,7 @@ import AllClients from '../OthersComponents/Clients/AllClients/AllClients';
 import AllModules from '../OthersComponents/Modules/AllModules/AllModules';
 import IndusriesWiseModules from '../OthersComponents/Modules/IndusriesWiseModules/IndusriesWiseModules';
 import SingleModule from '../OthersComponents/Modules/SingleModule/SingleModule';
+import AllProducts from '../OthersComponents/Products/AllProducts/AllProducts';
 import RealEstateCRM from '../OthersComponents/Products/RealEstateCRM/RealEstateCRM';
 import RealEstateCRMDetailPage from '../OthersComponents/Products/RealEstateCRM/DetailPage';
 import PrepDesk from '../OthersComponents/Products/PrepDesk/PrepDesk';
@@ -22,6 +23,8 @@ import PrepJewellery from '../OthersComponents/Products/PrepJewellery/PrepJewell
 import PrepJewelleryDetailPage from '../OthersComponents/Products/PrepJewellery/DetailPage';
 import PrepSchool from '../OthersComponents/Products/PrepSchool/PrepSchool';
 import PrepSchoolDetailPage from '../OthersComponents/Products/PrepSchool/DetailPage';
+import PrepPrint from '../OthersComponents/Products/PrepPrint/PrepPrint';
+import PrepPrintDetailPage from '../OthersComponents/Products/PrepPrint/DetailPage';
 import Policies from '../OthersComponents/Policies/Policies';
 import NotFound from '../NotFound/NotFound';
 // import CreateOwnPortal from '../CreateOwnPortal/CreateOwnPortal';
@@ -88,6 +91,14 @@ const AnimatedRoutes = () => {
                     element={
                         <PageTransition>
                             <SingleModule />
+                        </PageTransition>
+                    }
+                />
+                <Route
+                    path="/products"
+                    element={
+                        <PageTransition>
+                            <AllProducts />
                         </PageTransition>
                     }
                 />
@@ -200,6 +211,22 @@ const AnimatedRoutes = () => {
                     element={
                         <PageTransition>
                             <PrepSchoolDetailPage />
+                        </PageTransition>
+                    }
+                />
+                <Route
+                    path="/products/prepprint"
+                    element={
+                        <PageTransition>
+                            <PrepPrint />
+                        </PageTransition>
+                    }
+                />
+                <Route
+                    path="/products/prepprint/:slug"
+                    element={
+                        <PageTransition>
+                            <PrepPrintDetailPage />
                         </PageTransition>
                     }
                 />
