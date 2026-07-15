@@ -162,6 +162,7 @@ export const rtspDetections = {
     camId: "CAM-04", zone: "FRONT COUNTER", rtsp: "RTSP://10.0.4.21:554/stream1",
     footLeft: "1080p · 24fps", footRight: "Onboarded via ONVIF · 3 days ago",
     scene: "counter",
+    image: "/images/prepcam/counter.png",
     boxes: [
         { tone: "green", label: "Person · 98%", top: "18%", left: "13%", width: "16%", height: "58%", figure: "person" },
         { tone: "green", label: "Person · 96%", top: "22%", left: "58%", width: "15%", height: "54%", figure: "person" },
@@ -172,6 +173,7 @@ export const phoneDetection = {
     camId: "CAM-02", zone: "SALES FLOOR", rtsp: "RTSP://10.0.4.19:554/stream1",
     footLeft: "Zone: Counter 2 · Role: Cashier", footRight: "Alert sent · WhatsApp + App",
     scene: "floor",
+    image: "/images/prepcam/floor.png",
     boxes: [
         { tone: "green", label: "Person · 97%", top: "16%", left: "11%", width: "15%", height: "60%", figure: "person" },
         { tone: "red", label: "Mobile phone · 00:42", top: "16%", left: "55%", width: "17%", height: "60%", figure: "person", accessory: "phone" },
@@ -183,6 +185,7 @@ export const ppeDetections = {
     footLeft: "4 workers in frame · 1 flagged", footRight: "Safety officer notified",
     aspect: "16/8",
     scene: "warehouse",
+    image: "/images/prepcam/warehouse.png",
     boxes: [
         { tone: "green", label: "Helmet ✓ · Vest ✓", top: "8%", left: "6%", width: "13%", height: "80%", figure: "person", accessory: "helmet" },
         { tone: "amber", label: "Vest missing", top: "10%", left: "32%", width: "13%", height: "78%", figure: "person", accessory: "helmet" },
@@ -220,9 +223,9 @@ export const heatmapCells = [
 ];
 
 export const alertsFeed = [
-    { title: "Mobile phone in use — Counter 2", meta: "Store 3 · 11:42 AM · 46s duration", severity: "High" },
-    { title: "PPE missing — Vest not detected", meta: "Warehouse Bay 3 · 10:08 AM", severity: "Medium" },
-    { title: "SOP miss — Register drawer left open", meta: "Store 3 · 9:57 AM", severity: "Medium" },
+    { title: "Mobile phone in use — Counter 2", meta: "Store 3 · 11:42 AM · 46s duration", severity: "High", thumb: "/images/prepcam/thumbs/phone-alert.jpg" },
+    { title: "PPE missing — Vest not detected", meta: "Warehouse Bay 3 · 10:08 AM", severity: "Medium", thumb: "/images/prepcam/thumbs/ppe-alert.jpg" },
+    { title: "SOP miss — Register drawer left open", meta: "Store 3 · 9:57 AM", severity: "Medium", thumb: "/images/prepcam/thumbs/sop-alert.jpg" },
     { title: "Camera offline — CAM-11 Loading Dock", meta: "Store 1 · 9:12 AM · Reconnected in 40s", severity: "Info" },
 ];
 

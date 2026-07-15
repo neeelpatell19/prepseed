@@ -34,6 +34,13 @@ const ProductsData = [
         status: "ready",
         link: "/products/prepcommerce",
     },
+    {
+        slug: "prepjewellery",
+        name: "PrepJewellery ERP",
+        tagline: "Automation-first ERP for jewellery retail",
+        status: "ready",
+        link: "/products/prepjewellery",
+    },
 ];
 
 export default ProductsData;

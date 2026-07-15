@@ -314,9 +314,20 @@
 .pcam-floor { position: absolute; left: 6%; right: 6%; bottom: 0; height: 46%; background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent); border-top: 1px solid rgba(255, 255, 255, 0.05); }
 .pcam-grain { position: absolute; inset: 0; background-image: linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px); background-size: 26px 26px; }
 
+/* Real footage stills (see garden-gpt-image-2/prompt/prepcam-camfeed-*.md).
+   The scrim keeps the green/red bbox labels legible over a busy photo and
+   preserves the site's teal CCTV tone; falls back to the CSS scene above
+   when no image is set on the data entry yet. */
+.pcam-screen.has-photo { background-size: cover; background-position: center; }
+.pcam-screen.has-photo::before {
+    content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    background: linear-gradient(180deg, rgba(7, 16, 24, 0.12), rgba(7, 16, 24, 0.5)), rgba(18, 53, 64, 0.22);
+    mix-blend-mode: multiply;
+}
+
 /* Scene backdrops — subtle context so the frame reads as an actual place,
-   not an empty gradient. Purely CSS shapes, same as the rest of the mockups
-   on this page (no raster images). */
+   not an empty gradient. Purely CSS shapes, used only until a real photo
+   is wired in via the `image` field (see .has-photo above). */
 .pcam-screen.scene-counter::after {
     content: ""; position: absolute; left: 4%; right: 4%; bottom: 14%; height: 10%;
     background: linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02));
@@ -331,8 +342,11 @@
     content: ""; position: absolute; inset: 6% 4% 10%;
     background-image: repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.055) 0, rgba(255, 255, 255, 0.055) 2px, transparent 2px, transparent 12%);
 }
+.pcam-screen.has-photo.scene-counter::after,
+.pcam-screen.has-photo.scene-floor::after,
+.pcam-screen.has-photo.scene-warehouse::after { content: none; }
 
-.pcam-bbox { position: absolute; border: 2px solid; border-radius: 4px; overflow: visible; }
+.pcam-bbox { position: absolute; border: 2px solid; border-radius: 4px; overflow: visible; z-index: 2; }
 .pcam-bbox-tag { position: absolute; top: -19px; left: -2px; font-size: 8px; font-weight: 800; padding: 2.5px 6px; border-radius: 4px; white-space: nowrap; letter-spacing: 0.01em; z-index: 2; }
 .pcam-bbox.tone-green { border-color: var(--pcam-green); } .pcam-bbox.tone-green .pcam-bbox-tag { background: var(--pcam-green); color: #052e14; }
 .pcam-bbox.tone-red { border-color: var(--pcam-red); } .pcam-bbox.tone-red .pcam-bbox-tag { background: var(--pcam-red); color: #fff; }
@@ -409,7 +423,22 @@
 .pcam-alerts-list { display: flex; flex-direction: column; gap: 8px; }
 .pcam-alert-item { background: #fff; border: 1px solid var(--pcam-border); border-radius: 10px; padding: 10px 12px; display: flex; gap: 12px; align-items: center; }
 .pcam-alert-thumb { width: 46px; height: 34px; border-radius: 6px; background: linear-gradient(155deg, #123540, #071018 70%); flex: none; position: relative; overflow: hidden; }
-.pcam-alert-thumb i { position: absolute; top: 20%; left: 28%; width: 44%; height: 60%; border: 1.5px solid var(--pcam-red); border-radius: 2px; display: block; }
+
+/* Real clip still — the actual frame the alert was raised on. */
+.pcam-alert-thumb.has-photo { background-size: cover; background-position: center; }
+
+/* No footage exists for a "camera offline" alert — a dropped-signal
+   pattern is more honest here than a stand-in photo. */
+.pcam-alert-thumb.no-signal {
+    background:
+        repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.09) 0 2px, transparent 2px 6px),
+        linear-gradient(155deg, #1a1f26, #05070a 70%);
+}
+.pcam-alert-thumb.no-signal i { position: absolute; top: 20%; left: 28%; width: 44%; height: 60%; border: 1.5px solid rgba(255, 255, 255, 0.35); border-radius: 2px; display: block; }
+.pcam-alert-thumb.no-signal i::before {
+    content: ""; position: absolute; inset: -1.5px; border-top: 1.5px solid rgba(255, 255, 255, 0.35);
+    transform: rotate(28deg); transform-origin: center;
+}
 .pcam-alert-txt { flex: 1; min-width: 0; }
 .pcam-alert-txt b { font-size: 12px; color: var(--pcam-ink); font-weight: 800; display: block; }
 .pcam-alert-txt span { font-size: 9.5px; color: var(--pcam-muted); margin-top: 2px; display: block; }

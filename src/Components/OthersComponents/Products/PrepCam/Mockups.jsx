@@ -43,23 +43,29 @@ const accessoryGlyph = {
     ),
 };
 
-const CameraFeed = ({ camId, zone, rtsp, boxes, footLeft, footRight, aspect, scene }) => (
+const CameraFeed = ({ camId, zone, rtsp, boxes, footLeft, footRight, aspect, scene, image }) => (
     <div className="pcam-camfeed">
         <div className="pcam-cbar">
             <span className="pcam-cbar-id">{camId} · {zone} · {rtsp}</span>
             <span className="pcam-live"><i />LIVE</span>
         </div>
-        <div className={`pcam-screen ${scene ? `scene-${scene}` : ""}`} style={aspect ? { aspectRatio: aspect } : undefined}>
+        <div
+            className={`pcam-screen ${scene ? `scene-${scene}` : ""} ${image ? "has-photo" : ""}`}
+            style={{
+                ...(aspect ? { aspectRatio: aspect } : null),
+                ...(image ? { backgroundImage: `url(${image})` } : null),
+            }}
+        >
             <div className="pcam-grain" />
-            <div className="pcam-floor" />
+            {!image && <div className="pcam-floor" />}
             {boxes.map((b, i) => (
                 <div
                     key={i}
                     className={`pcam-bbox tone-${b.tone}`}
                     style={{ top: b.top, left: b.left, width: b.width, height: b.height }}
                 >
-                    {b.figure === "person" && <PersonSilhouette />}
-                    {b.accessory && accessoryGlyph[b.accessory]}
+                    {!image && b.figure === "person" && <PersonSilhouette />}
+                    {!image && b.accessory && accessoryGlyph[b.accessory]}
                     <span className="pcam-bbox-tag">{b.label}</span>
                 </div>
             ))}
@@ -133,7 +139,13 @@ export const AlertsMockup = () => (
     <div className="pcam-alerts-list">
         {alertsFeed.map((a) => (
             <div className="pcam-alert-item" key={a.title}>
-                <span className="pcam-alert-thumb" aria-hidden="true"><i /></span>
+                <span
+                    className={`pcam-alert-thumb ${a.thumb ? "has-photo" : "no-signal"}`}
+                    aria-hidden="true"
+                    style={a.thumb ? { backgroundImage: `url(${a.thumb})` } : undefined}
+                >
+                    {!a.thumb && <i />}
+                </span>
                 <div className="pcam-alert-txt">
                     <b>{a.title}</b>
                     <span>{a.meta}</span>

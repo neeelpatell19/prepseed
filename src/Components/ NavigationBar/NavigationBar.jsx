@@ -6,6 +6,9 @@ import { Link } from "react-router-dom";
 import { FiChevronDown } from "react-icons/fi";
 import ProductsData from "../OthersComponents/Products/ProductsData";
 
+const homeLink = NavigationNarLinksData.find((item) => item.name === "Home");
+const restLinks = NavigationNarLinksData.filter((item) => item.name !== "Home");
+
 const NavigationBar = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isProductsOpen, setIsProductsOpen] = useState(false);
@@ -32,6 +35,14 @@ const NavigationBar = () => {
 
                 {/* Desktop Navigation Links */}
                 <div className="nav-links desktop-nav">
+                    {homeLink && (
+                        <>
+                            <NavigationTransition to={homeLink.link} className="nav-link">
+                                {homeLink.name}
+                            </NavigationTransition>
+                            <span className="nav-separator">•</span>
+                        </>
+                    )}
                     <div
                         className="nav-products"
                         onMouseEnter={() => setIsProductsOpen(true)}
@@ -76,15 +87,12 @@ const NavigationBar = () => {
                             </div>
                         </div>
                     </div>
-                    <span className="nav-separator">•</span>
-                    {NavigationNarLinksData.map((item, index) => (
+                    {restLinks.map((item, index) => (
                         <React.Fragment key={index}>
+                            <span className="nav-separator">•</span>
                             <NavigationTransition to={item.link} className="nav-link">
                                 {item.name}
                             </NavigationTransition>
-                            {index < NavigationNarLinksData.length - 1 && (
-                                <span className="nav-separator">•</span>
-                            )}
                         </React.Fragment>
                     ))}
                 </div>
@@ -107,6 +115,15 @@ const NavigationBar = () => {
             {/* Mobile Menu */}
             <div className={`mobile-menu ${isMobileMenuOpen ? 'open' : ''}`}>
                 <div className="mobile-menu-links">
+                    {homeLink && (
+                        <NavigationTransition
+                            to={homeLink.link}
+                            className="mobile-nav-link"
+                            onClick={closeMobileMenu}
+                        >
+                            {homeLink.name}
+                        </NavigationTransition>
+                    )}
                     <button
                         className="mobile-nav-link mobile-products-trigger"
                         onClick={() => setIsMobileProductsOpen((prev) => !prev)}
@@ -142,10 +159,10 @@ const NavigationBar = () => {
                             )
                         ))}
                     </div>
-                    {NavigationNarLinksData.map((item, index) => (
-                        <NavigationTransition 
-                            key={index} 
-                            to={item.link} 
+                    {restLinks.map((item, index) => (
+                        <NavigationTransition
+                            key={index}
+                            to={item.link}
                             className="mobile-nav-link"
                             onClick={closeMobileMenu}
                         >
