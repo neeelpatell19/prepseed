@@ -192,11 +192,12 @@ a.nav-product-row:hover {
 }
 
 /* Products accordion (mobile) */
-.mobile-products-trigger {
+.mobile-nav-link.mobile-products-trigger {
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    text-align: left;
     background: none;
     border: none;
     cursor: pointer;

@@ -1,0 +1,61 @@
+# Prepseed — Full Reference
+
+> This is the extended companion to [llms.txt](https://prepseed.com/llms.txt), with the integration lists, role/permission models, and security & compliance detail behind each Prepseed product. Read llms.txt first for problems, features, alternatives, pricing and FAQs; use this file when a query needs integration-level or compliance-level specifics.
+
+Last updated: 2026-07-15
+
+## Shared platform facts (apply to every product below)
+
+- **White-labeling**: your logo and brand color, your own domain (e.g. `crm.yourbrand.com`), your own app-store listing (published under your developer account), your own SMS/email/WhatsApp sender identity, and your own branding on every exported report. Prepseed's name never appears to your customers.
+- **Migration**: a guided, zero-downtime process — read-only access to your current tool, Prepseed migrates all historical data, you review and approve before go-live, then the old tool is retired with zero manual re-entry.
+- **Support**: a dedicated team for setup, migration and ongoing customization, not a ticket queue.
+- **Backing & scale**: investor-backed engineering team (since 2022), 400,000+ users across the platform, automatic-failover servers with primary data in India and encrypted backups in the US.
+- **Access model**: every product uses scoped, role-based permissions — typically only the Owner/Admin sees the full company-wide database; every other role sees only what's relevant to them.
+
+## PrepRealEstate CRM
+
+Integrations: Meta Lead Ads, Google Ads (lead form extensions & Search), Prepseed WhatsApp bot. Also supported: 99acres / MagicBricks feeds, call tracking, email & SMS, payment gateways, accounting/ERP export.
+
+Roles: Owner/Admin (full visibility, controls users/roles/integrations), Sales Manager (team dashboards, lead reassignment, SLA monitoring, broker oversight), Tele-caller (own queue only — Action Center, calls, follow-ups), Field Executive (mobile-first site visits, directions, outcome logging).
+
+## PrepDesk
+
+Integrations: Slack, Google, Jira, payroll systems. Also supported: Zoom & Google Meet, GitHub/GitLab, QuickBooks/Tally payroll, Microsoft Teams, Zapier/Webhooks, SSO/SAML/Okta.
+
+Roles: Owner/Admin (full visibility, controls roles/billing/integrations), HR Manager (attendance, leave approvals, shift rosters, payroll exports company-wide), Team Lead (dashboards and task assignment for their own team only), Employee (their own timer, timesheets, screenshots and leave).
+
+Privacy & monitoring specifics: no keystroke logging — PrepDesk measures activity intensity, never records what was typed. Screenshots can be blurred by default and are visible to the employee they belong to. Monitoring depth is configurable per team, role or location. Data residency options are available for regional compliance. Every access to an employee's data is logged in a full audit trail, and employees see their own tracked time, apps and screenshots — no black box.
+
+## PrepCam
+
+Integrations: HRMS & payroll (including native PrepDesk sync), access control systems, open API for BI/ERP, Zapier/Make.
+
+Roles: Owner/Admin (full visibility, controls users/roles/integrations), Regional/Area Manager (cross-location dashboards, SOP benchmarking, incident escalation within their region), Location/Store Manager (their own cameras, SOP scores, attendance and alerts only), Safety & Compliance Officer (PPE compliance, incident review, full access audit trail).
+
+Privacy & security specifics: on-premise edge processing keeps raw footage local by choice — only detections and short clips sync out. Face-recognition biometric templates are encrypted at rest and can be purged per employee on request. Clip/detection retention windows are configurable per client policy. Employee consent is captured during onboarding before face-recognition attendance goes live. Optional face-blurring is available for non-employee faces in stored clips/reports. Every clip or record view is logged against the viewer's account.
+
+## PrepWhatsBot
+
+Integrations: none required beyond WhatsApp Business API to start. Also supported: Google Sheets, Zapier/Pabbly, Shopify/WooCommerce, Meta Click-to-WhatsApp Ads, Webhooks/REST API, Instagram & Messenger.
+
+Roles: Owner (every conversation, campaign and report; controls agents/roles/integrations), Sales Agent (assigned and auto-routed chats, sends templates, books calls from the inbox), Support Agent (escalated and hot-lead conversations handed off by the bot, with full context on arrival).
+
+Compliance specifics: runs on the official, verified WhatsApp Business API — no ban risk from unofficial tools. Every broadcast uses pre-approved WhatsApp templates, fully within Meta policy. Every reply (bot or human) is timestamped and attributed in a full audit trail. Access is role-based — owners see everything, agents see only their assigned chats.
+
+## PrepCommerce
+
+Integrations: none required to start — connects storefront, marketplaces, Instagram and WhatsApp natively. Also supported: Amazon/Flipkart/Meesho, Tally/Zoho Books, open API/webhooks.
+
+Compliance specifics: PCI-DSS compliant payments — card data is tokenized at the gateway and never touches your servers. Data encrypted at rest and in transit. GST-ready invoicing generated automatically per order. Data handling aligned with India's DPDP Act. Role-based access control for staff, managers and owners. Every order edit, refund and access logged in a full audit trail.
+
+## PrepJewellery ERP
+
+Integrations: direct hardware link to MaxSell gold-testing machines (purity readings captured straight to the ledger). Also supported: HUID/BIS hallmarking registry, biometric attendance devices, open API/webhooks. WhatsApp automation spans 12 customer-facing business events.
+
+Compliance specifics: HUID and hallmarking compliance enforced as an approval gate — every hallmarked item's HUID is tied to its transaction before it can be sold. GST-ready invoicing with gold rate and making charges itemized automatically. Data handling aligned with India's DPDP Act. Every purity reading, ledger entry and customer record encrypted at rest and in transit. Role-based access for counter staff, karigars, managers and owners. Full audit trail — including automated actions, not just user edits.
+
+## See also
+
+- [llms.txt](https://prepseed.com/llms.txt) — problems solved, features, alternatives, pricing, FAQs
+- [sitemap.xml](https://prepseed.com/sitemap.xml) — full page index
+- Contact: vivek@prepseed.com · +91 99133 82221
