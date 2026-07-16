@@ -334,6 +334,42 @@ const clientsData = [
     tags: ["school"],
   },
   {
+    name: "Jivdaya Cheritable Trust",
+    logo: "/images/jivdaya-trust_logo.png",
+    websiteUrl: "https://www.jivdayatrust.org/",
+    tags: ["-"],
+  },
+  {
+    name: "Abhinav Developer",
+    logo: "/images/abhinav-developer_logo.png",
+    websiteUrl: "https://abhinavdevelopers.com/",
+    tags: ["-"],
+  },
+  {
+    name: "Riverside",
+    logo: "/images/riverside_logo.png",
+    websiteUrl: "https://schoolriverside.com/",
+    tags: ["school"],
+  },
+  {
+    name: "Kabhi B",
+    logo: "/images/kabhi-b_logo.png",
+    websiteUrl: "https://kabhi-b.com",
+    tags: ["-"],
+  },
+  {
+    name: "National Tender",
+    logo: "/images/national-tender_logo.webp",
+    websiteUrl: "https://www.nationaltenders.com/",
+    tags: ["-"],
+  },
+  {
+    name: "Scholars Den",
+    logo: "/images/scholler-den_logo.png",
+    websiteUrl: "https://scholarden.com/",
+    tags: ["-"],
+  },
+  {
     name: "Get your portal!",
     logo: "https://static.prepseed.com/brand/your-coaching/logo.png",
     type: "register",
