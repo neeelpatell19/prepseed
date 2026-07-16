@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
     FiHome, FiClock, FiVideo, FiMessageCircle,
-    FiShoppingCart, FiAward, FiBookOpen, FiPrinter, FiArrowRight,
+    FiShoppingCart, FiAward, FiBookOpen, FiPrinter,
 } from "react-icons/fi";
 import "./AllProducts.css";
 import useSEO from "../useSEO";
@@ -53,26 +53,23 @@ const AllProducts = () => {
                                 {...cardProps}
                                 className={`all-products-card ${!isReady ? "disabled" : ""}`}
                             >
-                                <div className="all-products-card-top">
-                                    <div className="all-products-card-icon">
-                                        {Icon && <Icon />}
-                                    </div>
-                                    {!isReady && (
-                                        <span className="all-products-badge">Coming soon</span>
-                                    )}
+                                <div className="all-products-card-image">
+                                    {Icon && <Icon />}
                                 </div>
                                 <div className="all-products-card-content">
-                                    <span className="all-products-card-category">{product.category}</span>
                                     <h3 className="all-products-card-title">{product.name}</h3>
-                                    <p className="all-products-card-tagline">{product.tagline}</p>
-                                    <p className="all-products-card-description">{product.description}</p>
-                                </div>
-                                {isReady && (
+                                    <p className="all-products-card-description">
+                                        {product.description}
+                                    </p>
                                     <div className="all-products-card-action">
-                                        <span className="all-products-action-text">View Product</span>
-                                        <FiArrowRight />
+                                        <span className="all-products-action-text">
+                                            {isReady ? "View Product" : "Coming soon"}
+                                        </span>
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M7 17l9.2-9.2M17 17V7H7" />
+                                        </svg>
                                     </div>
-                                )}
+                                </div>
                             </Card>
                         );
                     })}

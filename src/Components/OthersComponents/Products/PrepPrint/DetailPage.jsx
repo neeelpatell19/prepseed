@@ -87,7 +87,6 @@ const DetailPage = () => {
     return (
         <div className="pprint-page pprint-detail-page">
             <section className="pprint-detail-hero">
-                <div className="pprint-hero-grid" />
                 <div className="pprint-container">
                     <nav className="pprint-detail-crumb">
                         <Link to={OVERVIEW_PATH}>PrepPrint</Link>

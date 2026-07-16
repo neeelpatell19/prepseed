@@ -1,7 +1,8 @@
 .psch-detail-hero {
     position: relative;
     overflow: hidden;
-    background: radial-gradient(1100px 500px at 15% -10%, #3a2013 0%, transparent 60%), linear-gradient(180deg, var(--psch-navy) 0%, #120c07 100%);
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-bottom: 1px solid #e0e0e0;
     padding: 132px 0 64px;
 }
 
@@ -15,16 +16,16 @@
     align-items: center;
     gap: 8px;
     font-size: 13px;
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--psch-muted);
     margin-bottom: 22px;
 }
 
 .psch-detail-crumb a {
-    color: #f4a889;
+    color: var(--psch-orange-dark);
 }
 
 .psch-detail-crumb a:hover {
-    color: #fff;
+    color: var(--psch-ink);
 }
 
 /* "old way" -> "the fix" transform banner, only on problem pages */
@@ -38,18 +39,18 @@
 }
 
 .psch-detail-old {
-    color: rgba(255, 255, 255, 0.45);
+    color: var(--psch-muted);
     text-decoration: line-through;
     text-decoration-color: rgba(239, 68, 68, 0.5);
 }
 
 .psch-detail-transform svg {
-    color: #f4a889;
+    color: var(--psch-orange-dark);
     flex-shrink: 0;
 }
 
 .psch-detail-new {
-    color: #7fe0a8;
+    color: var(--psch-green);
     font-weight: 600;
 }
 
@@ -67,27 +68,49 @@
     width: 52px;
     height: 52px;
     border-radius: 14px;
-    background: rgba(255, 255, 255, 0.08);
-    color: #f4a889;
+    background: var(--psch-orange-light);
+    color: var(--psch-orange-dark);
     font-size: 22px;
     flex-shrink: 0;
 }
 
 .psch-detail-title {
-    font-size: clamp(28px, 4.4vw, 42px);
+    font-size: 48px;
     font-weight: 700;
     letter-spacing: -0.02em;
-    line-height: 1.15;
-    color: #fff;
+    line-height: 1.2;
+    color: var(--psch-ink);
     margin: 0;
 }
 
 .psch-detail-lead {
     font-size: 18px;
     line-height: 1.65;
-    color: rgba(255, 255, 255, 0.75);
+    color: var(--psch-muted);
     max-width: 720px;
     margin: 0;
+}
+
+@media (max-width: 1024px) {
+    .psch-detail-title {
+        font-size: 36px;
+    }
+}
+
+@media (max-width: 768px) {
+    .psch-detail-title {
+        font-size: 28px;
+    }
+
+    .psch-detail-lead {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .psch-detail-title {
+        font-size: 24px;
+    }
 }
 
 /* ---------- Body: copy + optional mockup ---------- */
@@ -160,7 +183,20 @@
 }
 
 .psch-faq-heading {
+    font-size: 32px;
     margin: 14px 0 28px;
+}
+
+@media (max-width: 1024px) {
+    .psch-faq-heading {
+        font-size: 28px;
+    }
+}
+
+@media (max-width: 768px) {
+    .psch-faq-heading {
+        font-size: 24px;
+    }
 }
 
 .psch-faq-list {
@@ -212,8 +248,18 @@
 /* ---------- CTA ---------- */
 
 .psch-detail-cta {
-    background: linear-gradient(180deg, var(--psch-navy-2) 0%, var(--psch-navy) 100%);
+    background: linear-gradient(135deg, var(--psch-orange) 0%, var(--psch-orange-dark) 100%);
     padding: 56px 0;
+}
+
+.psch-detail-cta .psch-h3 {
+    font-size: 28px;
+}
+
+@media (max-width: 768px) {
+    .psch-detail-cta .psch-h3 {
+        font-size: 24px;
+    }
 }
 
 .psch-detail-cta-inner {

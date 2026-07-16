@@ -84,7 +84,6 @@ const DetailPage = () => {
     return (
         <div className="pcam-page pcam-detail-page">
             <section className="pcam-detail-hero">
-                <div className="pcam-hero-grid" />
                 <div className="pcam-container">
                     <nav className="pcam-detail-crumb">
                         <Link to={OVERVIEW_PATH}>PrepCam</Link>

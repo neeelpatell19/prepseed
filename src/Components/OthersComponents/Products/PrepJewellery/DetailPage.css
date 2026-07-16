@@ -1,7 +1,8 @@
 .pjew-detail-hero {
     position: relative;
     overflow: hidden;
-    background: radial-gradient(1100px 500px at 15% -10%, #3c2e12 0%, transparent 60%), linear-gradient(180deg, var(--pjew-navy) 0%, #140f09 100%);
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-bottom: 1px solid #e0e0e0;
     padding: 132px 0 64px;
 }
 
@@ -15,16 +16,16 @@
     align-items: center;
     gap: 8px;
     font-size: 13px;
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--pjew-muted);
     margin-bottom: 22px;
 }
 
 .pjew-detail-crumb a {
-    color: #e8c874;
+    color: var(--pjew-gold-dark);
 }
 
 .pjew-detail-crumb a:hover {
-    color: #fff;
+    color: var(--pjew-ink);
 }
 
 /* "old way" -> "the fix" transform banner, only on problem pages */
@@ -38,18 +39,18 @@
 }
 
 .pjew-detail-old {
-    color: rgba(255, 255, 255, 0.45);
+    color: var(--pjew-muted);
     text-decoration: line-through;
     text-decoration-color: rgba(239, 68, 68, 0.5);
 }
 
 .pjew-detail-transform svg {
-    color: #e8c874;
+    color: var(--pjew-gold-dark);
     flex-shrink: 0;
 }
 
 .pjew-detail-new {
-    color: #7fe0a8;
+    color: var(--pjew-green);
     font-weight: 600;
 }
 
@@ -67,27 +68,49 @@
     width: 52px;
     height: 52px;
     border-radius: 14px;
-    background: rgba(255, 255, 255, 0.08);
-    color: #e8c874;
+    background: var(--pjew-gold-light);
+    color: var(--pjew-gold-dark);
     font-size: 22px;
     flex-shrink: 0;
 }
 
 .pjew-detail-title {
-    font-size: clamp(28px, 4.4vw, 42px);
+    font-size: 48px;
     font-weight: 700;
     letter-spacing: -0.02em;
-    line-height: 1.15;
-    color: #fff;
+    line-height: 1.2;
+    color: var(--pjew-ink);
     margin: 0;
 }
 
 .pjew-detail-lead {
     font-size: 18px;
     line-height: 1.65;
-    color: rgba(255, 255, 255, 0.75);
+    color: var(--pjew-muted);
     max-width: 720px;
     margin: 0;
+}
+
+@media (max-width: 1024px) {
+    .pjew-detail-title {
+        font-size: 36px;
+    }
+}
+
+@media (max-width: 768px) {
+    .pjew-detail-title {
+        font-size: 28px;
+    }
+
+    .pjew-detail-lead {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .pjew-detail-title {
+        font-size: 24px;
+    }
 }
 
 /* ---------- Body: copy + optional mockup ---------- */
@@ -160,7 +183,20 @@
 }
 
 .pjew-faq-heading {
+    font-size: 32px;
     margin: 14px 0 28px;
+}
+
+@media (max-width: 1024px) {
+    .pjew-faq-heading {
+        font-size: 28px;
+    }
+}
+
+@media (max-width: 768px) {
+    .pjew-faq-heading {
+        font-size: 24px;
+    }
 }
 
 .pjew-faq-list {
@@ -212,8 +248,18 @@
 /* ---------- CTA ---------- */
 
 .pjew-detail-cta {
-    background: linear-gradient(180deg, var(--pjew-navy-2) 0%, var(--pjew-navy) 100%);
+    background: linear-gradient(135deg, var(--pjew-gold) 0%, var(--pjew-gold-dark) 100%);
     padding: 56px 0;
+}
+
+.pjew-detail-cta .pjew-h3 {
+    font-size: 28px;
+}
+
+@media (max-width: 768px) {
+    .pjew-detail-cta .pjew-h3 {
+        font-size: 24px;
+    }
 }
 
 .pjew-detail-cta-inner {

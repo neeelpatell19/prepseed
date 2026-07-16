@@ -1,7 +1,8 @@
 .pcam-detail-hero {
     position: relative;
     overflow: hidden;
-    background: radial-gradient(1100px 500px at 82% -10%, #123a44 0%, transparent 60%), linear-gradient(180deg, var(--pcam-navy) 0%, #06161b 100%);
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-bottom: 1px solid #e0e0e0;
     padding: 132px 0 64px;
 }
 
@@ -15,12 +16,12 @@
     align-items: center;
     gap: 8px;
     font-size: 13px;
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--pcam-muted);
     margin-bottom: 22px;
 }
 
-.pcam-detail-crumb a { color: #7dd8e8; }
-.pcam-detail-crumb a:hover { color: #fff; }
+.pcam-detail-crumb a { color: var(--pcam-cam-dark); }
+.pcam-detail-crumb a:hover { color: var(--pcam-ink); }
 
 /* "old way" -> "the fix" transform banner, only on problem pages */
 .pcam-detail-transform {
@@ -33,14 +34,14 @@
 }
 
 .pcam-detail-old {
-    color: rgba(255, 255, 255, 0.45);
+    color: var(--pcam-muted);
     text-decoration: line-through;
     text-decoration-color: rgba(239, 68, 68, 0.5);
 }
 
-.pcam-detail-transform svg { color: #5eead4; flex-shrink: 0; }
+.pcam-detail-transform svg { color: var(--pcam-cam-dark); flex-shrink: 0; }
 
-.pcam-detail-new { color: #5eead4; font-weight: 600; }
+.pcam-detail-new { color: var(--pcam-green); font-weight: 600; }
 
 .pcam-detail-heading {
     display: flex;
@@ -56,27 +57,49 @@
     width: 52px;
     height: 52px;
     border-radius: 14px;
-    background: rgba(255, 255, 255, 0.08);
-    color: #7dd8e8;
+    background: var(--pcam-cam-light);
+    color: var(--pcam-cam-dark);
     font-size: 22px;
     flex-shrink: 0;
 }
 
 .pcam-detail-title {
-    font-size: clamp(28px, 4.4vw, 42px);
+    font-size: 48px;
     font-weight: 700;
     letter-spacing: -0.02em;
-    line-height: 1.15;
-    color: #fff;
+    line-height: 1.2;
+    color: var(--pcam-ink);
     margin: 0;
 }
 
 .pcam-detail-lead {
     font-size: 18px;
     line-height: 1.65;
-    color: rgba(255, 255, 255, 0.75);
+    color: var(--pcam-muted);
     max-width: 720px;
     margin: 0;
+}
+
+@media (max-width: 1024px) {
+    .pcam-detail-title {
+        font-size: 36px;
+    }
+}
+
+@media (max-width: 768px) {
+    .pcam-detail-title {
+        font-size: 28px;
+    }
+
+    .pcam-detail-lead {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .pcam-detail-title {
+        font-size: 24px;
+    }
 }
 
 /* ---------- Body: copy + optional mockup ---------- */
@@ -125,7 +148,20 @@
 /* ---------- FAQ ---------- */
 
 .pcam-detail-body { max-width: 760px; }
-.pcam-faq-heading { margin: 14px 0 28px; }
+.pcam-faq-heading { font-size: 32px; margin: 14px 0 28px; }
+
+@media (max-width: 1024px) {
+    .pcam-faq-heading {
+        font-size: 28px;
+    }
+}
+
+@media (max-width: 768px) {
+    .pcam-faq-heading {
+        font-size: 24px;
+    }
+}
+
 .pcam-faq-list { display: flex; flex-direction: column; gap: 12px; }
 
 .pcam-faq-item {
@@ -167,8 +203,18 @@
 /* ---------- CTA ---------- */
 
 .pcam-detail-cta {
-    background: linear-gradient(180deg, var(--pcam-navy-2) 0%, var(--pcam-navy) 100%);
+    background: linear-gradient(135deg, var(--pcam-cam) 0%, var(--pcam-cam-dark) 100%);
     padding: 56px 0;
+}
+
+.pcam-detail-cta .pcam-h3 {
+    font-size: 28px;
+}
+
+@media (max-width: 768px) {
+    .pcam-detail-cta .pcam-h3 {
+        font-size: 24px;
+    }
 }
 
 .pcam-detail-cta-inner {

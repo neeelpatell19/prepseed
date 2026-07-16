@@ -87,7 +87,6 @@ const DetailPage = () => {
     return (
         <div className="pjew-page pjew-detail-page">
             <section className="pjew-detail-hero">
-                <div className="pjew-hero-grid" />
                 <div className="pjew-container">
                     <nav className="pjew-detail-crumb">
                         <Link to={OVERVIEW_PATH}>PrepJewellery ERP</Link>

@@ -2,14 +2,14 @@ import React, { useEffect, useRef } from "react";
 import { Link, useLocation, useNavigationType } from "react-router-dom";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { FiArrowRight, FiCheck, FiX, FiPhoneCall, FiMail, FiGlobe, FiMapPin } from "react-icons/fi";
+import { FiArrowRight, FiCheck, FiX } from "react-icons/fi";
 import "./PrepJewellery.css";
 import useSEO from "../useSEO";
 import {
     hero, problems, moduleGrid, spotlights, maxsell, maxsellNotes, whatsappEvents, whatsappCallout,
     howItWorksSteps, howItWorksTiles, manualVsAutomated, appAccess, appAccessInfoTiles, integrations,
     moreIntegrations, complianceItems, extraFeatures, whitelabelChecklist, replacedTools,
-    replaceInfoTiles, migrationSteps, migrationInfoTiles, whyPrepseed, contact,
+    replaceInfoTiles, migrationSteps, migrationInfoTiles, whyPrepseed,
 } from "./PrepJewelleryData";
 import {
     BillingMockup, PurchaseMockup, InventoryMockup, ManufacturingMockup, KarigarMockup, CRMMockup,
@@ -51,13 +51,6 @@ const Highlighted = ({ text, part }) => {
         </>
     );
 };
-
-const Blobs = ({ variant = "a" }) => (
-    <div className={`pjew-blobs pjew-blobs-${variant}`} aria-hidden="true">
-        <span className="pjew-blob pjew-blob-1" />
-        <span className="pjew-blob pjew-blob-2" />
-    </div>
-);
 
 const InfoTiles = ({ items, onDark }) => (
     <div className={`pjew-info-tiles ${onDark ? "on-dark" : ""}`}>
@@ -111,15 +104,47 @@ const PrepJewellery = () => {
     // See PrepCommerce.jsx for the full rationale behind this restore
     // logic — same GSAP-pin-vs-scroll-position race applies here.
     useEffect(() => {
-        if (navigationType === "POP" && sessionStorage.getItem(SCROLL_KEY) !== null) {
-            const y = parseInt(sessionStorage.getItem(SCROLL_KEY), 10);
+        // Back/forward navigation (e.g. "Back to overview" from a detail
+        // page, or the browser back button) should land wherever the user
+        // actually was — a scrolled-down anchor, mid-scroll on the grid,
+        // wherever — not jump back to the top. Only force scroll-to-top on
+        // a fresh PUSH (a nav-bar click, a card link from elsewhere), and
+        // only force scroll-to-anchor when the URL actually names one.
+        // A true fresh page load (e.g. someone opening a shared link
+        // directly) also reports as "POP" — there's no prior in-app PUSH
+        // for it to be a back-navigation from. Only take the restore path
+        // when there's actually something saved to restore; otherwise fall
+        // through to the hash/top-of-page handling below, same as any
+        // other fresh navigation.
+
+        // Both branches below can race against this page's own GSAP
+        // ScrollTrigger setup: refreshing the pinned module-stack's
+        // positions (on a rAF tick, fonts.ready, window's `load` event,
+        // and a 600ms settle timer — all independent, see the
+        // ScrollTrigger effect below) can call window.scrollTo() itself
+        // and snap the page away from wherever this effect just put it —
+        // whether that's a restored back-navigation position, or the top
+        // of a fresh page reached by clicking in from somewhere already
+        // scrolled down. Rather than guess which of those async refreshes
+        // fires last, settleScrollTo re-asserts the target position for a
+        // couple of seconds and only reveals the page once it's actually
+        // held stable — hiding it meanwhile so the fight isn't visible.
+        // hide:true (the back-navigation-restore case) is worth the
+        // brief blank flash to avoid visibly jumping through the wrong
+        // part of a long page. hide:false (every fresh navigation) must
+        // NOT blank the page while it silently fights the same GSAP
+        // quirk in the background — that flash was far more noticeable
+        // than the odd one-pixel scroll correction ever was, since it's
+        // the common case (every nav-bar/card click), not the rare one.
+        const settleScrollTo = (y, { hide = true } = {}) => {
             const el = pageRef.current;
-            if (el) el.style.opacity = "0";
+            if (hide && el) el.style.opacity = "0";
+            window.scrollTo(0, y);
 
             let attempts = 0;
             let stableChecks = 0;
             const reveal = () => {
-                if (!el) return;
+                if (!hide || !el) return;
                 el.style.transition = "opacity 0.25s ease";
                 el.style.opacity = "1";
             };
@@ -141,11 +166,15 @@ const PrepJewellery = () => {
             return () => {
                 clearTimeout(t);
                 clearInterval(interval);
-                if (el) {
+                if (hide && el) {
                     el.style.opacity = "";
                     el.style.transition = "";
                 }
             };
+        };
+
+        if (navigationType === "POP" && sessionStorage.getItem(SCROLL_KEY) !== null) {
+            return settleScrollTo(parseInt(sessionStorage.getItem(SCROLL_KEY), 10));
         }
 
         if (location.hash) {
@@ -156,7 +185,7 @@ const PrepJewellery = () => {
             return;
         }
 
-        window.scrollTo(0, 0);
+        return settleScrollTo(0, { hide: false });
     }, [navigationType, location.hash]);
 
     useEffect(() => {
@@ -193,23 +222,6 @@ const PrepJewellery = () => {
                         onComplete: () => document.querySelectorAll(".pjew-hero-stat-value[data-countup]").forEach(countUp),
                     }, "-=0.3")
                     .fromTo(".pjew-hero-visual", { opacity: 0, y: 30, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.9 }, "-=0.9");
-
-                gsap.to(".pjew-hero-grid", {
-                    yPercent: 22,
-                    ease: "none",
-                    scrollTrigger: { trigger: ".pjew-hero", start: "top top", end: "bottom top", scrub: true },
-                });
-
-                gsap.utils.toArray(".pjew-blob").forEach((blob, i) => {
-                    gsap.to(blob, {
-                        x: i % 2 === 0 ? 40 : -30,
-                        y: i % 2 === 0 ? -30 : 40,
-                        duration: 8 + i * 2,
-                        ease: "sine.inOut",
-                        yoyo: true,
-                        repeat: -1,
-                    });
-                });
 
                 gsap.utils.toArray(".reveal").forEach((el) => {
                     const siblings = el.parentElement ? Array.from(el.parentElement.children) : [];
@@ -316,8 +328,6 @@ const PrepJewellery = () => {
         <div className="pjew-page" ref={pageRef}>
             {/* HERO */}
             <section className="pjew-hero pjew-fit">
-                <div className="pjew-hero-grid" />
-                <Blobs variant="hero" />
                 <div className="pjew-container pjew-hero-inner">
                     <div className="pjew-hero-copy">
                         <span className="pjew-eyebrow">{hero.eyebrow}</span>
@@ -426,14 +436,13 @@ const PrepJewellery = () => {
             </div>
 
             {/* HARDWARE INTEGRATION — MaxSell (dark, standalone, not part of the stack) */}
-            <section className="pjew-section pjew-section-dark">
-                <Blobs variant="dark" />
+            <section className="pjew-section pjew-section-light">
                 <div className="pjew-container">
                     <div className="pjew-spotlight">
                         <div className="pjew-spotlight-copy reveal">
-                            <span className="pjew-kicker kicker-light">{maxsell.kicker}</span>
-                            <h2 className="pjew-h2 on-dark"><Highlighted text={maxsell.title} part={maxsell.accent} /></h2>
-                            <p className="pjew-section-sub on-dark">{maxsell.subtitle}</p>
+                            <span className="pjew-kicker kicker-gold">{maxsell.kicker}</span>
+                            <h2 className="pjew-h2"><Highlighted text={maxsell.title} part={maxsell.accent} /></h2>
+                            <p className="pjew-section-sub">{maxsell.subtitle}</p>
                         </div>
                         <div className="pjew-spotlight-visual pjew-tilt reveal">
                             <MaxSellMockup />
@@ -639,13 +648,12 @@ const PrepJewellery = () => {
             </section>
 
             {/* WHITELABEL */}
-            <section className="pjew-section pjew-section-dark pjew-fit">
-                <Blobs variant="dark" />
+            <section className="pjew-section pjew-section-light pjew-fit">
                 <div className="pjew-container">
                     <div className="pjew-section-head reveal">
-                        <span className="pjew-kicker kicker-light">Whitelabel &amp; customization</span>
-                        <h2 className="pjew-h2 on-dark">This isn't our dashboard with your logo on it. <em>It's your ERP, built by us.</em></h2>
-                        <p className="pjew-section-sub on-dark">
+                        <span className="pjew-kicker kicker-gold">Whitelabel &amp; customization</span>
+                        <h2 className="pjew-h2">This isn't our dashboard with your logo on it. <em>It's your ERP, built by us.</em></h2>
+                        <p className="pjew-section-sub">
                             Every PrepJewellery ERP deployment ships under the client's own brand — logo, colors,
                             domain and invoices. Prepseed is the engine underneath, never the name on screen.
                         </p>
@@ -690,12 +698,11 @@ const PrepJewellery = () => {
             </section>
 
             {/* WHY PREPSEED */}
-            <section className="pjew-section pjew-section-dark pjew-fit">
-                <Blobs variant="dark" />
+            <section className="pjew-section pjew-section-light pjew-fit">
                 <div className="pjew-container">
                     <div className="pjew-section-head reveal">
-                        <span className="pjew-kicker kicker-light">Why Prepseed</span>
-                        <h2 className="pjew-h2 on-dark">Proven at scale, <em>built to be yours.</em></h2>
+                        <span className="pjew-kicker kicker-gold">Why Prepseed</span>
+                        <h2 className="pjew-h2">Proven at scale, <em>built to be yours.</em></h2>
                     </div>
                     <div className="pjew-stats-grid">
                         {whyPrepseed.map((w) => (
@@ -729,32 +736,6 @@ const PrepJewellery = () => {
                 </div>
             </section>
 
-            {/* FINAL CTA */}
-            <section className="pjew-final-cta pjew-fit">
-                <div className="pjew-hero-grid" />
-                <Blobs variant="dark" />
-                <div className="pjew-container">
-                    <div className="pjew-final-inner reveal">
-                        <span className="pjew-kicker kicker-light">Let's put your counters to work</span>
-                        <h2 className="pjew-h2 on-dark">Your branches. Your karigars. <span className="pjew-accent">Live in weeks.</span></h2>
-                        <p className="pjew-section-sub on-dark">
-                            Book a walkthrough and we'll map PrepJewellery ERP's sales, purchase, karigar,
-                            manufacturing and MaxSell integration to your branches, your counters and your brand.
-                        </p>
-                        <div className="pjew-hero-ctas">
-                            <a href="tel:+919913382221" className="pjew-btn pjew-btn-primary">
-                                Call {contact.call} <FiArrowRight />
-                            </a>
-                        </div>
-                        <div className="pjew-final-contact">
-                            <a href="tel:+919913382221"><FiPhoneCall /> {contact.call}</a>
-                            <a href="mailto:vivek@prepseed.com"><FiMail /> {contact.email}</a>
-                            <a href="https://prepseed.com" target="_blank" rel="noreferrer"><FiGlobe /> {contact.web}</a>
-                            <span><FiMapPin /> {contact.studio}</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
         </div>
     );
 };

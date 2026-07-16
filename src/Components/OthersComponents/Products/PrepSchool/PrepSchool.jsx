@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { Link, useLocation, useNavigationType } from "react-router-dom";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { FiArrowRight, FiCheck, FiX, FiPhoneCall, FiMail, FiGlobe, FiMapPin } from "react-icons/fi";
+import { FiArrowRight, FiCheck, FiX } from "react-icons/fi";
 import "./PrepSchool.css";
 import useSEO from "../useSEO";
 import {
@@ -16,7 +16,7 @@ import {
     brandChips, whitelabelChecklist,
     replacedTools, replaceInfoTiles,
     migrationSteps, migrationInfoTiles,
-    whyPrepseed, contact,
+    whyPrepseed,
 } from "./PrepSchoolData";
 import {
     EnquiryMockup, StudentProfileMockup, AttendanceMockup, DiaryMockup, ParentAppMockup, FeeMockup,
@@ -53,13 +53,6 @@ const Highlighted = ({ text, part }) => {
         </>
     );
 };
-
-const Blobs = ({ variant = "a" }) => (
-    <div className={`psch-blobs psch-blobs-${variant}`} aria-hidden="true">
-        <span className="psch-blob psch-blob-1" />
-        <span className="psch-blob psch-blob-2" />
-    </div>
-);
 
 const InfoTiles = ({ items, onDark }) => (
     <div className={`psch-info-tiles ${onDark ? "on-dark" : ""}`}>
@@ -113,15 +106,47 @@ const PrepSchool = () => {
     // See PrepCommerce.jsx for the full rationale behind this restore
     // logic — same GSAP-pin-vs-scroll-position race applies here.
     useEffect(() => {
-        if (navigationType === "POP" && sessionStorage.getItem(SCROLL_KEY) !== null) {
-            const y = parseInt(sessionStorage.getItem(SCROLL_KEY), 10);
+        // Back/forward navigation (e.g. "Back to overview" from a detail
+        // page, or the browser back button) should land wherever the user
+        // actually was — a scrolled-down anchor, mid-scroll on the grid,
+        // wherever — not jump back to the top. Only force scroll-to-top on
+        // a fresh PUSH (a nav-bar click, a card link from elsewhere), and
+        // only force scroll-to-anchor when the URL actually names one.
+        // A true fresh page load (e.g. someone opening a shared link
+        // directly) also reports as "POP" — there's no prior in-app PUSH
+        // for it to be a back-navigation from. Only take the restore path
+        // when there's actually something saved to restore; otherwise fall
+        // through to the hash/top-of-page handling below, same as any
+        // other fresh navigation.
+
+        // Both branches below can race against this page's own GSAP
+        // ScrollTrigger setup: refreshing the pinned module-stack's
+        // positions (on a rAF tick, fonts.ready, window's `load` event,
+        // and a 600ms settle timer — all independent, see the
+        // ScrollTrigger effect below) can call window.scrollTo() itself
+        // and snap the page away from wherever this effect just put it —
+        // whether that's a restored back-navigation position, or the top
+        // of a fresh page reached by clicking in from somewhere already
+        // scrolled down. Rather than guess which of those async refreshes
+        // fires last, settleScrollTo re-asserts the target position for a
+        // couple of seconds and only reveals the page once it's actually
+        // held stable — hiding it meanwhile so the fight isn't visible.
+        // hide:true (the back-navigation-restore case) is worth the
+        // brief blank flash to avoid visibly jumping through the wrong
+        // part of a long page. hide:false (every fresh navigation) must
+        // NOT blank the page while it silently fights the same GSAP
+        // quirk in the background — that flash was far more noticeable
+        // than the odd one-pixel scroll correction ever was, since it's
+        // the common case (every nav-bar/card click), not the rare one.
+        const settleScrollTo = (y, { hide = true } = {}) => {
             const el = pageRef.current;
-            if (el) el.style.opacity = "0";
+            if (hide && el) el.style.opacity = "0";
+            window.scrollTo(0, y);
 
             let attempts = 0;
             let stableChecks = 0;
             const reveal = () => {
-                if (!el) return;
+                if (!hide || !el) return;
                 el.style.transition = "opacity 0.25s ease";
                 el.style.opacity = "1";
             };
@@ -143,11 +168,15 @@ const PrepSchool = () => {
             return () => {
                 clearTimeout(t);
                 clearInterval(interval);
-                if (el) {
+                if (hide && el) {
                     el.style.opacity = "";
                     el.style.transition = "";
                 }
             };
+        };
+
+        if (navigationType === "POP" && sessionStorage.getItem(SCROLL_KEY) !== null) {
+            return settleScrollTo(parseInt(sessionStorage.getItem(SCROLL_KEY), 10));
         }
 
         if (location.hash) {
@@ -158,7 +187,7 @@ const PrepSchool = () => {
             return;
         }
 
-        window.scrollTo(0, 0);
+        return settleScrollTo(0, { hide: false });
     }, [navigationType, location.hash]);
 
     useEffect(() => {
@@ -195,23 +224,6 @@ const PrepSchool = () => {
                         onComplete: () => document.querySelectorAll(".psch-hero-stat-value[data-countup]").forEach(countUp),
                     }, "-=0.3")
                     .fromTo(".psch-hero-visual", { opacity: 0, y: 30, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.9 }, "-=0.9");
-
-                gsap.to(".psch-hero-grid", {
-                    yPercent: 22,
-                    ease: "none",
-                    scrollTrigger: { trigger: ".psch-hero", start: "top top", end: "bottom top", scrub: true },
-                });
-
-                gsap.utils.toArray(".psch-blob").forEach((blob, i) => {
-                    gsap.to(blob, {
-                        x: i % 2 === 0 ? 40 : -30,
-                        y: i % 2 === 0 ? -30 : 40,
-                        duration: 8 + i * 2,
-                        ease: "sine.inOut",
-                        yoyo: true,
-                        repeat: -1,
-                    });
-                });
 
                 gsap.utils.toArray(".reveal").forEach((el) => {
                     const siblings = el.parentElement ? Array.from(el.parentElement.children) : [];
@@ -318,8 +330,6 @@ const PrepSchool = () => {
         <div className="psch-page" ref={pageRef}>
             {/* HERO */}
             <section className="psch-hero psch-fit">
-                <div className="psch-hero-grid" />
-                <Blobs variant="hero" />
                 <div className="psch-container psch-hero-inner">
                     <div className="psch-hero-copy">
                         <span className="psch-eyebrow">{hero.eyebrow}</span>
@@ -526,12 +536,11 @@ const PrepSchool = () => {
             </section>
 
             {/* ONE PLATFORM, THREE APPS */}
-            <section className="psch-section psch-section-dark psch-fit">
-                <Blobs variant="dark" />
+            <section className="psch-section psch-section-light psch-fit">
                 <div className="psch-container">
                     <div className="psch-section-head reveal">
-                        <span className="psch-kicker kicker-light">{threeAppsIntro.kicker}</span>
-                        <h2 className="psch-h2 on-dark">
+                        <span className="psch-kicker kicker-orange">{threeAppsIntro.kicker}</span>
+                        <h2 className="psch-h2">
                             Built for the <span className="psch-accent">owner</span>, the teacher and the parent.
                         </h2>
                     </div>
@@ -630,13 +639,12 @@ const PrepSchool = () => {
             </section>
 
             {/* WHITELABEL & MULTI-BRANCH */}
-            <section className="psch-section psch-section-dark psch-fit">
-                <Blobs variant="dark" />
+            <section className="psch-section psch-section-light psch-fit">
                 <div className="psch-container">
                     <div className="psch-section-head reveal">
-                        <span className="psch-kicker kicker-light">Whitelabel &amp; multi-branch</span>
-                        <h2 className="psch-h2 on-dark">This isn't our platform with your logo. <em>It's your school's platform, built by us.</em></h2>
-                        <p className="psch-section-sub on-dark">
+                        <span className="psch-kicker kicker-orange">Whitelabel &amp; multi-branch</span>
+                        <h2 className="psch-h2">This isn't our platform with your logo. <em>It's your school's platform, built by us.</em></h2>
+                        <p className="psch-section-sub">
                             Every PrepSchool deployment ships under your own brand — logo, colors, domain and apps.
                             Run one campus or twenty under a single franchise console, with Prepseed as the engine underneath.
                         </p>
@@ -715,13 +723,12 @@ const PrepSchool = () => {
             </section>
 
             {/* WHY PREPSEED */}
-            <section className="psch-section psch-section-dark psch-fit">
-                <Blobs variant="dark" />
+            <section className="psch-section psch-section-light psch-fit">
                 <div className="psch-container">
                     <div className="psch-section-head reveal">
-                        <span className="psch-kicker kicker-light">Why Prepseed</span>
-                        <h2 className="psch-h2 on-dark">Proven at scale, <em>built to be yours.</em></h2>
-                        <p className="psch-section-sub on-dark">
+                        <span className="psch-kicker kicker-orange">Why Prepseed</span>
+                        <h2 className="psch-h2">Proven at scale, <em>built to be yours.</em></h2>
+                        <p className="psch-section-sub">
                             Prepseed is an AI-first, whitelabel software studio based in Ahmedabad, India — building
                             CRM, HRMS and custom platforms for EdTech, Real Estate, Healthcare and Enterprise teams.
                             PrepSchool runs on the same engine already trusted by 400,000+ users, so you get a
@@ -740,32 +747,6 @@ const PrepSchool = () => {
                 </div>
             </section>
 
-            {/* FINAL CTA */}
-            <section className="psch-final-cta psch-fit">
-                <div className="psch-hero-grid" />
-                <Blobs variant="dark" />
-                <div className="psch-container">
-                    <div className="psch-final-inner reveal">
-                        <span className="psch-kicker kicker-light">Let's build your platform</span>
-                        <h2 className="psch-h2 on-dark">Your preschool platform. Your brand. <span className="psch-accent">Live in weeks.</span></h2>
-                        <p className="psch-section-sub on-dark">
-                            Book a walkthrough and we'll map PrepSchool's admissions, attendance, fees and parent app
-                            to your branches, your classrooms and your brand.
-                        </p>
-                        <div className="psch-hero-ctas">
-                            <a href="tel:+919913382221" className="psch-btn psch-btn-primary">
-                                Call {contact.call} <FiArrowRight />
-                            </a>
-                        </div>
-                        <div className="psch-final-contact">
-                            <a href="tel:+919913382221"><FiPhoneCall /> {contact.call}</a>
-                            <a href="mailto:vivek@prepseed.com"><FiMail /> {contact.email}</a>
-                            <a href="https://prepseed.com" target="_blank" rel="noreferrer"><FiGlobe /> {contact.web}</a>
-                            <span><FiMapPin /> {contact.studio}</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
         </div>
     );
 };

@@ -13,7 +13,7 @@ export const hero = {
     stats: [
         { value: "400,000+", label: "users on the engine" },
         { value: "88%", label: "typical store health index" },
-        { value: "weeks", label: "not quarters, to launch" },
+        { value: "Weeks", label: "not quarters, to launch" },
     ],
 };
 

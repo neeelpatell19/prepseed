@@ -11,7 +11,7 @@ export const hero = {
     stats: [
         { value: "41", label: "cameras, one dashboard" },
         { value: "82%", label: "avg. SOP compliance score" },
-        { value: "weeks", label: "not months, to go live" },
+        { value: "Weeks", label: "not months, to go live" },
     ],
 };
 

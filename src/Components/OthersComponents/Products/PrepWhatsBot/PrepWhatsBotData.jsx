@@ -13,7 +13,7 @@ export const hero = {
     stats: [
         { value: "4s", label: "average first reply" },
         { value: "78%", label: "typical bot resolution rate" },
-        { value: "weeks", label: "not quarters, to launch" },
+        { value: "Weeks", label: "not quarters, to launch" },
     ],
 };
 

@@ -48,14 +48,14 @@ const NavigationBar = () => {
                         onMouseEnter={() => setIsProductsOpen(true)}
                         onMouseLeave={() => setIsProductsOpen(false)}
                     >
-                        <button
+                        <NavigationTransition
+                            to="/products"
                             className="nav-link nav-products-trigger"
-                            onClick={() => setIsProductsOpen((prev) => !prev)}
-                            aria-expanded={isProductsOpen}
+                            onClick={() => setIsProductsOpen(false)}
                         >
                             Products
                             <FiChevronDown className={`nav-products-chevron ${isProductsOpen ? "open" : ""}`} />
-                        </button>
+                        </NavigationTransition>
                         <div className={`nav-products-panel ${isProductsOpen ? "open" : ""}`}>
                             <div className="nav-products-panel-card">
                                 <div className="nav-products-panel-label">Ready to use products</div>

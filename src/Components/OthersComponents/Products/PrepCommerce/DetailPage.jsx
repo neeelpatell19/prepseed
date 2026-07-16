@@ -87,7 +87,6 @@ const DetailPage = () => {
     return (
         <div className="pcom-page pcom-detail-page">
             <section className="pcom-detail-hero">
-                <div className="pcom-hero-grid" />
                 <div className="pcom-container">
                     <nav className="pcom-detail-crumb">
                         <Link to={OVERVIEW_PATH}>PrepCommerce</Link>

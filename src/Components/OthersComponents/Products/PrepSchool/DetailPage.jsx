@@ -85,7 +85,6 @@ const DetailPage = () => {
     return (
         <div className="psch-page psch-detail-page">
             <section className="psch-detail-hero">
-                <div className="psch-hero-grid" />
                 <div className="psch-container">
                     <nav className="psch-detail-crumb">
                         <Link to={OVERVIEW_PATH}>PrepSchool</Link>

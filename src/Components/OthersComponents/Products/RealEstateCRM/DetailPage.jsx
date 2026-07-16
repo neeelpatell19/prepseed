@@ -86,7 +86,6 @@ const DetailPage = () => {
     return (
         <div className="recrm-page recrm-detail-page">
             <section className="recrm-detail-hero">
-                <div className="recrm-hero-grid" />
                 <div className="recrm-container">
                     <nav className="recrm-detail-crumb">
                         <Link to={OVERVIEW_PATH}>Real Estate CRM</Link>

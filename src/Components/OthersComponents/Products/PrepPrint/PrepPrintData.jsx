@@ -13,7 +13,7 @@ export const hero = {
     stats: [
         { value: "3", label: "apps — owner, operator & customer" },
         { value: "0", label: "paper dockets or WhatsApp screenshots" },
-        { value: "weeks", label: "not quarters, to go live" },
+        { value: "Weeks", label: "not quarters, to go live" },
     ],
 };
 

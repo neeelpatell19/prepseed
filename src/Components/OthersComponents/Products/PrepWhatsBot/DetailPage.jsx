@@ -87,7 +87,6 @@ const DetailPage = () => {
     return (
         <div className="pwb-page pwb-detail-page">
             <section className="pwb-detail-hero">
-                <div className="pwb-hero-grid" />
                 <div className="pwb-container">
                     <nav className="pwb-detail-crumb">
                         <Link to={OVERVIEW_PATH}>PrepWhatBot</Link>

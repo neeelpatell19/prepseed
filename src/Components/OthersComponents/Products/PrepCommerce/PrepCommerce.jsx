@@ -2,13 +2,13 @@ import React, { useEffect, useRef } from "react";
 import { Link, useLocation, useNavigationType } from "react-router-dom";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { FiArrowRight, FiCheck, FiPhoneCall, FiMail, FiGlobe, FiMapPin } from "react-icons/fi";
+import { FiArrowRight, FiCheck } from "react-icons/fi";
 import "./PrepCommerce.css";
 import useSEO from "../useSEO";
 import {
     hero, problems, moduleGrid, spotlights, appAccess, appAccessInfoTiles, integrations,
     moreIntegrations, aiInsights, complianceItems, extraFeatures, whitelabelChecklist,
-    replacedTools, replaceInfoTiles, migrationSteps, migrationInfoTiles, whyPrepseed, contact,
+    replacedTools, replaceInfoTiles, migrationSteps, migrationInfoTiles, whyPrepseed,
 } from "./PrepCommerceData";
 import {
     DashboardMockup, StorefrontMockup, CartMockup, OrdersMockup, InventoryMockup,
@@ -30,13 +30,6 @@ const mockupMap = {
     profile: ProfileMockup,
     reviews: ReviewsMockup,
 };
-
-const Blobs = ({ variant = "a" }) => (
-    <div className={`pcom-blobs pcom-blobs-${variant}`} aria-hidden="true">
-        <span className="pcom-blob pcom-blob-1" />
-        <span className="pcom-blob pcom-blob-2" />
-    </div>
-);
 
 const InfoTiles = ({ items, onDark }) => (
     <div className={`pcom-info-tiles ${onDark ? "on-dark" : ""}`}>
@@ -90,15 +83,47 @@ const PrepCommerce = () => {
     // See RealEstateCRM.jsx for the full rationale behind this restore
     // logic — same GSAP-pin-vs-scroll-position race applies here.
     useEffect(() => {
-        if (navigationType === "POP" && sessionStorage.getItem(SCROLL_KEY) !== null) {
-            const y = parseInt(sessionStorage.getItem(SCROLL_KEY), 10);
+        // Back/forward navigation (e.g. "Back to overview" from a detail
+        // page, or the browser back button) should land wherever the user
+        // actually was — a scrolled-down anchor, mid-scroll on the grid,
+        // wherever — not jump back to the top. Only force scroll-to-top on
+        // a fresh PUSH (a nav-bar click, a card link from elsewhere), and
+        // only force scroll-to-anchor when the URL actually names one.
+        // A true fresh page load (e.g. someone opening a shared link
+        // directly) also reports as "POP" — there's no prior in-app PUSH
+        // for it to be a back-navigation from. Only take the restore path
+        // when there's actually something saved to restore; otherwise fall
+        // through to the hash/top-of-page handling below, same as any
+        // other fresh navigation.
+
+        // Both branches below can race against this page's own GSAP
+        // ScrollTrigger setup: refreshing the pinned module-stack's
+        // positions (on a rAF tick, fonts.ready, window's `load` event,
+        // and a 600ms settle timer — all independent, see the
+        // ScrollTrigger effect below) can call window.scrollTo() itself
+        // and snap the page away from wherever this effect just put it —
+        // whether that's a restored back-navigation position, or the top
+        // of a fresh page reached by clicking in from somewhere already
+        // scrolled down. Rather than guess which of those async refreshes
+        // fires last, settleScrollTo re-asserts the target position for a
+        // couple of seconds and only reveals the page once it's actually
+        // held stable — hiding it meanwhile so the fight isn't visible.
+        // hide:true (the back-navigation-restore case) is worth the
+        // brief blank flash to avoid visibly jumping through the wrong
+        // part of a long page. hide:false (every fresh navigation) must
+        // NOT blank the page while it silently fights the same GSAP
+        // quirk in the background — that flash was far more noticeable
+        // than the odd one-pixel scroll correction ever was, since it's
+        // the common case (every nav-bar/card click), not the rare one.
+        const settleScrollTo = (y, { hide = true } = {}) => {
             const el = pageRef.current;
-            if (el) el.style.opacity = "0";
+            if (hide && el) el.style.opacity = "0";
+            window.scrollTo(0, y);
 
             let attempts = 0;
             let stableChecks = 0;
             const reveal = () => {
-                if (!el) return;
+                if (!hide || !el) return;
                 el.style.transition = "opacity 0.25s ease";
                 el.style.opacity = "1";
             };
@@ -120,11 +145,15 @@ const PrepCommerce = () => {
             return () => {
                 clearTimeout(t);
                 clearInterval(interval);
-                if (el) {
+                if (hide && el) {
                     el.style.opacity = "";
                     el.style.transition = "";
                 }
             };
+        };
+
+        if (navigationType === "POP" && sessionStorage.getItem(SCROLL_KEY) !== null) {
+            return settleScrollTo(parseInt(sessionStorage.getItem(SCROLL_KEY), 10));
         }
 
         if (location.hash) {
@@ -135,7 +164,7 @@ const PrepCommerce = () => {
             return;
         }
 
-        window.scrollTo(0, 0);
+        return settleScrollTo(0, { hide: false });
     }, [navigationType, location.hash]);
 
     useEffect(() => {
@@ -172,23 +201,6 @@ const PrepCommerce = () => {
                         onComplete: () => document.querySelectorAll(".pcom-hero-stat-value[data-countup]").forEach(countUp),
                     }, "-=0.3")
                     .fromTo(".pcom-hero-visual", { opacity: 0, y: 30, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.9 }, "-=0.9");
-
-                gsap.to(".pcom-hero-grid", {
-                    yPercent: 22,
-                    ease: "none",
-                    scrollTrigger: { trigger: ".pcom-hero", start: "top top", end: "bottom top", scrub: true },
-                });
-
-                gsap.utils.toArray(".pcom-blob").forEach((blob, i) => {
-                    gsap.to(blob, {
-                        x: i % 2 === 0 ? 40 : -30,
-                        y: i % 2 === 0 ? -30 : 40,
-                        duration: 8 + i * 2,
-                        ease: "sine.inOut",
-                        yoyo: true,
-                        repeat: -1,
-                    });
-                });
 
                 gsap.utils.toArray(".reveal").forEach((el) => {
                     const siblings = el.parentElement ? Array.from(el.parentElement.children) : [];
@@ -295,8 +307,6 @@ const PrepCommerce = () => {
         <div className="pcom-page" ref={pageRef}>
             {/* HERO */}
             <section className="pcom-hero pcom-fit">
-                <div className="pcom-hero-grid" />
-                <Blobs variant="hero" />
                 <div className="pcom-container pcom-hero-inner">
                     <div className="pcom-hero-copy">
                         <span className="pcom-eyebrow">{hero.eyebrow}</span>
@@ -536,13 +546,12 @@ const PrepCommerce = () => {
             </section>
 
             {/* WHITELABEL */}
-            <section className="pcom-section pcom-section-dark pcom-fit">
-                <Blobs variant="dark" />
+            <section className="pcom-section pcom-section-light pcom-fit">
                 <div className="pcom-container">
                     <div className="pcom-section-head reveal">
-                        <span className="pcom-kicker kicker-light">Whitelabel &amp; customization</span>
-                        <h2 className="pcom-h2 on-dark">This isn't our storefront with your logo on it. <em>It's your store, built by us.</em></h2>
-                        <p className="pcom-section-sub on-dark">
+                        <span className="pcom-kicker kicker-comm">Whitelabel &amp; customization</span>
+                        <h2 className="pcom-h2">This isn't our storefront with your logo on it. <em>It's your store, built by us.</em></h2>
+                        <p className="pcom-section-sub">
                             Every PrepCommerce deployment ships under the client's own brand — logo, colors, domain
                             and invoices. Prepseed is the engine underneath, never the name on screen.
                         </p>
@@ -587,12 +596,11 @@ const PrepCommerce = () => {
             </section>
 
             {/* WHY PREPSEED */}
-            <section className="pcom-section pcom-section-dark pcom-fit">
-                <Blobs variant="dark" />
+            <section className="pcom-section pcom-section-light pcom-fit">
                 <div className="pcom-container">
                     <div className="pcom-section-head reveal">
-                        <span className="pcom-kicker kicker-light">Why Prepseed</span>
-                        <h2 className="pcom-h2 on-dark">Proven at scale, <em>built to be yours.</em></h2>
+                        <span className="pcom-kicker kicker-comm">Why Prepseed</span>
+                        <h2 className="pcom-h2">Proven at scale, <em>built to be yours.</em></h2>
                     </div>
                     <div className="pcom-stats-grid">
                         {whyPrepseed.map((w) => (
@@ -626,32 +634,6 @@ const PrepCommerce = () => {
                 </div>
             </section>
 
-            {/* FINAL CTA */}
-            <section className="pcom-final-cta pcom-fit">
-                <div className="pcom-hero-grid" />
-                <Blobs variant="dark" />
-                <div className="pcom-container">
-                    <div className="pcom-final-inner reveal">
-                        <span className="pcom-kicker kicker-light">Let's put your store to work</span>
-                        <h2 className="pcom-h2 on-dark">Your catalog. Your channels. <span className="pcom-accent">Live in weeks.</span></h2>
-                        <p className="pcom-section-sub on-dark">
-                            Book a walkthrough and we'll map PrepCommerce's catalog, checkout, fulfillment and AI
-                            insights to your store, your channels and your brand.
-                        </p>
-                        <div className="pcom-hero-ctas">
-                            <a href="tel:+919913382221" className="pcom-btn pcom-btn-primary">
-                                Call {contact.call} <FiArrowRight />
-                            </a>
-                        </div>
-                        <div className="pcom-final-contact">
-                            <a href="tel:+919913382221"><FiPhoneCall /> {contact.call}</a>
-                            <a href="mailto:vivek@prepseed.com"><FiMail /> {contact.email}</a>
-                            <a href="https://prepseed.com" target="_blank" rel="noreferrer"><FiGlobe /> {contact.web}</a>
-                            <span><FiMapPin /> {contact.studio}</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
         </div>
     );
 };

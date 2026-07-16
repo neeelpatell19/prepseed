@@ -84,7 +84,6 @@ const DetailPage = () => {
     return (
         <div className="pdsk-page pdsk-detail-page">
             <section className="pdsk-detail-hero">
-                <div className="pdsk-hero-grid" />
                 <div className="pdsk-container">
                     <nav className="pdsk-detail-crumb">
                         <Link to={OVERVIEW_PATH}>PrepDesk</Link>

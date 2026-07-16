@@ -14,7 +14,7 @@ export const hero = {
     stats: [
         { value: "3", label: "apps — owner, teacher & parent" },
         { value: "0", label: "paper registers or spreadsheets" },
-        { value: "weeks", label: "not quarters, to go live" },
+        { value: "Weeks", label: "not quarters, to go live" },
     ],
 };
 

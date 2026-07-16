@@ -13,7 +13,7 @@ export const hero = {
     stats: [
         { value: "12", label: "WhatsApp events automated" },
         { value: "0", label: "hand-retyped purity readings" },
-        { value: "weeks", label: "not quarters, to go live" },
+        { value: "Weeks", label: "not quarters, to go live" },
     ],
 };
 

@@ -1,7 +1,8 @@
 .pdsk-detail-hero {
     position: relative;
     overflow: hidden;
-    background: radial-gradient(1100px 500px at 15% -10%, #14315c 0%, transparent 60%), linear-gradient(180deg, var(--pdsk-navy) 0%, #0a1c33 100%);
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-bottom: 1px solid #e0e0e0;
     padding: 132px 0 64px;
 }
 
@@ -15,16 +16,16 @@
     align-items: center;
     gap: 8px;
     font-size: 13px;
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--pdsk-muted);
     margin-bottom: 22px;
 }
 
 .pdsk-detail-crumb a {
-    color: #9fc4ff;
+    color: var(--pdsk-blue);
 }
 
 .pdsk-detail-crumb a:hover {
-    color: #fff;
+    color: var(--pdsk-ink);
 }
 
 /* "old way" -> "the fix" transform banner, only on problem pages */
@@ -38,18 +39,18 @@
 }
 
 .pdsk-detail-old {
-    color: rgba(255, 255, 255, 0.45);
+    color: var(--pdsk-muted);
     text-decoration: line-through;
     text-decoration-color: rgba(239, 68, 68, 0.5);
 }
 
 .pdsk-detail-transform svg {
-    color: #7fb0ff;
+    color: var(--pdsk-blue);
     flex-shrink: 0;
 }
 
 .pdsk-detail-new {
-    color: #7fe0a8;
+    color: var(--pdsk-green);
     font-weight: 600;
 }
 
@@ -67,27 +68,49 @@
     width: 52px;
     height: 52px;
     border-radius: 14px;
-    background: rgba(255, 255, 255, 0.08);
-    color: #9fc4ff;
+    background: var(--pdsk-blue-light);
+    color: var(--pdsk-blue);
     font-size: 22px;
     flex-shrink: 0;
 }
 
 .pdsk-detail-title {
-    font-size: clamp(28px, 4.4vw, 42px);
+    font-size: 48px;
     font-weight: 700;
     letter-spacing: -0.02em;
-    line-height: 1.15;
-    color: #fff;
+    line-height: 1.2;
+    color: var(--pdsk-ink);
     margin: 0;
 }
 
 .pdsk-detail-lead {
     font-size: 18px;
     line-height: 1.65;
-    color: rgba(255, 255, 255, 0.75);
+    color: var(--pdsk-muted);
     max-width: 720px;
     margin: 0;
+}
+
+@media (max-width: 1024px) {
+    .pdsk-detail-title {
+        font-size: 36px;
+    }
+}
+
+@media (max-width: 768px) {
+    .pdsk-detail-title {
+        font-size: 28px;
+    }
+
+    .pdsk-detail-lead {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .pdsk-detail-title {
+        font-size: 24px;
+    }
 }
 
 /* ---------- Body: copy + optional mockup ---------- */
@@ -160,7 +183,20 @@
 }
 
 .pdsk-faq-heading {
+    font-size: 32px;
     margin: 14px 0 28px;
+}
+
+@media (max-width: 1024px) {
+    .pdsk-faq-heading {
+        font-size: 28px;
+    }
+}
+
+@media (max-width: 768px) {
+    .pdsk-faq-heading {
+        font-size: 24px;
+    }
 }
 
 .pdsk-faq-list {
@@ -212,8 +248,18 @@
 /* ---------- CTA ---------- */
 
 .pdsk-detail-cta {
-    background: linear-gradient(180deg, var(--pdsk-navy-2) 0%, var(--pdsk-navy) 100%);
+    background: linear-gradient(135deg, var(--pdsk-blue) 0%, #1d4fbf 100%);
     padding: 56px 0;
+}
+
+.pdsk-detail-cta .pdsk-h3 {
+    font-size: 28px;
+}
+
+@media (max-width: 768px) {
+    .pdsk-detail-cta .pdsk-h3 {
+        font-size: 24px;
+    }
 }
 
 .pdsk-detail-cta-inner {

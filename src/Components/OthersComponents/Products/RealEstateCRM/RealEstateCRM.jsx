@@ -2,12 +2,12 @@ import React, { useEffect, useRef } from "react";
 import { Link, useLocation, useNavigationType } from "react-router-dom";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { FiArrowRight, FiCheck, FiPhoneCall, FiMail, FiGlobe, FiMapPin } from "react-icons/fi";
+import { FiArrowRight, FiCheck } from "react-icons/fi";
 import "./RealEstateCRM.css";
 import {
     hero, problems, moduleGrid, spotlights, integrations, moreIntegrations,
     roles, extraFeatures, whitelabelChecklist, replacedTools, migrationSteps,
-    whyPrepseed, contact,
+    whyPrepseed,
 } from "./RealEstateCRMData";
 import {
     DashboardMockup, ActionCenterMockup, LeadManagerMockup, SiteVisitsMockup,
@@ -23,13 +23,6 @@ const mockupMap = {
     siteVisits: SiteVisitsMockup,
     brokers: BrokersMockup,
 };
-
-const Blobs = ({ variant = "a" }) => (
-    <div className={`recrm-blobs recrm-blobs-${variant}`} aria-hidden="true">
-        <span className="recrm-blob recrm-blob-1" />
-        <span className="recrm-blob recrm-blob-2" />
-    </div>
-);
 
 const countUp = (el) => {
     const raw = el.dataset.countup;
@@ -72,32 +65,35 @@ const RealEstateCRM = () => {
         // when there's actually something saved to restore; otherwise fall
         // through to the hash/top-of-page handling below, same as any
         // other fresh navigation.
-        if (navigationType === "POP" && sessionStorage.getItem(SCROLL_KEY) !== null) {
-            const y = parseInt(sessionStorage.getItem(SCROLL_KEY), 10);
 
-            // Mounting this page already scrolled deep into it (rather than
-            // from the top, the only way it had ever been reached before)
-            // triggers a GSAP ScrollTrigger quirk: as it recalculates the
-            // card stack's pins — on a rAF tick, on fonts.ready, on
-            // window's load event, and on a 600ms settle timer, all fired
-            // independently below — it can call window.scrollTo() itself
-            // and snap the page to near the very bottom. That can happen
-            // more than once, at any of those different times, so rather
-            // than guess the one moment it's finally safe to restore,
-            // re-assert the correct position for a couple of seconds and
-            // let whichever of those wins last be the right one.
-            //
-            // That correction is visually real — the page would otherwise
-            // flash to its own footer before snapping back up — so hide
-            // the page while it's happening and only fade it in once the
-            // position has actually held stable for a couple of checks.
+        // Both branches below can race against this page's own GSAP
+        // ScrollTrigger setup: refreshing the pinned module-stack's
+        // positions (on a rAF tick, fonts.ready, window's `load` event,
+        // and a 600ms settle timer — all independent, see the
+        // ScrollTrigger effect below) can call window.scrollTo() itself
+        // and snap the page away from wherever this effect just put it —
+        // whether that's a restored back-navigation position, or the top
+        // of a fresh page reached by clicking in from somewhere already
+        // scrolled down. Rather than guess which of those async refreshes
+        // fires last, settleScrollTo re-asserts the target position for a
+        // couple of seconds and only reveals the page once it's actually
+        // held stable — hiding it meanwhile so the fight isn't visible.
+        // hide:true (the back-navigation-restore case) is worth the
+        // brief blank flash to avoid visibly jumping through the wrong
+        // part of a long page. hide:false (every fresh navigation) must
+        // NOT blank the page while it silently fights the same GSAP
+        // quirk in the background — that flash was far more noticeable
+        // than the odd one-pixel scroll correction ever was, since it's
+        // the common case (every nav-bar/card click), not the rare one.
+        const settleScrollTo = (y, { hide = true } = {}) => {
             const el = pageRef.current;
-            if (el) el.style.opacity = "0";
+            if (hide && el) el.style.opacity = "0";
+            window.scrollTo(0, y);
 
             let attempts = 0;
             let stableChecks = 0;
             const reveal = () => {
-                if (!el) return;
+                if (!hide || !el) return;
                 el.style.transition = "opacity 0.25s ease";
                 el.style.opacity = "1";
             };
@@ -119,11 +115,15 @@ const RealEstateCRM = () => {
             return () => {
                 clearTimeout(t);
                 clearInterval(interval);
-                if (el) {
+                if (hide && el) {
                     el.style.opacity = "";
                     el.style.transition = "";
                 }
             };
+        };
+
+        if (navigationType === "POP" && sessionStorage.getItem(SCROLL_KEY) !== null) {
+            return settleScrollTo(parseInt(sessionStorage.getItem(SCROLL_KEY), 10));
         }
 
         if (location.hash) {
@@ -134,7 +134,7 @@ const RealEstateCRM = () => {
             return;
         }
 
-        window.scrollTo(0, 0);
+        return settleScrollTo(0, { hide: false });
     }, [navigationType, location.hash]);
 
     // Record scroll position at the moment of an actual outgoing click —
@@ -189,25 +189,6 @@ const RealEstateCRM = () => {
                         onComplete: () => document.querySelectorAll(".recrm-hero-stat-value[data-countup]").forEach(countUp),
                     }, "-=0.3")
                     .fromTo(".recrm-hero-visual", { opacity: 0, y: 30, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.9 }, "-=0.9");
-
-                // Hero background parallax
-                gsap.to(".recrm-hero-grid", {
-                    yPercent: 22,
-                    ease: "none",
-                    scrollTrigger: { trigger: ".recrm-hero", start: "top top", end: "bottom top", scrub: true },
-                });
-
-                // Ambient blobs drifting
-                gsap.utils.toArray(".recrm-blob").forEach((blob, i) => {
-                    gsap.to(blob, {
-                        x: i % 2 === 0 ? 40 : -30,
-                        y: i % 2 === 0 ? -30 : 40,
-                        duration: 8 + i * 2,
-                        ease: "sine.inOut",
-                        yoyo: true,
-                        repeat: -1,
-                    });
-                });
 
                 // Generic scroll reveals — one trigger per element. (A single
                 // ScrollTrigger.batch() call for the whole page was flaky for
@@ -354,8 +335,6 @@ const RealEstateCRM = () => {
         <div className="recrm-page" ref={pageRef}>
             {/* HERO */}
             <section className="recrm-hero recrm-fit">
-                <div className="recrm-hero-grid" />
-                <Blobs variant="hero" />
                 <div className="recrm-container recrm-hero-inner">
                     <div className="recrm-hero-copy">
                         <span className="recrm-eyebrow">{hero.eyebrow}</span>
@@ -550,13 +529,12 @@ const RealEstateCRM = () => {
             </section>
 
             {/* WHITELABEL */}
-            <section className="recrm-section recrm-section-dark recrm-fit">
-                <Blobs variant="dark" />
+            <section className="recrm-section recrm-section-light recrm-fit">
                 <div className="recrm-container">
                     <div className="recrm-section-head reveal">
-                        <span className="recrm-kicker kicker-light">Whitelabel & customization</span>
-                        <h2 className="recrm-h2 on-dark">This isn't our product on your desk. <em>It's your product, built by us.</em></h2>
-                        <p className="recrm-section-sub on-dark">
+                        <span className="recrm-kicker kicker-blue">Whitelabel & customization</span>
+                        <h2 className="recrm-h2">This isn't our product on your desk. <em>It's your product, built by us.</em></h2>
+                        <p className="recrm-section-sub">
                             Every real estate CRM we deploy ships under the client's own brand — logo, colors, domain and app
                             store listing. Prepseed is the engine underneath, never the name on screen.
                         </p>
@@ -599,12 +577,11 @@ const RealEstateCRM = () => {
             </section>
 
             {/* WHY PREPSEED */}
-            <section className="recrm-section recrm-section-dark recrm-fit">
-                <Blobs variant="dark" />
+            <section className="recrm-section recrm-section-light recrm-fit">
                 <div className="recrm-container">
                     <div className="recrm-section-head reveal">
-                        <span className="recrm-kicker kicker-light">Why Prepseed</span>
-                        <h2 className="recrm-h2 on-dark">Proven at scale, <em>built to be yours.</em></h2>
+                        <span className="recrm-kicker kicker-blue">Why Prepseed</span>
+                        <h2 className="recrm-h2">Proven at scale, <em>built to be yours.</em></h2>
                     </div>
                     <div className="recrm-stats-grid">
                         {whyPrepseed.map((w) => (
@@ -637,32 +614,6 @@ const RealEstateCRM = () => {
                 </div>
             </section>
 
-            {/* FINAL CTA */}
-            <section className="recrm-final-cta recrm-fit">
-                <div className="recrm-hero-grid" />
-                <Blobs variant="dark" />
-                <div className="recrm-container">
-                    <div className="recrm-final-inner reveal">
-                        <span className="recrm-kicker kicker-light">Let's build your platform</span>
-                        <h2 className="recrm-h2 on-dark">Your CRM. Your brand. <span className="recrm-accent">Live in weeks.</span></h2>
-                        <p className="recrm-section-sub on-dark">
-                            Book a walkthrough and we'll map Prepseed's real estate CRM to your sales process, your projects
-                            and your brand.
-                        </p>
-                        <div className="recrm-hero-ctas">
-                            <a href="tel:+919913382221" className="recrm-btn recrm-btn-primary">
-                                Call {contact.call} <FiArrowRight />
-                            </a>
-                        </div>
-                        <div className="recrm-final-contact">
-                            <a href="tel:+919913382221"><FiPhoneCall /> {contact.call}</a>
-                            <a href="mailto:vivek@prepseed.com"><FiMail /> {contact.email}</a>
-                            <a href="https://prepseed.com" target="_blank" rel="noreferrer"><FiGlobe /> {contact.web}</a>
-                            <span><FiMapPin /> {contact.studio}</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
         </div>
     );
 };

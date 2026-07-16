@@ -1,0 +1,42 @@
+/*
+ * Shared design tokens for the product marketing pages (RealEstateCRM,
+ * PrepDesk, PrepCam, PrepWhatsBot, PrepCommerce, PrepJewellery, PrepSchool,
+ * PrepPrint, and their DetailPage sub-routes).
+ *
+ * Each product still owns its own CSS file and its own class prefix
+ * (.recrm-, .pdsk-, .pcam-, ...) — that structure and each product's own
+ * accent color (e.g. PrepCam's cyan) are intentional per-vertical identity
+ * and are NOT collapsed here. What lives here is what must read as one
+ * consistent site regardless of which product page you're on: the
+ * secondary status colors (success/danger/warning), the sticky nav's
+ * height (used to center hero-style sections against what's actually
+ * visible, not the full unobstructed viewport), and the section-heading
+ * typography that has to match the rest of the site (index.css's h1/h2).
+ *
+ * Change a value here and every product page picks it up — no more
+ * hunting through eight ~1000-line files for the same edit.
+ */
+
+:root {
+    --pp-nav-height: 71px;
+
+    --pp-status-green: #16b866;
+    --pp-status-green-light: #e9faf1;
+    --pp-status-red: #ef4444;
+    --pp-status-red-light: #fdecec;
+    --pp-status-amber: #f5a524;
+    --pp-status-amber-light: #fdf1da;
+
+    /* No --pp-heading-color alias here: --brandColor is declared on
+       body (see index.css), and custom properties only inherit
+       downward — resolving it at :root (body's ANCESTOR) would just
+       produce an invalid value. Each product references var(--brandColor)
+       directly instead, which correctly inherits since .recrm-h2 etc. are
+       descendants of body. */
+    --pp-heading-color-h3: #000;
+    --pp-heading-weight: 600;
+    --pp-heading-letter-spacing: -1.32px;
+    --pp-heading-line-height: 110%;
+    --pp-h2-size: 45px;
+    --pp-h3-size: 30px;
+}

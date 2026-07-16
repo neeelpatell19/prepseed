@@ -2,13 +2,13 @@ import React, { useEffect, useRef } from "react";
 import { Link, useLocation, useNavigationType } from "react-router-dom";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { FiArrowRight, FiCheck, FiPhoneCall, FiMail, FiGlobe, FiMapPin } from "react-icons/fi";
+import { FiArrowRight, FiCheck } from "react-icons/fi";
 import "./PrepDesk.css";
 import {
     hero, problems, moduleGrid, spotlights, osPlatforms, osInfoTiles, integrations,
     moreIntegrations, integrationsInfoTiles, aiScore, aiInsights, roles, privacyItems,
     extraFeatures, whitelabelChecklist, replacedTools, replaceInfoTiles, migrationSteps,
-    migrationInfoTiles, whyPrepseed, contact,
+    migrationInfoTiles, whyPrepseed,
 } from "./PrepDeskData";
 import {
     DashboardMockup, TimeTrackerMockup, AppUsageMockup, ScreenshotsMockup, AttendanceMockup,
@@ -25,13 +25,6 @@ const mockupMap = {
     attendance: AttendanceMockup,
     projects: ProjectsMockup,
 };
-
-const Blobs = ({ variant = "a" }) => (
-    <div className={`pdsk-blobs pdsk-blobs-${variant}`} aria-hidden="true">
-        <span className="pdsk-blob pdsk-blob-1" />
-        <span className="pdsk-blob pdsk-blob-2" />
-    </div>
-);
 
 const InfoTiles = ({ items, onDark }) => (
     <div className={`pdsk-info-tiles ${onDark ? "on-dark" : ""}`}>
@@ -80,15 +73,47 @@ const PrepDesk = () => {
     // quirk applies here since this page uses the identical pinned
     // module-stack technique.
     useEffect(() => {
-        if (navigationType === "POP" && sessionStorage.getItem(SCROLL_KEY) !== null) {
-            const y = parseInt(sessionStorage.getItem(SCROLL_KEY), 10);
+        // Back/forward navigation (e.g. "Back to overview" from a detail
+        // page, or the browser back button) should land wherever the user
+        // actually was — a scrolled-down anchor, mid-scroll on the grid,
+        // wherever — not jump back to the top. Only force scroll-to-top on
+        // a fresh PUSH (a nav-bar click, a card link from elsewhere), and
+        // only force scroll-to-anchor when the URL actually names one.
+        // A true fresh page load (e.g. someone opening a shared link
+        // directly) also reports as "POP" — there's no prior in-app PUSH
+        // for it to be a back-navigation from. Only take the restore path
+        // when there's actually something saved to restore; otherwise fall
+        // through to the hash/top-of-page handling below, same as any
+        // other fresh navigation.
+
+        // Both branches below can race against this page's own GSAP
+        // ScrollTrigger setup: refreshing the pinned module-stack's
+        // positions (on a rAF tick, fonts.ready, window's `load` event,
+        // and a 600ms settle timer — all independent, see the
+        // ScrollTrigger effect below) can call window.scrollTo() itself
+        // and snap the page away from wherever this effect just put it —
+        // whether that's a restored back-navigation position, or the top
+        // of a fresh page reached by clicking in from somewhere already
+        // scrolled down. Rather than guess which of those async refreshes
+        // fires last, settleScrollTo re-asserts the target position for a
+        // couple of seconds and only reveals the page once it's actually
+        // held stable — hiding it meanwhile so the fight isn't visible.
+        // hide:true (the back-navigation-restore case) is worth the
+        // brief blank flash to avoid visibly jumping through the wrong
+        // part of a long page. hide:false (every fresh navigation) must
+        // NOT blank the page while it silently fights the same GSAP
+        // quirk in the background — that flash was far more noticeable
+        // than the odd one-pixel scroll correction ever was, since it's
+        // the common case (every nav-bar/card click), not the rare one.
+        const settleScrollTo = (y, { hide = true } = {}) => {
             const el = pageRef.current;
-            if (el) el.style.opacity = "0";
+            if (hide && el) el.style.opacity = "0";
+            window.scrollTo(0, y);
 
             let attempts = 0;
             let stableChecks = 0;
             const reveal = () => {
-                if (!el) return;
+                if (!hide || !el) return;
                 el.style.transition = "opacity 0.25s ease";
                 el.style.opacity = "1";
             };
@@ -110,11 +135,15 @@ const PrepDesk = () => {
             return () => {
                 clearTimeout(t);
                 clearInterval(interval);
-                if (el) {
+                if (hide && el) {
                     el.style.opacity = "";
                     el.style.transition = "";
                 }
             };
+        };
+
+        if (navigationType === "POP" && sessionStorage.getItem(SCROLL_KEY) !== null) {
+            return settleScrollTo(parseInt(sessionStorage.getItem(SCROLL_KEY), 10));
         }
 
         if (location.hash) {
@@ -125,7 +154,7 @@ const PrepDesk = () => {
             return;
         }
 
-        window.scrollTo(0, 0);
+        return settleScrollTo(0, { hide: false });
     }, [navigationType, location.hash]);
 
     useEffect(() => {
@@ -162,23 +191,6 @@ const PrepDesk = () => {
                         onComplete: () => document.querySelectorAll(".pdsk-hero-stat-value[data-countup]").forEach(countUp),
                     }, "-=0.3")
                     .fromTo(".pdsk-hero-visual", { opacity: 0, y: 30, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.9 }, "-=0.9");
-
-                gsap.to(".pdsk-hero-grid", {
-                    yPercent: 22,
-                    ease: "none",
-                    scrollTrigger: { trigger: ".pdsk-hero", start: "top top", end: "bottom top", scrub: true },
-                });
-
-                gsap.utils.toArray(".pdsk-blob").forEach((blob, i) => {
-                    gsap.to(blob, {
-                        x: i % 2 === 0 ? 40 : -30,
-                        y: i % 2 === 0 ? -30 : 40,
-                        duration: 8 + i * 2,
-                        ease: "sine.inOut",
-                        yoyo: true,
-                        repeat: -1,
-                    });
-                });
 
                 gsap.utils.toArray(".reveal").forEach((el) => {
                     const siblings = el.parentElement ? Array.from(el.parentElement.children) : [];
@@ -285,8 +297,6 @@ const PrepDesk = () => {
         <div className="pdsk-page" ref={pageRef}>
             {/* HERO */}
             <section className="pdsk-hero pdsk-fit">
-                <div className="pdsk-hero-grid" />
-                <Blobs variant="hero" />
                 <div className="pdsk-container pdsk-hero-inner">
                     <div className="pdsk-hero-copy">
                         <span className="pdsk-eyebrow">{hero.eyebrow}</span>
@@ -556,13 +566,12 @@ const PrepDesk = () => {
             </section>
 
             {/* WHITELABEL */}
-            <section className="pdsk-section pdsk-section-dark pdsk-fit">
-                <Blobs variant="dark" />
+            <section className="pdsk-section pdsk-section-light pdsk-fit">
                 <div className="pdsk-container">
                     <div className="pdsk-section-head reveal">
-                        <span className="pdsk-kicker kicker-light">Whitelabel & customization</span>
-                        <h2 className="pdsk-h2 on-dark">This isn't our product on your desk. <em>It's your product, built by us.</em></h2>
-                        <p className="pdsk-section-sub on-dark">
+                        <span className="pdsk-kicker kicker-blue">Whitelabel & customization</span>
+                        <h2 className="pdsk-h2">This isn't our product on your desk. <em>It's your product, built by us.</em></h2>
+                        <p className="pdsk-section-sub">
                             Every PrepDesk deployment ships under the client's own brand — logo, colors, domain and installers.
                             Prepseed is the engine underneath, never the name on screen.
                         </p>
@@ -606,12 +615,11 @@ const PrepDesk = () => {
             </section>
 
             {/* WHY PREPSEED */}
-            <section className="pdsk-section pdsk-section-dark pdsk-fit">
-                <Blobs variant="dark" />
+            <section className="pdsk-section pdsk-section-light pdsk-fit">
                 <div className="pdsk-container">
                     <div className="pdsk-section-head reveal">
-                        <span className="pdsk-kicker kicker-light">Why Prepseed</span>
-                        <h2 className="pdsk-h2 on-dark">Proven at scale, <em>built to be yours.</em></h2>
+                        <span className="pdsk-kicker kicker-blue">Why Prepseed</span>
+                        <h2 className="pdsk-h2">Proven at scale, <em>built to be yours.</em></h2>
                     </div>
                     <div className="pdsk-stats-grid">
                         {whyPrepseed.map((w) => (
@@ -645,32 +653,6 @@ const PrepDesk = () => {
                 </div>
             </section>
 
-            {/* FINAL CTA */}
-            <section className="pdsk-final-cta pdsk-fit">
-                <div className="pdsk-hero-grid" />
-                <Blobs variant="dark" />
-                <div className="pdsk-container">
-                    <div className="pdsk-final-inner reveal">
-                        <span className="pdsk-kicker kicker-light">Let's build your platform</span>
-                        <h2 className="pdsk-h2 on-dark">Your workforce platform. Your brand. <span className="pdsk-accent">Live in weeks.</span></h2>
-                        <p className="pdsk-section-sub on-dark">
-                            Book a walkthrough and we'll map PrepDesk's time tracking, attendance and AI reporting to your teams,
-                            your OS mix and your brand.
-                        </p>
-                        <div className="pdsk-hero-ctas">
-                            <a href="tel:+919913382221" className="pdsk-btn pdsk-btn-primary">
-                                Call {contact.call} <FiArrowRight />
-                            </a>
-                        </div>
-                        <div className="pdsk-final-contact">
-                            <a href="tel:+919913382221"><FiPhoneCall /> {contact.call}</a>
-                            <a href="mailto:vivek@prepseed.com"><FiMail /> {contact.email}</a>
-                            <a href="https://prepseed.com" target="_blank" rel="noreferrer"><FiGlobe /> {contact.web}</a>
-                            <span><FiMapPin /> {contact.studio}</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
         </div>
     );
 };

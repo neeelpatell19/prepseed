@@ -2,13 +2,13 @@ import React, { useEffect, useRef } from "react";
 import { Link, useLocation, useNavigationType } from "react-router-dom";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { FiArrowRight, FiCheck, FiPhoneCall, FiMail, FiGlobe, FiMapPin } from "react-icons/fi";
+import { FiArrowRight, FiCheck } from "react-icons/fi";
 import "./PrepCam.css";
 import useSEO from "../useSEO";
 import {
     hero, problems, moduleGrid, spotlights, integrations, moreIntegrations,
     roles, extraFeatures, privacyChecklist, whitelabelChecklist, replacedTools,
-    deploymentSteps, whyPrepseed, contact,
+    deploymentSteps, whyPrepseed,
 } from "./PrepCamData";
 import {
     RtspFeedMockup, SopMockup, PhoneDetectionMockup, AttendanceMockup, HeatmapMockup,
@@ -24,13 +24,6 @@ const mockupMap = {
     attendance: AttendanceMockup,
     heatmap: HeatmapMockup,
 };
-
-const Blobs = ({ variant = "a" }) => (
-    <div className={`pcam-blobs pcam-blobs-${variant}`} aria-hidden="true">
-        <span className="pcam-blob pcam-blob-1" />
-        <span className="pcam-blob pcam-blob-2" />
-    </div>
-);
 
 const countUp = (el) => {
     const raw = el.dataset.countup;
@@ -68,18 +61,47 @@ const PrepCam = () => {
     });
 
     useEffect(() => {
-        // See RealEstateCRM.jsx for the full rationale behind this restore
-        // logic — same GSAP-pin-vs-scroll-position race applies here.
-        if (navigationType === "POP" && sessionStorage.getItem(SCROLL_KEY) !== null) {
-            const y = parseInt(sessionStorage.getItem(SCROLL_KEY), 10);
+        // Back/forward navigation (e.g. "Back to overview" from a detail
+        // page, or the browser back button) should land wherever the user
+        // actually was — a scrolled-down anchor, mid-scroll on the grid,
+        // wherever — not jump back to the top. Only force scroll-to-top on
+        // a fresh PUSH (a nav-bar click, a card link from elsewhere), and
+        // only force scroll-to-anchor when the URL actually names one.
+        // A true fresh page load (e.g. someone opening a shared link
+        // directly) also reports as "POP" — there's no prior in-app PUSH
+        // for it to be a back-navigation from. Only take the restore path
+        // when there's actually something saved to restore; otherwise fall
+        // through to the hash/top-of-page handling below, same as any
+        // other fresh navigation.
 
+        // Both branches below can race against this page's own GSAP
+        // ScrollTrigger setup: refreshing the pinned module-stack's
+        // positions (on a rAF tick, fonts.ready, window's `load` event,
+        // and a 600ms settle timer — all independent, see the
+        // ScrollTrigger effect below) can call window.scrollTo() itself
+        // and snap the page away from wherever this effect just put it —
+        // whether that's a restored back-navigation position, or the top
+        // of a fresh page reached by clicking in from somewhere already
+        // scrolled down. Rather than guess which of those async refreshes
+        // fires last, settleScrollTo re-asserts the target position for a
+        // couple of seconds and only reveals the page once it's actually
+        // held stable — hiding it meanwhile so the fight isn't visible.
+        // hide:true (the back-navigation-restore case) is worth the
+        // brief blank flash to avoid visibly jumping through the wrong
+        // part of a long page. hide:false (every fresh navigation) must
+        // NOT blank the page while it silently fights the same GSAP
+        // quirk in the background — that flash was far more noticeable
+        // than the odd one-pixel scroll correction ever was, since it's
+        // the common case (every nav-bar/card click), not the rare one.
+        const settleScrollTo = (y, { hide = true } = {}) => {
             const el = pageRef.current;
-            if (el) el.style.opacity = "0";
+            if (hide && el) el.style.opacity = "0";
+            window.scrollTo(0, y);
 
             let attempts = 0;
             let stableChecks = 0;
             const reveal = () => {
-                if (!el) return;
+                if (!hide || !el) return;
                 el.style.transition = "opacity 0.25s ease";
                 el.style.opacity = "1";
             };
@@ -101,11 +123,15 @@ const PrepCam = () => {
             return () => {
                 clearTimeout(t);
                 clearInterval(interval);
-                if (el) {
+                if (hide && el) {
                     el.style.opacity = "";
                     el.style.transition = "";
                 }
             };
+        };
+
+        if (navigationType === "POP" && sessionStorage.getItem(SCROLL_KEY) !== null) {
+            return settleScrollTo(parseInt(sessionStorage.getItem(SCROLL_KEY), 10));
         }
 
         if (location.hash) {
@@ -116,7 +142,7 @@ const PrepCam = () => {
             return;
         }
 
-        window.scrollTo(0, 0);
+        return settleScrollTo(0, { hide: false });
     }, [navigationType, location.hash]);
 
     useEffect(() => {
@@ -153,23 +179,6 @@ const PrepCam = () => {
                         onComplete: () => document.querySelectorAll(".pcam-hero-stat-value[data-countup]").forEach(countUp),
                     }, "-=0.3")
                     .fromTo(".pcam-hero-visual", { opacity: 0, y: 30, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.9 }, "-=0.9");
-
-                gsap.to(".pcam-hero-grid", {
-                    yPercent: 22,
-                    ease: "none",
-                    scrollTrigger: { trigger: ".pcam-hero", start: "top top", end: "bottom top", scrub: true },
-                });
-
-                gsap.utils.toArray(".pcam-blob").forEach((blob, i) => {
-                    gsap.to(blob, {
-                        x: i % 2 === 0 ? 40 : -30,
-                        y: i % 2 === 0 ? -30 : 40,
-                        duration: 8 + i * 2,
-                        ease: "sine.inOut",
-                        yoyo: true,
-                        repeat: -1,
-                    });
-                });
 
                 gsap.utils.toArray(".reveal").forEach((el) => {
                     const siblings = el.parentElement ? Array.from(el.parentElement.children) : [];
@@ -276,8 +285,6 @@ const PrepCam = () => {
         <div className="pcam-page" ref={pageRef}>
             {/* HERO */}
             <section className="pcam-hero pcam-fit">
-                <div className="pcam-hero-grid" />
-                <Blobs variant="hero" />
                 <div className="pcam-container pcam-hero-inner">
                     <div className="pcam-hero-copy">
                         <span className="pcam-eyebrow">{hero.eyebrow}</span>
@@ -487,13 +494,12 @@ const PrepCam = () => {
             </section>
 
             {/* WHITELABEL */}
-            <section className="pcam-section pcam-section-dark pcam-fit">
-                <Blobs variant="dark" />
+            <section className="pcam-section pcam-section-light pcam-fit">
                 <div className="pcam-container">
                     <div className="pcam-section-head reveal">
-                        <span className="pcam-kicker kicker-light">Whitelabel &amp; customization</span>
-                        <h2 className="pcam-h2 on-dark">This isn't our product on your dashboard. <em>It's your product, built by us.</em></h2>
-                        <p className="pcam-section-sub on-dark">
+                        <span className="pcam-kicker kicker-cam">Whitelabel &amp; customization</span>
+                        <h2 className="pcam-h2">This isn't our product on your dashboard. <em>It's your product, built by us.</em></h2>
+                        <p className="pcam-section-sub">
                             Every PrepCam deployment ships under the client's own brand — logo, colors, domain and
                             reports. Prepseed is the engine underneath, never the name on screen.
                         </p>
@@ -537,12 +543,11 @@ const PrepCam = () => {
             </section>
 
             {/* WHY PREPSEED */}
-            <section className="pcam-section pcam-section-dark pcam-fit">
-                <Blobs variant="dark" />
+            <section className="pcam-section pcam-section-light pcam-fit">
                 <div className="pcam-container">
                     <div className="pcam-section-head reveal">
-                        <span className="pcam-kicker kicker-light">Why Prepseed</span>
-                        <h2 className="pcam-h2 on-dark">Proven at scale, <em>built to be yours.</em></h2>
+                        <span className="pcam-kicker kicker-cam">Why Prepseed</span>
+                        <h2 className="pcam-h2">Proven at scale, <em>built to be yours.</em></h2>
                     </div>
                     <div className="pcam-stats-grid">
                         {whyPrepseed.map((w) => (
@@ -575,32 +580,6 @@ const PrepCam = () => {
                 </div>
             </section>
 
-            {/* FINAL CTA */}
-            <section className="pcam-final-cta pcam-fit">
-                <div className="pcam-hero-grid" />
-                <Blobs variant="dark" />
-                <div className="pcam-container">
-                    <div className="pcam-final-inner reveal">
-                        <span className="pcam-kicker kicker-light">Let's put your cameras to work</span>
-                        <h2 className="pcam-h2 on-dark">Your cameras. Your SOPs. <span className="pcam-accent">Live in weeks.</span></h2>
-                        <p className="pcam-section-sub on-dark">
-                            Book a walkthrough and we'll map PrepCam's SOP detection, attendance and AI insights to
-                            your cameras, your locations and your brand.
-                        </p>
-                        <div className="pcam-hero-ctas">
-                            <a href="tel:+919913382221" className="pcam-btn pcam-btn-primary">
-                                Call {contact.call} <FiArrowRight />
-                            </a>
-                        </div>
-                        <div className="pcam-final-contact">
-                            <a href="tel:+919913382221"><FiPhoneCall /> {contact.call}</a>
-                            <a href="mailto:vivek@prepseed.com"><FiMail /> {contact.email}</a>
-                            <a href="https://prepseed.com" target="_blank" rel="noreferrer"><FiGlobe /> {contact.web}</a>
-                            <span><FiMapPin /> {contact.studio}</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
         </div>
     );
 };
