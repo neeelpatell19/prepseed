@@ -23,7 +23,10 @@ body {
     overflow-x: clip;
 }
 
-/* Smooth scrolling for better transitions */
-html {
-    scroll-behavior: smooth;
-} 
+/* Deliberately NOT `scroll-behavior: smooth` here. Every page's mount effect
+   resets window.scrollTo(0, 0) (or scrollIntoView for a hash) on navigation,
+   expecting an instant jump. A global smooth default hijacks those calls too
+   — the reset scroll animates over ~1-2s instead of snapping, so a fresh
+   product page visibly opens still showing wherever the previous page had
+   scrolled to. Anchor buttons that want a smooth same-page jump (e.g. "See
+   what's inside") opt in explicitly via scrollIntoView({behavior:"smooth"}). */

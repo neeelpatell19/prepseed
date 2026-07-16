@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { Link, useLocation, useNavigationType } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { FiArrowRight, FiCheck, FiX } from "react-icons/fi";
@@ -94,7 +94,6 @@ const SCROLL_KEY = "pprint-scroll-y";
 const PrepPrint = () => {
     const pageRef = useRef(null);
     const location = useLocation();
-    const navigationType = useNavigationType();
 
     useSEO({
         title: "PrepPrint — Print Shop & Press Management ERP | Prepseed",
@@ -112,12 +111,33 @@ const PrepPrint = () => {
         // wherever — not jump back to the top. Only force scroll-to-top on
         // a fresh PUSH (a nav-bar click, a card link from elsewhere), and
         // only force scroll-to-anchor when the URL actually names one.
-        // A true fresh page load (e.g. someone opening a shared link
-        // directly) also reports as "POP" — there's no prior in-app PUSH
-        // for it to be a back-navigation from. Only take the restore path
-        // when there's actually something saved to restore; otherwise fall
-        // through to the hash/top-of-page handling below, same as any
-        // other fresh navigation.
+        //
+        // navigationType (react-router's useNavigationType) looks like the
+        // obvious signal for "was this a PUSH or a POP", but it's unreliable
+        // here: AnimatePresence's mode="wait" delays this page's mount until
+        // the previous page's exit animation finishes, and by the time this
+        // effect actually runs, navigationType reads "POP" even for a plain
+        // forward nav-bar click (confirmed empirically — a real click that
+        // only ever calls history.pushState, never popstate, still lands
+        // here with navigationType === "POP"). Comparing history.state.idx
+        // instead — the same primitive DetailPage.jsx's "Back to overview"
+        // already trusts for this exact question — isn't subject to that
+        // delayed-mount timing issue: idx only decreases on a genuine
+        // backward step, so a fresh forward click (idx always increases)
+        // can never be mistaken for one.
+        const currentIdx = window.history.state && typeof window.history.state.idx === "number"
+            ? window.history.state.idx
+            : null;
+        const saved = (() => {
+            const raw = sessionStorage.getItem(SCROLL_KEY);
+            if (!raw) return null;
+            try {
+                return JSON.parse(raw);
+            } catch {
+                return null;
+            }
+        })();
+        const isGenuineBackStep = saved && currentIdx !== null && saved.idx !== null && currentIdx <= saved.idx;
 
         // Both branches below can race against this page's own GSAP
         // ScrollTrigger setup: refreshing the pinned module-stack's
@@ -175,25 +195,28 @@ const PrepPrint = () => {
             };
         };
 
-        if (navigationType === "POP" && sessionStorage.getItem(SCROLL_KEY) !== null) {
-            return settleScrollTo(parseInt(sessionStorage.getItem(SCROLL_KEY), 10));
+        if (isGenuineBackStep) {
+            return settleScrollTo(saved.y);
         }
 
         if (location.hash) {
             const id = location.hash.slice(1);
             requestAnimationFrame(() => {
-                document.getElementById(id)?.scrollIntoView();
+                document.getElementById(id)?.scrollIntoView({ behavior: "instant" });
             });
             return;
         }
 
         return settleScrollTo(0, { hide: false });
-    }, [navigationType, location.hash]);
+    }, [location.hash, location.pathname]);
 
     useEffect(() => {
         const onClickCapture = (e) => {
             if (e.target.closest("a")) {
-                sessionStorage.setItem(SCROLL_KEY, String(window.scrollY));
+                const idx = window.history.state && typeof window.history.state.idx === "number"
+                    ? window.history.state.idx
+                    : null;
+                sessionStorage.setItem(SCROLL_KEY, JSON.stringify({ y: window.scrollY, idx }));
             }
         };
         document.addEventListener("click", onClickCapture, true);
@@ -347,7 +370,16 @@ const PrepPrint = () => {
                             <a href="tel:+919913382221" className="pprint-btn pprint-btn-primary">
                                 Book a call <FiArrowRight />
                             </a>
-                            <a href="#modules" className="pprint-btn pprint-btn-ghost">See what's inside</a>
+                            <a
+                                href="#modules"
+                                className="pprint-btn pprint-btn-ghost"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    document.getElementById("modules")?.scrollIntoView({ behavior: "smooth" });
+                                }}
+                            >
+                                See what's inside
+                            </a>
                         </div>
                         <span className="pprint-hero-caption">{hero.caption}</span>
                         <div className="pprint-hero-stats">
